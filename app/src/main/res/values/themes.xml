@@ -4,7 +4,14 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/blue</item>
+<!--        <item name="colorSecondaryContainer">@color/blue</item>-->
     </style>
 
     <style name="Theme.Ltdd_App_mang_xa_hoi" parent="Base.Theme.Ltdd_App_mang_xa_hoi" />
+    <style name="changecolor_ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/lighblue</item>
+    </style>
+    <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">11sp</item>
+    </style>
 </resources>
