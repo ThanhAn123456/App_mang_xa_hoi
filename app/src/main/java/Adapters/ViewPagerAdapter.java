@@ -1,4 +1,4 @@
-package com.example.ltdd_app_mang_xa_hoi;
+package Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -7,7 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.ltdd_app_mang_xa_hoi.AccountFragment;
 import com.example.ltdd_app_mang_xa_hoi.ChatFragment;
-import com.example.ltdd_app_mang_xa_hoi.FriendsFragment;
+import com.example.ltdd_app_mang_xa_hoi.RelationshipFragment;
 import com.example.ltdd_app_mang_xa_hoi.HomeFragment;
 import com.example.ltdd_app_mang_xa_hoi.NotificationsFragment;
 
@@ -24,7 +24,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
             case 0:
                 return new HomeFragment();
             case 1:
-                return new FriendsFragment();
+                return new RelationshipFragment();
             case 2:
                 return new ChatFragment();
             case 3:

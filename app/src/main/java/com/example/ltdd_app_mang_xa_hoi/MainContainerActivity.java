@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+
+import Adapters.ViewPagerAdapter;
 
 public class MainContainerActivity extends AppCompatActivity {
     public ViewPager2 mViewPager;
@@ -47,7 +50,7 @@ public class MainContainerActivity extends AppCompatActivity {
         });
 
 
-        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        mBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
