@@ -1,51 +1,66 @@
 package com.example.ltdd_app_mang_xa_hoi;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 public class MainContainerActivity extends AppCompatActivity {
-    BottomNavigationView bottom_nav;
-
-    HomeFragment homeFragment = new HomeFragment();
-    FriendsFragment friendsFragment = new FriendsFragment();
-    ChatFragment chatFragment = new ChatFragment();
-    NotificationsFragment notificationsFragment = new NotificationsFragment();
-    AccountFragment accountFragment = new AccountFragment();
+    public ViewPager2 mViewPager;
+    public BottomNavigationView mBottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_container);
-        bottom_nav = findViewById(R.id.bottom_nav);
-        getSupportFragmentManager().beginTransaction().replace(R.id.FL_Container,homeFragment).commit();
-        bottom_nav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+        mViewPager = findViewById(R.id.view_pager);
+        mBottomNavigationView = findViewById(R.id.bottom_nav);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(this);
+        mViewPager.setAdapter(adapter);
+        mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+
             @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                if (item.getItemId()==R.id.action_home){
-                        getSupportFragmentManager().beginTransaction().replace(R.id.FL_Container,homeFragment).commit();
-                        return true;
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        mBottomNavigationView.getMenu().findItem(R.id.action_home).setChecked(true);
+                        break;
+                    case 1:
+                        mBottomNavigationView.getMenu().findItem(R.id.action_friend).setChecked(true);
+                        break;
+                    case 2:
+                        mBottomNavigationView.getMenu().findItem(R.id.action_chat).setChecked(true);
+                        break;
+                    case 3:
+                        mBottomNavigationView.getMenu().findItem(R.id.action_notifications).setChecked(true);
+                        break;
+                    case 4:
+                        mBottomNavigationView.getMenu().findItem(R.id.action_account).setChecked(true);
+                        break;
+
                 }
-                if (item.getItemId()==R.id.action_friend){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.FL_Container,friendsFragment).commit();
-                    return true;
-                }
-                if (item.getItemId()==R.id.action_chat){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.FL_Container,chatFragment).commit();
-                    return true;
-                }
-                if (item.getItemId()==R.id.action_notifications){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.FL_Container,notificationsFragment).commit();
-                    return true;
-                }
-                if (item.getItemId()==R.id.action_account){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.FL_Container,accountFragment).commit();
-                    return true;
-                }
+            }
+        });
+
+
+        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.action_home)
+                    mViewPager.setCurrentItem(0);
+                if (itemId == R.id.action_friend)
+                    mViewPager.setCurrentItem(1);
+                if (itemId == R.id.action_chat)
+                    mViewPager.setCurrentItem(2);
+                if (itemId == R.id.action_notifications)
+                    mViewPager.setCurrentItem(3);
+                if (itemId == R.id.action_account)
+                    mViewPager.setCurrentItem(4);
                 return false;
             }
         });
