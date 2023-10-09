@@ -5,32 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+
     android:background="@color/whiteBackground">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="132dp"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/patrick_hand"
         android:text="Login"
         android:textColor="@color/blue"
-        android:textSize="@dimen/textsize3"
+        android:textSize="@dimen/label"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintHorizontal_bias="0.19"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_Username"
+        android:fontFamily="@font/patrick_hand"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Username"
         android:paddingHorizontal="10dp"
-        app:boxCornerRadiusBottomEnd="10dp"
-        app:boxCornerRadiusBottomStart="10dp"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
+        app:boxCornerRadiusBottomEnd="30dp"
+        app:boxCornerRadiusBottomStart="30dp"
+        app:boxCornerRadiusTopEnd="30dp"
+        app:boxCornerRadiusTopStart="30dp"
         app:counterEnabled="true"
         app:counterMaxLength="30"
         app:endIconMode="clear_text"
@@ -47,8 +51,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="30"
+            android:fontFamily="@font/patrick_hand"
             android:singleLine="true"
-            android:textSize="@dimen/textsize2" />
+            android:textSize="@dimen/normal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -57,10 +62,11 @@
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:hint="Password"
-        app:boxCornerRadiusBottomEnd="10dp"
-        app:boxCornerRadiusBottomStart="10dp"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
+        android:fontFamily="@font/patrick_hand"
+        app:boxCornerRadiusBottomEnd="30dp"
+        app:boxCornerRadiusBottomStart="30dp"
+        app:boxCornerRadiusTopEnd="30dp"
+        app:boxCornerRadiusTopStart="30dp"
         app:counterEnabled="true"
         app:counterMaxLength="25"
         app:endIconMode="password_toggle"
@@ -78,17 +84,19 @@
             android:inputType="textPassword"
             android:maxLength="25"
             android:singleLine="true"
-            android:textSize="@dimen/textsize2" />
+            android:textSize="@dimen/normal"
+            android:fontFamily="@font/patrick_hand"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
+        android:fontFamily="@font/patrick_hand"
         android:id="@+id/txt_ForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="Forgot Password?"
         android:textColor="@color/blue"
-        android:textSize="@dimen/textsize1"
+        android:textSize="@dimen/normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.996"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,6 +104,7 @@
         android:layout_marginRight="10dp"/>
 
     <com.google.android.material.button.MaterialButton
+        android:fontFamily="@font/patrick_hand"
         android:id="@+id/btn_Login"
         style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
         android:layout_width="match_parent"
@@ -104,8 +113,9 @@
         android:layout_marginTop="108dp"
         android:backgroundTint="@color/blue"
         android:text="Login"
+        android:textStyle="bold"
         android:textColor="@color/white"
-        android:textSize="@dimen/textsize2"
+        android:textSize="@dimen/button"
         app:cornerRadius="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.526"
@@ -126,16 +136,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Create Account?"
+            android:fontFamily="@font/patrick_hand"
             android:textColor="@color/black"
-            android:textSize="@dimen/textsize1" />
+            android:textSize="@dimen/normal" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:text="Sign up"
+            android:fontFamily="@font/patrick_hand"
             android:textColor="@color/blue"
-            android:textSize="@dimen/textsize1" />
+            android:textSize="@dimen/normal" />
     </LinearLayout>
 
     <ImageView
