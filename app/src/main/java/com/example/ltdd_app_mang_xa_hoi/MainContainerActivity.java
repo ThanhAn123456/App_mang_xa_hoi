@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class Main_container extends AppCompatActivity {
+public class MainContainerActivity extends AppCompatActivity {
     BottomNavigationView bottom_nav;
 
     HomeFragment homeFragment = new HomeFragment();
