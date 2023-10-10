@@ -24,7 +24,7 @@
             android:fontFamily="@font/patrick_hand"
             android:text="Login"
             android:textColor="@color/blue"
-            android:textSize="@dimen/textsize3"
+            android:textSize="@dimen/bigsize"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.19"
@@ -61,7 +61,7 @@
                 android:fontFamily="@font/patrick_hand"
                 android:maxLength="30"
                 android:singleLine="true"
-                android:textSize="@dimen/textsize2" />
+                android:textSize="@dimen/smallsize" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -93,7 +93,7 @@
                 android:inputType="textPassword"
                 android:maxLength="25"
                 android:singleLine="true"
-                android:textSize="@dimen/textsize2" />
+                android:textSize="@dimen/smallsize" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -105,7 +105,7 @@
             android:fontFamily="@font/patrick_hand"
             android:text="Forgot Password?"
             android:textColor="@color/blue"
-            android:textSize="@dimen/textsize2"
+            android:textSize="@dimen/smallsize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -123,7 +123,7 @@
             android:text="Login"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:textSize="@dimen/textsize1"
+            android:textSize="@dimen/normalsize"
             app:cornerRadius="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.526"
@@ -146,7 +146,7 @@
                 android:text="Create Account?"
                 android:fontFamily="@font/patrick_hand"
                 android:textColor="@color/black"
-                android:textSize="@dimen/textsize2" />
+                android:textSize="@dimen/smallsize" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -155,7 +155,7 @@
                 android:text="Sign up"
                 android:fontFamily="@font/patrick_hand"
                 android:textColor="@color/blue"
-                android:textSize="@dimen/textsize2" />
+                android:textSize="@dimen/smallsize" />
         </LinearLayout>
 
         <ImageView
