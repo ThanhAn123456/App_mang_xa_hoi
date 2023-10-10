@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Chat fragment"
-        android:textSize="@dimen/textsize2"
+        android:textSize="@dimen/smallsize"
         android:layout_centerInParent="true"/>
 
 </RelativeLayout>

@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 
 import com.google.android.material.textfield.TextInputLayout;
 
-public class forgotpassword extends AppCompatActivity {
+public class ForgotPasswordActivity extends AppCompatActivity {
     LinearLayout LL_BacktoLogin;
     TextInputLayout til_Gmail;
     @Override

@@ -13,19 +13,19 @@
         android:theme="@style/Theme.Ltdd_App_mang_xa_hoi"
         tools:targetApi="31">
         <activity
-            android:name=".Main_container"
+            android:name=".ActivityContainerActivity"
             android:exported="false" />
         <activity
-            android:name=".home"
+            android:name=".MainContainerActivity"
             android:exported="false" />
         <activity
-            android:name=".forgotpassword"
+            android:name=".ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".signup"
+            android:name=".SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
