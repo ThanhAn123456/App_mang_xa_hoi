@@ -4,29 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainContainerActivity">
-
-    <RelativeLayout
-        android:id="@+id/header"
+    tools:context=".ProfileActivity">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/back_layout"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
             android:src="@drawable/arrow_back"></ImageView>
         <TextView
-            android:layout_toRightOf="@id/back_layout"
             android:layout_width="match_parent"
-            android:gravity="center"
             android:layout_height="match_parent"
-            android:id="@+id/title_header"
-            android:text="@string/createnew"
+            android:text="@string/profile"
             style="@style/CustomTabText"
-            android:textStyle="bold"
-            >
+            android:gravity="center">
         </TextView>
-    </RelativeLayout>
-
+    </LinearLayout>
 </RelativeLayout>

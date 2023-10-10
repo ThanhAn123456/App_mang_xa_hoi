@@ -15,6 +15,7 @@
     <string name="chat">Tin nhắn</string>
     <string name="notification">Thông báo</string>
     <string name="profile">Hồ sơ</string>
+    <string name="detailnews">Bài viết</string>
     <string name="endfriend">Đã hết bạn bè</string>
     <string name="endgroup">Đã hết nhóm</string>
     <string name="createnew">Tạo bài viết</string>
@@ -22,4 +23,7 @@
     <string name="newmess">Tin nhắn mới</string>
     <string name="search">Tìm kiếm</string>
     <string name="report">Phản hồi</string>
+    <string name="creategroup">Tạo nhóm</string>
+    <string name="updateaccount">Chỉnh sửa hồ sơ</string>
+    <string name="docreatenew">Bạn đang nghĩ gì?</string>
 </resources>

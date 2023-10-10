@@ -19,7 +19,7 @@ public class HomeFragment extends Fragment {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(requireContext(), ActivityContainerActivity.class);
+                Intent intent = new Intent(requireContext(), CreateNewsActivity.class);
                 startActivity(intent);
             }
         });

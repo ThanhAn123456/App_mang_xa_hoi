@@ -13,6 +13,33 @@
         android:theme="@style/Theme.Ltdd_App_mang_xa_hoi"
         tools:targetApi="31">
         <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreateGroupChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NewsDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreateNewsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ActivityContainerActivity"
             android:exported="false" />
         <activity
