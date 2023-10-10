@@ -6,10 +6,11 @@
     tools:context=".HomeFragment">
 
     <TextView
+        android:id="@+id/taobaiviet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Home"
-        android:textSize="@dimen/smallsize"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:text="Tạo bài viết"
+        android:textSize="@dimen/smallsize" />
 
 </RelativeLayout>

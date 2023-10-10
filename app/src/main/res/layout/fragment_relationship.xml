@@ -7,30 +7,12 @@
     android:orientation="vertical"
     tools:context=".RelationshipFragment">
 
-    <RelativeLayout
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-
-        <ImageView
-            android:id="@+id/small_logo"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/logo"></ImageView>
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ic_search"></ImageView>
-    </RelativeLayout>
 
     <com.google.android.material.tabs.TabLayout
 
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/header"
         app:tabSelectedTextAppearance="@style/CustomTabText"
         app:tabTextAppearance="@style/CustomTabText"
         android:contentDescription="Tab Layout for Friends and Groups" />

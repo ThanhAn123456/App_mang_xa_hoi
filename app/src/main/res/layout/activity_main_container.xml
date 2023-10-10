@@ -7,11 +7,41 @@
     tools:context=".MainContainerActivity">
 
 
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
 
+        <ImageView
+            android:id="@+id/small_logo"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/logo"></ImageView>
+        <TextView
+            android:layout_toRightOf="@id/small_logo"
+            android:layout_toLeftOf="@id/image_search"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:id="@+id/title_header"
+            android:text="@string/news"
+            style="@style/CustomTabText"
+            android:textStyle="bold"
+            >
+        </TextView>
+        <ImageView
+            android:id="@+id/image_search"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_search"></ImageView>
+    </RelativeLayout>
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/header"
         android:layout_above="@id/bottom_nav" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
