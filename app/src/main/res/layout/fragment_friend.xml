@@ -2,14 +2,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="Fragments.FriendFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:gravity="right"
-        android:textSize="20sp"
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Sắp xếp" />
+        android:fadeScrollbars="true"
+        android:fillViewport="true"
+        android:scrollbarFadeDuration="1000">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/listviewfriend"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

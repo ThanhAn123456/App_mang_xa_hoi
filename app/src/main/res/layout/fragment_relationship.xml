@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".RelationshipFragment">
 
@@ -23,15 +24,32 @@
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_search"></ImageView>
     </RelativeLayout>
-        <com.google.android.material.tabs.TabLayout
-            android:layout_below="@id/header"
-            android:id="@+id/tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="Tab Layout for Friends and Groups" />
-    <androidx.fragment.app.FragmentContainerView
+
+    <com.google.android.material.tabs.TabLayout
+
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header"
+        app:tabSelectedTextAppearance="@style/CustomTabText"
+        app:tabTextAppearance="@style/CustomTabText"
+        android:contentDescription="Tab Layout for Friends and Groups" />
+    <TextView
+        android:id="@+id/sort"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
         android:layout_below="@id/tab_layout"
+        android:textSize="@dimen/verysmallsize"
+        android:textStyle="bold"
+        android:textColor="@color/blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sắp xếp" />
+    <androidx.fragment.app.FragmentContainerView
+
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@id/sort"
+        />
+</RelativeLayout>
