@@ -13,6 +13,21 @@
         android:theme="@style/Theme.Ltdd_App_mang_xa_hoi"
         tools:targetApi="31">
         <activity
+            android:name=".add_groupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Follow_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Edit_profileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".ActivityContainerActivity"
             android:exported="false" />
         <activity
