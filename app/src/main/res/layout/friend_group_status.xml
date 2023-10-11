@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:padding="5dp"
+        android:src="@drawable/avatar"
+        android:id="@+id/avatar_relationship"
+        android:layout_width="50dp"
+        android:layout_height="50dp"></ImageView>
+
+    <RelativeLayout
+        android:layout_width="351dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/name_relationship"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/patrick_hand"
+            android:text="Họ và tên"
+            android:textSize="@dimen/verysmallsize"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:id="@+id/online_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name_relationship"
+            android:fontFamily="@font/patrick_hand"
+            android:text=""
+            android:textSize="@dimen/verysmallsize"></TextView>
+
+        <TextView
+            android:id="@+id/message_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/patrick_hand"
+            android:text=""
+            android:textSize="@dimen/verysmallsize"/>
+    </RelativeLayout>
+</LinearLayout>

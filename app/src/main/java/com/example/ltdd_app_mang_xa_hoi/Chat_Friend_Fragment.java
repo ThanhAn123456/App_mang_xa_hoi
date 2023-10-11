@@ -7,14 +7,18 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 
-public class ChatFragment extends Fragment {
+public class Chat_Friend_Fragment extends Fragment {
+    ListView lw;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false);
+        View view = inflater.inflate(R.layout.fragment_chat_friend, container, false);
+        lw = view.findViewById(R.id.listviewfriend_chat);
+
+        return view;
     }
 }
