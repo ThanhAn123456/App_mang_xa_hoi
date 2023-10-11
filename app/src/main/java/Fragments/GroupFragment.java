@@ -26,7 +26,7 @@ public class GroupFragment extends Fragment {
         listview = view.findViewById(R.id.listviewgroup);
         ArrayList<Friend_Group> arrayList = new ArrayList<>();
         arrayList.add(new Friend_Group(R.drawable.two_person, "Nhóm LTDD",-1, R.drawable.ic_send_sub, R.drawable.ic_send_sub));
-        Friend_GroupAdapter adapter = new Friend_GroupAdapter(getContext(),R.layout.friend_group,arrayList);
+        Friend_GroupAdapter adapter = new Friend_GroupAdapter(getContext(),R.layout.lv_friend_group,arrayList);
         listview.setAdapter(adapter);
         return view;
     }

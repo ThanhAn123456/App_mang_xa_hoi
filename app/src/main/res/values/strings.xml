@@ -26,4 +26,8 @@
     <string name="creategroup">Tạo nhóm</string>
     <string name="updateaccount">Chỉnh sửa hồ sơ</string>
     <string name="docreatenew">Bạn đang nghĩ gì?</string>
+    <string name="setting_1">Chỉnh sửa hồ sơ</string>
+    <string name="setting_2">Phản hồi</string>
+    <string name="setting_3">Xoá tài khoản</string>
+    <string name="setting_4">Đăng xuất</string>
 </resources>

@@ -6,17 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".UpdateAccountActivity">
     <LinearLayout
+        android:id="@+id/tren"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        >
         <ImageView
+            android:layout_gravity="center"
             android:layout_marginLeft="20dp"
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:src="@drawable/arrow_back"></ImageView>
         <TextView
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/updateaccount"
@@ -24,4 +27,165 @@
             android:gravity="center">
         </TextView>
     </LinearLayout>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tren"
+        tools:context=".Edit_profileActivity">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:id="@+id/profile_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </FrameLayout>
+                    <ImageView
+                        android:id="@+id/cover_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="228dp"
+                        android:alpha="0.8"
+                        app:srcCompat="@drawable/belle_cover_photo" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/cover_photo"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="-120dp"
+                        android:backgroundTint="@color/white"
+                        android:gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/profile_photo"
+                        android:elevation="5dp"
+                        android:padding="5dp"
+                        >
+
+                        <ImageView
+                            android:id="@+id/profile_photo"
+                            android:layout_width="180dp"
+                            android:layout_height="180dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/profile_photo"
+                            android:clipToOutline="true"
+                            android:src="@drawable/belle_profile" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </FrameLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Họ và tên"
+                    android:textSize="@dimen/verysmallsize"
+                    android:layout_marginLeft="20dp"/>
+                <EditText
+                    android:background="@drawable/background_edittext"
+                    android:id="@+id/editText1"
+                    android:textSize="@dimen/verysmallsize"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Nhập họ và tên"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"/>
+
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:textSize="@dimen/verysmallsize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:layout_marginLeft="20dp"/>
+
+                <EditText
+                    android:id="@+id/editText2"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Nhập email"
+                    android:textSize="@dimen/verysmallsize"
+                    android:background="@drawable/background_edittext"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"/>
+
+                <TextView
+                    android:textSize="@dimen/verysmallsize"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ngày sinh"
+                    android:layout_marginLeft="20dp"/>
+
+                <EditText
+                    android:id="@+id/editText3"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Nhập ngày sinh"
+                    android:layout_marginLeft="16dp"
+                    android:background="@drawable/background_edittext"
+                    android:layout_marginRight="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đổi mật khẩu"
+                    android:layout_marginTop="15dp"
+                    android:textSize="@dimen/verysmallsize"
+                    android:layout_marginLeft="20dp"/>
+
+                <EditText
+                    android:background="@drawable/background_edittext"
+                    android:id="@+id/txt_passcurrent"
+                    android:textSize="@dimen/verysmallsize"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Nhập mật khẩu hiện tại"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"/>
+                <EditText
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_edittext"
+                    android:id="@+id/txt_passnew"
+                    android:textSize="@dimen/verysmallsize"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Nhập mật khẩu mới"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"/>
+                <EditText
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_edittext"
+                    android:id="@+id/txt_repassnew"
+                    android:textSize="@dimen/verysmallsize"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Nhập lại mật khẩu mới"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"/>
+                <Button
+                    android:layout_gravity="center"
+                    android:id="@+id/bnt_save"
+                    android:layout_width="122dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:paddingStart="15dp"
+                    android:text="Save"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+
+        </LinearLayout>
+
+    </ScrollView>
 </RelativeLayout>

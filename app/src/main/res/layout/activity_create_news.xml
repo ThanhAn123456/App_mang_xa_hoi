@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateNewsActivity">
+    tools:context=".CreateNewsActivity"
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+
+        >
 
         <ImageView
+            android:layout_gravity="center"
             android:layout_marginLeft="20dp"
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:src="@drawable/arrow_back"></ImageView>
         <TextView
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/createnew"
@@ -23,4 +28,91 @@
             android:gravity="center">
         </TextView>
     </LinearLayout>
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/belle_profile"
+            android:background="@drawable/profile_photo"
+            android:clipToOutline="true">
+        </ImageView>
+        <LinearLayout
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thành An"
+                android:textSize="@dimen/verysmallsize">
+            </TextView>
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+            </Spinner>
+        </LinearLayout>
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="200dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/background_edittextcontent">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Nhập nội dung"
+            android:background="@null"
+            >
+        </EditText>
+    </ScrollView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="#D6DCE1">
+    </View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_select_image">
+        </ImageView>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_tag"
+            android:layout_marginLeft="30dp">
+        </ImageView>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/ic_select_image">
+        </ImageView>
+    </LinearLayout>
+    <androidx.appcompat.widget.AppCompatButton
+
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ĐĂNG"
+        android:layout_marginTop="20dp"
+        style="@style/CustomTabText"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_bg">
+
+    </androidx.appcompat.widget.AppCompatButton>
+</LinearLayout>
