@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".Chat_RelationFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/chat_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabSelectedTextAppearance="@style/CustomTabText"
+        app:tabTextAppearance="@style/CustomTabText"
+        android:contentDescription="Tab Layout for Friends and Groups"/>
     <TextView
+        android:id="@+id/refresh"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:layout_below="@id/chat_tab_layout"
+        android:textSize="@dimen/verysmallsize"
+        android:textStyle="bold"
+        android:textColor="@color/blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Làm mói" />
+    <androidx.fragment.app.FragmentContainerView
+
+        android:id="@+id/chat_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-</FrameLayout>
+        android:layout_below="@id/refresh"
+        />
+</RelativeLayout>

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Chat_Friend_Fragment">
+    tools:context="Fragments.Chat_Friend_Fragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             <ListView
                 android:id="@+id/listviewfriend_chat"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"></ListView>
 
             <TextView
                 android:layout_width="match_parent"
