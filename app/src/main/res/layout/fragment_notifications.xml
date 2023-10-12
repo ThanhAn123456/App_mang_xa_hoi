@@ -4,12 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NotificationsFragment">
-
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/readed"
+        android:gravity="right"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Notifications fragment"
-        android:textSize="@dimen/smallsize"
-        android:layout_centerInParent="true"/>
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:text="@string/readed"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/verysmallsize"
+        android:textStyle="bold" />
+    <LinearLayout
+        android:layout_below="@id/readed"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ListView
+            android:id="@+id/lv_listnotification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></ListView>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/endnotification"
+            android:textSize="@dimen/verysmallsize"
+            android:gravity="center">
+
+        </TextView>
+    </LinearLayout>
 
 </RelativeLayout>

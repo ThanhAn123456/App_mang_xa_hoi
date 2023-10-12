@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:padding="5dp"
+        android:src="@drawable/avatar"
+        android:id="@+id/avatar_relationship"
+        android:layout_width="50dp"
+        android:layout_height="50dp"></ImageView>
+    <RelativeLayout
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
+        <TextView
+            android:textStyle="bold"
+            android:fontFamily="@font/patrick_hand"
+            android:textSize="@dimen/verysmallsize"
+            android:id="@+id/name_relationship"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Họ và tên">
+        </TextView>
+        <TextView
+            android:layout_below="@id/name_relationship"
+            android:fontFamily="@font/patrick_hand"
+            android:textSize="@dimen/verysmallsize"
+            android:id="@+id/status"
+            android:textColor="@color/blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đang hoạt động">
+        </TextView>
+    </RelativeLayout>
+
+    <CheckBox
+
+        android:gravity="center"
+        android:id="@+id/cbchecked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

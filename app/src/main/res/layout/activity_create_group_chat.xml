@@ -5,27 +5,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CreateGroupChatActivity">
+
     <LinearLayout
+        android:id="@+id/tren"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"
-
         >
-
         <ImageView
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:src="@drawable/arrow_back"></ImageView>
-        <TextView
             android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/arrow_back"></ImageView>
+
+        <TextView
+            style="@style/CustomTabText"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/creategroup"></TextView>
+
+        <TextView
+            style="@style/TextButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/creategroup"
-            style="@style/CustomTabText"
-            android:gravity="center">
-        </TextView>
+            android:gravity="center"
+            android:text="@string/create"
+            android:textColor="@color/blue"></TextView>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tren"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="@string/namegroup"
+            android:textSize="@dimen/smallsize" />
+
+        <EditText
+            android:id="@+id/txt_name_group"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/background_edittext"
+            android:hint="@string/inputnamegroup"
+            android:textSize="@dimen/smallsize" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/addmember"
+            android:textSize="@dimen/smallsize" />
+
+
+                <ListView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/lv_addmember"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
+    </LinearLayout>
+
 </RelativeLayout>

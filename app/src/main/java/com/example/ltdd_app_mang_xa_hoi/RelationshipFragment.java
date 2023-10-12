@@ -22,9 +22,9 @@ public class RelationshipFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_relationship, container, false);
         tabLayout = view.findViewById(R.id.tab_layout);
-        TabLayout.Tab tab1 = tabLayout.newTab().setText("Bạn Bè");
+        TabLayout.Tab tab1 = tabLayout.newTab().setText(R.string.friend);
 
-        TabLayout.Tab tab2 = tabLayout.newTab().setText("Nhóm");
+        TabLayout.Tab tab2 = tabLayout.newTab().setText(R.string.group);
         tabLayout.addTab(tab1);
         tabLayout.addTab(tab2);
 

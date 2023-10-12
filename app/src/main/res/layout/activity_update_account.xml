@@ -92,7 +92,7 @@
                     android:layout_marginLeft="20dp"/>
                 <EditText
                     android:background="@drawable/background_edittext"
-                    android:id="@+id/editText1"
+                    android:id="@+id/txt_name"
                     android:textSize="@dimen/verysmallsize"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -110,7 +110,7 @@
                     android:layout_marginLeft="20dp"/>
 
                 <EditText
-                    android:id="@+id/editText2"
+                    android:id="@+id/txt_email"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:hint="Nhập email"
@@ -129,7 +129,7 @@
                     android:layout_marginLeft="20dp"/>
 
                 <EditText
-                    android:id="@+id/editText3"
+                    android:id="@+id/txt_dob"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:hint="Nhập ngày sinh"

@@ -2,9 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="Fragments.FriendFragment">
-
+    tools:context="Fragments.ChatFriendFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,9 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
             <ListView
-                android:id="@+id/listviewfriend"
+                android:id="@+id/lv_listchat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></ListView>
 

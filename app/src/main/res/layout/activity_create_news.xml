@@ -57,6 +57,7 @@
                     android:textSize="@dimen/verysmallsize">
                 </TextView>
                 <Spinner
+                    android:id="@+id/spn_statuspost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     >
@@ -78,38 +79,36 @@
                 >
             </EditText>
         </ScrollView>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:layout_marginBottom="20dp"
-            android:background="#D6DCE1">
-        </View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="center">
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_select_image">
-            </ImageView>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_tag"
-                android:layout_marginLeft="30dp">
-            </ImageView>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="30dp"
-                android:src="@drawable/ic_select_image">
-            </ImageView>
-        </LinearLayout>
 
     </LinearLayout>
+    <LinearLayout
+
+        android:layout_above="@id/btnPost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_select_image">
+        </ImageView>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_tag"
+            android:layout_marginLeft="30dp">
+        </ImageView>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/ic_select_image">
+        </ImageView>
+    </LinearLayout>
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnPost"
     android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
