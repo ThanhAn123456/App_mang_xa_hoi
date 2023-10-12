@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.google.android.material.tabs.TabLayout;
 
 import Fragments.Chat_Friend_Fragment;
+import Fragments.Chat_Group_Fragment;
 import Fragments.GroupFragment;
 
 public class Chat_RelationFragment extends Fragment {
@@ -45,7 +46,7 @@ public class Chat_RelationFragment extends Fragment {
                     case 1:
                         // Hiển thị Fragment tin nhắn nhóm
                         getChildFragmentManager().beginTransaction()
-                                .replace(R.id.chat_fragment_container, new GroupFragment())
+                                .replace(R.id.chat_fragment_container, new Chat_Group_Fragment())
                                 .commit();
                         break;
                 }
