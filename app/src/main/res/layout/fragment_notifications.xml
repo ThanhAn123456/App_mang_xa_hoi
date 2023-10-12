@@ -1,15 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NotificationsFragment">
+    tools:context="com.example.ltdd_app_mang_xa_hoi.NotificationsFragment">
+
+    <include
+        android:id="@+id/mark_read_container"
+        layout="@layout/fragment_markread"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ListView
+        android:id="@+id/listviewnotification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mark_read_container" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Notifications fragment"
-        android:textSize="@dimen/smallsize"
-        android:layout_centerInParent="true"/>
+        android:text="@string/endnotification"
+        style="@style/CustomTabText"
+        android:gravity="center"
+        android:layout_below="@+id/listviewnotification" />
 
 </RelativeLayout>

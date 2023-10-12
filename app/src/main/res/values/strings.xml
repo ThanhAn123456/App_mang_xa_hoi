@@ -22,4 +22,6 @@
     <string name="newmess">Tin nhắn mới</string>
     <string name="search">Tìm kiếm</string>
     <string name="report">Phản hồi</string>
+    <string name="endnotification">Đã hết thông báo</string>
+    <string name="endresult">Đã hiển thị hết kết quả</string>
 </resources>
