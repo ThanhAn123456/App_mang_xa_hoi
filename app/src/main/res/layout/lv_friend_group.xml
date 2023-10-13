@@ -45,15 +45,15 @@
             android:layout_marginRight="5dp"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/disablefriend_relationship"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/ic_send_sub"
             android:id="@+id/send_relationship" />
         <ImageView
             android:layout_centerVertical="true"
             android:id="@+id/disablefriend_relationship"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/ic_send_sub"
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
