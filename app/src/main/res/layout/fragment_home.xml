@@ -2,49 +2,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".HomeFragment"
-    android:fadeScrollbars="true"
-    android:fillViewport="true"
-    android:scrollbarFadeDuration="1000">
 
+    tools:context=".HomeFragment">
     <LinearLayout
+        android:id="@+id/createnews"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/image_avatar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            android:src="@drawable/avatar">
+        </ImageView>
+            <EditText
+                android:layout_gravity="center"
+                android:id="@+id/taobaiviet"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="@string/docreatenew"
+                style="@style/CustomTabText"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/background_edittext">
+            </EditText>
+
+    </LinearLayout>
+    <ScrollView
+        android:layout_below="@+id/createnews"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        tools:context=".HomeFragment"
+        android:fadeScrollbars="true"
+        android:fillViewport="true"
+        android:scrollbarFadeDuration="1000">
 
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="5dp"
-        android:paddingHorizontal="20dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-            <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/avatar"/>
-                <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="bạn đang nghĩ gì"
-                app:boxCornerRadiusBottomEnd="30dp"
-                app:boxCornerRadiusBottomStart="30dp"
-                app:boxCornerRadiusTopEnd="30dp"
-                app:boxCornerRadiusTopStart="30dp"
-                android:gravity="center"
-                    android:layout_marginLeft="10dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="@dimen/verysmallsize"/>
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-        <ListView
-            android:id="@+id/listviewhome"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ListView
+                android:id="@+id/listviewhome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
 
-</ScrollView>
+    </ScrollView>
+</RelativeLayout>
+

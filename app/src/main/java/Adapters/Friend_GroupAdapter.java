@@ -53,7 +53,7 @@ public class Friend_GroupAdapter extends BaseAdapter {
         avatar.setImageResource(list.get(i).avatar);
         name.setText(list.get(i).name);
         if (list.get(i).numberfriend != -1)
-            numberfriend.setText(String.valueOf(list.get(i).numberfriend));
+            numberfriend.setText(String.valueOf(list.get(i).numberfriend)+ " " + context.getResources().getString(R.string.banchung));
         send.setImageResource(list.get(i).sendmess);
         disablefriend.setImageResource(list.get(i).disablefriend);
         return convertView;
