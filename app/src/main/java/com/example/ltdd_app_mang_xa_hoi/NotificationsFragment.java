@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,7 +20,14 @@ import Dto.Lv_ListChat;
 import Dto.Lv_ListNotification;
 
 
+import java.util.ArrayList;
+
+import Adapters.NotificationAdapter;
+import Dto.ThongBao;
+import Dto.ThongBao;
+
 public class NotificationsFragment extends Fragment {
+
     ListView list_notification;
     TextView readed;
 
@@ -47,6 +55,7 @@ public class NotificationsFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
+
         return view;
     }
 }

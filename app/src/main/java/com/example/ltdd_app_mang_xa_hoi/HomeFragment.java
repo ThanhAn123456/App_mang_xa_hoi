@@ -8,21 +8,26 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.AdapterView;
+
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
 
 import Adapters.ListNews_Adapter;
 import Dto.Lv_ListNews;
 
 public class HomeFragment extends Fragment {
     ListView listview;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_home, container, false);
+
         TextView textView = view.findViewById(R.id.taobaiviet);
 
                 textView.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +52,7 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         return view;
 
     }

@@ -1,0 +1,30 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.ltdd_app_mang_xa_hoi.NotificationsFragment">
+
+
+
+
+    <!-- Fragment Container -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/markread" />
+
+    <TextView
+        android:id="@+id/markread"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="25dp"
+
+        android:textSize="@dimen/verysmallsize"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đánh dấu tất cả đã đọc" />
+
+</RelativeLayout>
