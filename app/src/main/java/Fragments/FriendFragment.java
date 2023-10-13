@@ -27,9 +27,9 @@ public class FriendFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_friend, container, false);
         listview = view.findViewById(R.id.listviewfriend);
         ArrayList<Friend_Group> arrayList = new ArrayList<>();
-        arrayList.add(new Friend_Group(R.drawable.avatar, "Nguyen Thanh An", 3, R.drawable.ic_send_sub, R.drawable.ic_send_sub));
-        arrayList.add(new Friend_Group(R.drawable.avatar, "Nguyen Thanh", 3, R.drawable.ic_send_sub, R.drawable.ic_send_sub));
-        arrayList.add(new Friend_Group(R.drawable.avatar, "Nguyen Thanh  2", 3, R.drawable.ic_send_sub, R.drawable.ic_send_sub));
+        arrayList.add(new Friend_Group(R.drawable.avatar, "Nguyen Thanh An", 3, R.drawable.ic_send_sub, R.drawable.ic_tag));
+        arrayList.add(new Friend_Group(R.drawable.avatar, "Nguyen Thanh", 3, R.drawable.ic_send_sub, R.drawable.ic_tag));
+        arrayList.add(new Friend_Group(R.drawable.avatar, "Nguyen Thanh  2", 3, R.drawable.ic_send_sub, R.drawable.ic_tag));
         Friend_GroupAdapter adapter = new Friend_GroupAdapter(getContext(),R.layout.lv_friend_group,arrayList);
         listview.setAdapter(adapter);
         return view;

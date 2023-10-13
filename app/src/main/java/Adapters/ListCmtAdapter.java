@@ -8,24 +8,26 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.example.ltdd_app_mang_xa_hoi.R;
 
 import java.util.List;
 
-import Dto.Home;
+import Dto.Lv_ListCmt;
+import Dto.Lv_ListFriend;
+import Dto.Lv_ListNotification;
 
-public class Home_Adapter extends BaseAdapter {
+public class ListCmtAdapter extends BaseAdapter {
     Context context;
     int myLayout;
     View convertView;
-    List<Home> list;
-
-    public Home_Adapter(Context context, int myLayout, List<Home> list) {
+    List<Lv_ListCmt> list;
+    public ListCmtAdapter(Context context, int myLayout, List<Lv_ListCmt> list) {
         this.context = context;
         this.myLayout = myLayout;
         this.list = list;
     }
-
     @Override
     public int getCount() {
         return list.size();
@@ -45,14 +47,12 @@ public class Home_Adapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(myLayout, null);
-        ImageView avatar = convertView.findViewById(R.id.image_avatar_home);
-        TextView name = convertView.findViewById(R.id.home_hovaten);
-        TextView time = convertView.findViewById(R.id.home_time);
-        ImageView image_content_home = convertView.findViewById(R.id.image_content_home);
+        ImageView avatar = convertView.findViewById(R.id.avatar_relationship);
+        TextView name = convertView.findViewById(R.id.name_relationship);
+        TextView cmt = convertView.findViewById(R.id.cmt);
         avatar.setImageResource(list.get(i).avatar);
         name.setText(list.get(i).name);
-        time.setText(list.get(i).time);
-        image_content_home.setImageResource(list.get(i).image_content);
+        cmt.setText(list.get(i).cmt);
         return convertView;
     }
 }

@@ -46,4 +46,5 @@
     <string name="stt_public">Public</string>
     <string name="stt_private">Private</string>
     <string name="writereport">Viết phản hồi</string>
+    <string name="writecmt">Viết bình luận</string>
 </resources>
