@@ -8,9 +8,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import Adapters.Home_Adapter;
+import Dto.Home;
+
 public class HomeFragment extends Fragment {
+    ListView listview;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -23,6 +30,13 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        listview = view.findViewById(R.id.listviewhome);
+        ArrayList<Home> arrayList = new ArrayList<>();
+        arrayList.add(new Home(R.drawable.avatar, "Nguyen Thanh An","Hôm qua lúc 7:00",R.drawable.img_content));
+        arrayList.add(new Home(R.drawable.avatar, "Nguyen Thanh An","Hôm qua lúc 7:00",R.drawable.img_content));
+        arrayList.add(new Home(R.drawable.avatar, "Nguyen Thanh An","Hôm qua lúc 7:00",R.drawable.img_content));
+        Home_Adapter adapter = new Home_Adapter(getContext(),R.layout.home,arrayList);
+        listview.setAdapter(adapter);
         return view;
     }
 }

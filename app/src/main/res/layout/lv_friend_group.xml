@@ -2,52 +2,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp"
     android:orientation="horizontal">
 
-    <ImageView
-        android:padding="5dp"
-        android:src="@drawable/avatar"
-        android:id="@+id/avatar_relationship"
-        android:layout_width="50dp"
-        android:layout_height="50dp"></ImageView>
     <RelativeLayout
-        android:layout_width="250dp"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical">
-        <TextView
-            android:textStyle="bold"
-            android:fontFamily="@font/patrick_hand"
-            android:textSize="@dimen/verysmallsize"
-            android:id="@+id/name_relationship"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+        <ImageView
+            android:id="@+id/avatar_relationship"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/avatar"
+            android:layout_alignParentLeft="true"/>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Họ và tên">
-        </TextView>
-        <TextView
-            android:layout_below="@id/name_relationship"
-            android:fontFamily="@font/patrick_hand"
-            android:textSize="@dimen/verysmallsize"
-            android:id="@+id/numberfriend_relationship"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="">
-        </TextView>
-    </RelativeLayout>
-    <ImageView
-        android:layout_gravity="center"
-        android:id="@+id/send_relationship"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_toEndOf="@+id/avatar_relationship">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/name_relationship"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Họ và tên"
+                    android:textSize="@dimen/verysmallsize"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/numberfriend_relationship"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/verysmallsize"
+                android:text=""/>
 
-        android:src="@drawable/ic_send_sub">
-    </ImageView>
-    <ImageView
-        android:layout_gravity="center"
-        android:id="@+id/disablefriend_relationship"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="20dp"
-        android:src="@drawable/ic_tag">
-    </ImageView>
+        </LinearLayout>
+        <ImageView
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/disablefriend_relationship"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_send_sub"
+            android:id="@+id/send_relationship" />
+        <ImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/disablefriend_relationship"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_send_sub"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
 </LinearLayout>

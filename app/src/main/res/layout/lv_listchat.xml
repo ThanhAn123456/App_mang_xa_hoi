@@ -34,12 +34,13 @@
     </RelativeLayout>
     <TextView
         android:layout_width="wrap_content"
-        android:padding="2dp"
         android:layout_height="wrap_content"
         android:id="@+id/number_chat"
         android:textColor="@color/white"
         android:background="@drawable/number_chat"
         android:text="0"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:layout_gravity="center">
 
     </TextView>

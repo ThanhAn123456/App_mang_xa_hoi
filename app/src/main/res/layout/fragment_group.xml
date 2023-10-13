@@ -15,19 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-            <TextView
-
-                android:id="@+id/readed"
-                android:gravity="right"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tab_layout"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="30dp"
-                android:text="@string/readed"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/verysmallsize"
-                android:textStyle="bold" />
             <ListView
                 android:id="@+id/listviewgroup"
                 android:layout_width="match_parent"
