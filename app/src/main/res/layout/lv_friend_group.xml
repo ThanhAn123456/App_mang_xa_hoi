@@ -39,7 +39,6 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/verysmallsize"
                 android:text=""/>
-
         </LinearLayout>
         <ImageView
             android:layout_marginRight="5dp"
