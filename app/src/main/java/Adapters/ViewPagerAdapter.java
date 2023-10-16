@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.ltdd_app_mang_xa_hoi.AccountFragment;
-import com.example.ltdd_app_mang_xa_hoi.Chat_RelationFragment;
+import com.example.ltdd_app_mang_xa_hoi.ChatFragment;
 import com.example.ltdd_app_mang_xa_hoi.RelationshipFragment;
 import com.example.ltdd_app_mang_xa_hoi.HomeFragment;
 import com.example.ltdd_app_mang_xa_hoi.NotificationsFragment;
@@ -26,7 +26,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
             case 1:
                 return new RelationshipFragment();
             case 2:
-                return new Chat_RelationFragment();
+                return new ChatFragment();
             case 3:
                 return new NotificationsFragment();
             case 4:
