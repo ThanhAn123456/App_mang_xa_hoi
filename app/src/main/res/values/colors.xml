@@ -7,4 +7,6 @@
     <color name="lighblue">#9A36A6FF</color>
     <color name="green">#00FF0A</color>
     <color name="whiteBackground">#FEFEFE</color>
+    <color name="red">#F60606</color>
+    <color name="pink">#F804F4</color>
 </resources>

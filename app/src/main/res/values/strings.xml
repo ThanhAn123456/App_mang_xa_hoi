@@ -18,6 +18,7 @@
     <string name="detailnews">Bài viết</string>
     <string name="endfriend">Đã hết bạn bè</string>
     <string name="endgroup">Đã hết nhóm</string>
+    <string name="endnotification">Đã hết thông báo</string>
     <string name="createnew">Tạo bài viết</string>
     <string name="setting">Cài đặt</string>
     <string name="newmess">Tin nhắn mới</string>
@@ -26,4 +27,25 @@
     <string name="creategroup">Tạo nhóm</string>
     <string name="updateaccount">Chỉnh sửa hồ sơ</string>
     <string name="docreatenew">Bạn đang nghĩ gì?</string>
+    <string name="setting_1">Chỉnh sửa hồ sơ</string>
+    <string name="setting_2">Phản hồi</string>
+    <string name="setting_3">Xoá tài khoản</string>
+    <string name="setting_4">Đăng xuất</string>
+    <string name="create">Tạo</string>
+    <string name="namegroup">Tên nhóm</string>
+    <string name="addmember">Thêm thành viên</string>
+    <string name="inputnamegroup">Nhập tên nhóm</string>
+    <string name="activity">Đang hoạt động</string>
+    <string name="acti">Hoạt động</string>
+    <string name="minute">phút trước</string>
+    <string name="friend">Bạn bè</string>
+    <string name="group">Nhóm</string>
+    <string name="readed">Đánh dấu là đã đọc</string>
+    <string name="dolike">Đã thích bài viết của bạn</string>
+    <string name="dofollow">Đã theo dõi bạn</string>
+    <string name="stt_public">Public</string>
+    <string name="stt_private">Private</string>
+    <string name="writereport">Viết phản hồi</string>
+    <string name="writecmt">Viết bình luận</string>
+    <string name="banchung">bạn chung</string>
 </resources>

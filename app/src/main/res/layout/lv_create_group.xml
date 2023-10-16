@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="5dp"
-    android:orientation="horizontal">
-
+    android:layout_height="wrap_content">
     <ImageView
         android:padding="5dp"
         android:src="@drawable/avatar"
@@ -28,26 +25,18 @@
             android:layout_below="@id/name_relationship"
             android:fontFamily="@font/patrick_hand"
             android:textSize="@dimen/verysmallsize"
-            android:id="@+id/numberfriend_relationship"
+            android:id="@+id/status"
+            android:textColor="@color/blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="">
+            android:text="Đang hoạt động">
         </TextView>
     </RelativeLayout>
-    <ImageView
-        android:layout_gravity="center"
-        android:id="@+id/send_relationship"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
 
-        android:src="@drawable/ic_send_sub">
-    </ImageView>
-    <ImageView
-        android:layout_gravity="center"
-        android:id="@+id/disablefriend_relationship"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="20dp"
-        android:src="@drawable/ic_tag">
-    </ImageView>
+    <CheckBox
+
+        android:gravity="center"
+        android:id="@+id/cbchecked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>

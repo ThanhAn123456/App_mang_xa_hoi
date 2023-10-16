@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/endfriend"
-                style="@style/CustomTabText"
+                android:textSize="@dimen/verysmallsize"
                 android:gravity="center">
 
             </TextView>

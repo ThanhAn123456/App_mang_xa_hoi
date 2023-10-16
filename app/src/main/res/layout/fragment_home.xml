@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
     <LinearLayout
+        android:id="@+id/createnews"
         android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_marginLeft="20dp"
@@ -31,5 +32,24 @@
             </EditText>
 
     </LinearLayout>
+    <ScrollView
+        android:layout_below="@+id/createnews"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".HomeFragment"
+        android:fadeScrollbars="true"
+        android:fillViewport="true"
+        android:scrollbarFadeDuration="1000">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ListView
+                android:id="@+id/listviewhome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+    </ScrollView>
 </RelativeLayout>

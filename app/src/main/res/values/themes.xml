@@ -18,4 +18,9 @@
         <item name="android:textSize">@dimen/smallsize</item> <!-- Đặt cỡ chữ tại đây -->
         <item name="android:fontFamily">@font/patrick_hand</item>
     </style>
+    <style name="TextButton">
+        <item name="android:textSize">@dimen/smallsize</item> <!-- Đặt cỡ chữ tại đây -->
+        <item name="android:fontFamily">@font/patrick_hand</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

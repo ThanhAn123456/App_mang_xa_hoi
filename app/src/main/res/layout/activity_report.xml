@@ -6,17 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".ReportActivity">
     <LinearLayout
+        android:id="@+id/tren"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+
+        >
 
         <ImageView
+            android:layout_gravity="center"
             android:layout_marginLeft="20dp"
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:src="@drawable/arrow_back"></ImageView>
         <TextView
+            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/report"
@@ -24,4 +29,45 @@
             android:gravity="center">
         </TextView>
     </LinearLayout>
+    <LinearLayout
+        android:layout_below="@+id/tren"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/writereport"
+            style="@style/CustomTabText">
+        </TextView>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="200dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/background_edittextcontent">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Nhập nội dung"
+                android:background="@null"
+                >
+            </EditText>
+        </ScrollView>
+    </LinearLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnPost"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gửi"
+        android:layout_marginBottom="20dp"
+        style="@style/CustomTabText"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_bg">
+
+    </androidx.appcompat.widget.AppCompatButton>
 </RelativeLayout>

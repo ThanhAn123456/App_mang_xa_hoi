@@ -10,6 +10,7 @@
     <LinearLayout
         android:id="@+id/nav_chat"
         android:layout_width="match_parent"
+<<<<<<< HEAD
         android:layout_height="64dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,10 +18,21 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+=======
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+
+        >
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+>>>>>>> 1ab8963743f0309fc3312a5ca6b3f9b8f9420414
             android:id="@+id/back"
             android:layout_width="70dp"
             android:layout_height="match_parent"
             android:src="@drawable/arrow_back"></ImageView>
+<<<<<<< HEAD
 
         <LinearLayout
             android:layout_width="250dp"
@@ -69,6 +81,10 @@
         app:layout_constraintEnd_toEndOf="parent" >
 
         <ImageView
+=======
+        <TextView
+            android:layout_gravity="center"
+>>>>>>> 1ab8963743f0309fc3312a5ca6b3f9b8f9420414
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="4dp"

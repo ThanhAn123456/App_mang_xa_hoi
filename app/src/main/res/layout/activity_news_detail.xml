@@ -5,23 +5,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NewsDetailActivity">
+
     <LinearLayout
+        android:id="@+id/tren"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+
+        >
 
         <ImageView
-            android:layout_marginLeft="20dp"
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
             android:src="@drawable/arrow_back"></ImageView>
+
         <TextView
+            style="@style/CustomTabText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/detailnews"
-            style="@style/CustomTabText"
-            android:gravity="center">
-        </TextView>
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/detailnews"></TextView>
     </LinearLayout>
+    <ListView
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/tren"
+        android:id="@+id/lv_listnews"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+    </ListView>
+    <ListView
+        android:layout_below="@id/lv_listnews"
+        android:layout_above="@id/duoi"
+        android:id="@+id/lv_listcmt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
+    <RelativeLayout
+        android:id="@+id/duoi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentBottom="true">
+        <EditText
+            style="@style/CustomTabText"
+            android:id="@+id/writecmt"
+            android:layout_toLeftOf="@id/btn_send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_edittext"
+            android:hint="@string/writecmt">
+        </EditText>
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/btn_send"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_send">
+
+        </ImageView>
+    </RelativeLayout>
 </RelativeLayout>
