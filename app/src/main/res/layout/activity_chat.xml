@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@+id/nav_chat"
         android:layout_width="match_parent"
-<<<<<<< HEAD
+
         android:layout_height="64dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,22 +18,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-=======
-        android:layout_height="40dp"
-        android:orientation="horizontal"
-
-        >
-
-        <ImageView
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
->>>>>>> 1ab8963743f0309fc3312a5ca6b3f9b8f9420414
             android:id="@+id/back"
             android:layout_width="70dp"
             android:layout_height="match_parent"
-            android:src="@drawable/arrow_back"></ImageView>
-<<<<<<< HEAD
-
+            android:src="@drawable/arrow_back"
+            tools:ignore="ContentDescription"></ImageView>
         <LinearLayout
             android:layout_width="250dp"
             android:layout_height="match_parent"
@@ -44,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:text="Chat"
-                android:textSize="30dp" />
+                android:textSize="30sp" />
 
             <TextView
                 style="@style/CustomTabText"
@@ -53,7 +42,7 @@
 
                 android:text="Đang hoạt động"
                 android:textColor="@color/green"
-                android:textSize="18dp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -72,40 +61,34 @@
 
     <FrameLayout
         android:id="@+id/ic_send"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="45dp"
+        android:layout_height="51dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/background_sendbutton"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" >
+        app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
-=======
-        <TextView
-            android:layout_gravity="center"
->>>>>>> 1ab8963743f0309fc3312a5ca6b3f9b8f9420414
-            android:layout_width="match_parent"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="4dp"
             android:src="@drawable/ic_send"
             app:tint="@color/white" />
     </FrameLayout>
 
     <EditText
-        android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_width="328dp"
+        android:layout_height="53dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="8dp"
         android:background="@drawable/background_chat_input"
         android:hint="Nhập tin nhắn"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
         android:imeOptions="actionDone"
         android:importantForAutofill="no"
+        android:inputType="text"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ic_send"
         app:layout_constraintStart_toStartOf="parent" />
