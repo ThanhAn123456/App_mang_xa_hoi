@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ltdd_App_mang_xa_hoi</string>
+    <string name="app_name">Social Network</string>
     <string name="title_activity_forgotpassword">forgotpassword</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
