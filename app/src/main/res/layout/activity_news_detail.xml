@@ -38,6 +38,7 @@
         android:layout_height="300dp">
     </ListView>
     <ListView
+        android:layout_marginTop="30dp"
         android:layout_below="@id/lv_listnews"
         android:layout_above="@id/duoi"
         android:id="@+id/lv_listcmt"

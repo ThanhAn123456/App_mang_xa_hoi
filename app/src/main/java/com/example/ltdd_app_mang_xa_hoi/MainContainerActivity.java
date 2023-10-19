@@ -6,10 +6,12 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -81,10 +83,43 @@ public class MainContainerActivity extends AppCompatActivity implements AccountF
                     startActivity(intent);
                 }
                 else if (itemId == R.id.setting_3) {
+                    Dialog dialog = DialogThem(R.layout.mgb_disableaccount);
+
+                    // Tìm nút "Có" trong layout của dialog
+                    Button cofirmdisacount = dialog.findViewById(R.id.button_disableaccount);
+
+                    // Gắn sự kiện click cho nút "Có"
+                    cofirmdisacount.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Điều hướng đến trang đăng nhập
+                            Intent intent = new Intent(MainContainerActivity.this, LoginActivity.class);
+                            startActivity(intent);
+
+                            // Đóng dialog sau khi chuyển trang
+                            dialog.dismiss();
+                        }
+                    });
 
                 }
                 else if (itemId == R.id.setting_4) {
+                    Dialog dialog = DialogThem(R.layout.mgb_logout);
 
+                    // Tìm nút "Có" trong layout của dialog
+                    Button cofirmdisacount = dialog.findViewById(R.id.button_logout);
+
+                    // Gắn sự kiện click cho nút "Có"
+                    cofirmdisacount.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Điều hướng đến trang đăng nhập
+                            Intent intent = new Intent(MainContainerActivity.this, LoginActivity.class);
+                            startActivity(intent);
+
+                            // Đóng dialog sau khi chuyển trang
+                            dialog.dismiss();
+                        }
+                    });
                 }
 
                 drawerLayout.closeDrawer(GravityCompat.END);
@@ -130,6 +165,12 @@ public class MainContainerActivity extends AppCompatActivity implements AccountF
                 startActivity(intent);
             }
         });
+    }
+    private Dialog DialogThem(int idLayout) {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(idLayout);
+        dialog.show();
+        return dialog;
     }
     @Override
     public void onMenuClick() {

@@ -1,5 +1,6 @@
 package Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +8,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.ltdd_app_mang_xa_hoi.ChatActivity;
 import com.example.ltdd_app_mang_xa_hoi.R;
 
 import java.util.ArrayList;
@@ -35,6 +38,13 @@ public class ChatFriendFragment extends Fragment {
         ListChatAdapter adapter = new ListChatAdapter(getContext(),R.layout.lv_listchat,arrayList);
         lv_listchat.setAdapter(adapter);
 
+        lv_listchat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent =new Intent(getContext(), ChatActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 }

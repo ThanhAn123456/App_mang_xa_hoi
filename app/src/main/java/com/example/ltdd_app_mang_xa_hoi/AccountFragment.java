@@ -12,12 +12,14 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 
 public class AccountFragment extends Fragment {
 
     ImageView ic_setting;
+    Button btn_edit;
     public interface OnMenuClickListener {
         void onMenuClick();
     }
@@ -27,6 +29,7 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         ic_setting = view.findViewById(R.id.ic_setting);
+        btn_edit= view.findViewById(R.id.btn_edit);
         ic_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,7 +40,13 @@ public class AccountFragment extends Fragment {
                 }
             }
         });
-
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(getContext(), UpdateAccountActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 
