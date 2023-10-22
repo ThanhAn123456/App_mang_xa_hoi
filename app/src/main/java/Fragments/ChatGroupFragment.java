@@ -14,7 +14,7 @@ import com.example.ltdd_app_mang_xa_hoi.R;
 import java.util.ArrayList;
 
 import Adapters.ListChatAdapter;
-import Dto.Lv_ListChat;
+import Entity.Lv_ListChat;
 
 
 public class ChatGroupFragment extends Fragment {

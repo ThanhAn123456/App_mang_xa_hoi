@@ -19,17 +19,17 @@
             android:id="@+id/name_relationship"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Họ và tên">
+            android:text="@string/name">
         </TextView>
         <TextView
             android:layout_below="@id/name_relationship"
             android:fontFamily="@font/patrick_hand"
             android:textSize="@dimen/verysmallsize"
             android:id="@+id/status"
-            android:textColor="@color/blue"
+            android:textColor="@color/green"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đang hoạt động">
+            android:text="@string/activity">
         </TextView>
     </RelativeLayout>
     <TextView

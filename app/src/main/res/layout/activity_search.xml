@@ -40,8 +40,9 @@
             <EditText
                 android:layout_gravity="center"
                 android:id="@+id/txt_search"
-
+                android:paddingStart="15dp"
                 android:hint="@string/search"
+                android:singleLine="true"
                 style="@style/CustomTabText"
                 android:layout_toLeftOf="@id/search"
                 android:layout_width="match_parent"
@@ -51,15 +52,15 @@
             <ImageView
                 android:id="@+id/search"
                 android:layout_alignParentRight="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:src="@drawable/ic_search">
 
             </ImageView>
         </RelativeLayout>
 
         <com.google.android.material.tabs.TabLayout
-
+            style="@style/MyTabLayoutStyle"
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

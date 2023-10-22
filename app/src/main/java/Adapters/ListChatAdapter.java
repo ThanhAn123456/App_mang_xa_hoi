@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,8 +14,7 @@ import com.example.ltdd_app_mang_xa_hoi.R;
 
 import java.util.List;
 
-import Dto.Friend_Group;
-import Dto.Lv_ListChat;
+import Entity.Lv_ListChat;
 
 public class ListChatAdapter extends BaseAdapter {
     Context context;

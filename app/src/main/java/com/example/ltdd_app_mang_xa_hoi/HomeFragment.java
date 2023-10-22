@@ -15,7 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import Adapters.ListNews_Adapter;
-import Dto.Lv_ListNews;
+import Entity.Lv_ListNews;
 
 public class HomeFragment extends Fragment {
     ListView listview;
@@ -35,16 +35,15 @@ public class HomeFragment extends Fragment {
 
         listview = view.findViewById(R.id.listviewhome);
         ArrayList<Lv_ListNews> arrayList = new ArrayList<>();
-        arrayList.add(new Lv_ListNews(R.drawable.avatar, "Nguyen Thanh An","Hôm qua lúc 7:00",R.drawable.img_content));
-        arrayList.add(new Lv_ListNews(R.drawable.avatar, "Nguyen Thanh An","Hôm qua lúc 7:00",R.drawable.anh));
-        arrayList.add(new Lv_ListNews(R.drawable.avatar, "Nguyen Thanh An","Hôm qua lúc 7:00",R.drawable.img_content));
+        arrayList.add(new Lv_ListNews(R.drawable.avatar, "Nguyen Thanh An","Hôm qua lúc 7:00","Hôm nay tôi buồn :)",R.drawable.img_content,1,1,2,3));
+        arrayList.add(new Lv_ListNews(R.drawable.avatar, "Nguyen Thanh An","Hôm qua lúc 7:00","Ahihi",R.drawable.anh,1,5,2,3));
+        arrayList.add(new Lv_ListNews(R.drawable.avatar, "Nguyen Thanh An","Hôm qua lúc 7:00","Thương thương <3",R.drawable.img_content,1,3,2,3));
         ListNews_Adapter adapter = new ListNews_Adapter(getContext(),R.layout.lv_listnews,arrayList);
         listview.setAdapter(adapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getContext(), NewsDetailActivity.class);
-                startActivity(intent);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Không làm gì ở đây để tắt sự kiện click của item
             }
         });
         return view;

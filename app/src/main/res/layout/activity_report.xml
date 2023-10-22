@@ -29,45 +29,50 @@
             android:gravity="center">
         </TextView>
     </LinearLayout>
+
     <LinearLayout
-        android:layout_below="@+id/tren"
-        android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@id/btnPost"
+        android:layout_below="@+id/tren"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
         <TextView
+            style="@style/CustomTabText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/writereport"
-            style="@style/CustomTabText">
-        </TextView>
+            android:text="@string/writereport"></TextView>
+
         <ScrollView
+            android:id="@+id/txt_report"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="200dp"
             android:layout_margin="10dp"
-            android:background="@drawable/background_edittextcontent">
+            android:background="@drawable/background_edittextcontent"
+            android:minHeight="200dp">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Nhập nội dung"
                 android:background="@null"
-                >
-            </EditText>
+                android:hint="@string/inputcontent"></EditText>
         </ScrollView>
     </LinearLayout>
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnPost"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gửi"
+        android:text="@string/send"
         android:layout_marginBottom="20dp"
-        style="@style/CustomTabText"
+        android:backgroundTint="@color/blue"
         android:textColor="@color/white"
-        android:background="@drawable/btn_bg">
+        android:textSize="@dimen/normalsize">
 
-    </androidx.appcompat.widget.AppCompatButton>
+    </com.google.android.material.button.MaterialButton>
 </RelativeLayout>

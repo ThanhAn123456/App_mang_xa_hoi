@@ -14,7 +14,7 @@ import com.example.ltdd_app_mang_xa_hoi.R;
 import java.util.ArrayList;
 
 import Adapters.Friend_GroupAdapter;
-import Dto.Friend_Group;
+import Entity.Lv_Friend_Group;
 
 public class GroupFragment extends Fragment {
     ListView listview;
@@ -24,8 +24,8 @@ public class GroupFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_group, container, false);
         listview = view.findViewById(R.id.listviewgroup);
-        ArrayList<Friend_Group> arrayList = new ArrayList<>();
-        arrayList.add(new Friend_Group(R.drawable.two_person, "Nhóm LTDD",-1, R.drawable.ic_send_sub, R.drawable.ic_tag));
+        ArrayList<Lv_Friend_Group> arrayList = new ArrayList<>();
+        arrayList.add(new Lv_Friend_Group(R.drawable.two_person, "Nhóm LTDD",-1));
         Friend_GroupAdapter adapter = new Friend_GroupAdapter(getContext(),R.layout.lv_friend_group,arrayList);
         listview.setAdapter(adapter);
         return view;

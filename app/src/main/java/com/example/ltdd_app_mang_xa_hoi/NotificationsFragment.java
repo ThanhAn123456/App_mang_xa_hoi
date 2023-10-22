@@ -7,16 +7,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import Adapters.ListChatAdapter;
 import Adapters.ListNotificatonAdapter;
-import Dto.Lv_ListChat;
-import Dto.Lv_ListNotification;
+import Entity.Lv_ListNotification;
 
 
 public class NotificationsFragment extends Fragment {

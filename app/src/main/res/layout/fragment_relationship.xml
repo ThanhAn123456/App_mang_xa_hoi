@@ -13,6 +13,7 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/MyTabLayoutStyle"
         android:contentDescription="Tab Layout for Friends and Groups"
         app:tabSelectedTextAppearance="@style/TextButton"
         app:tabTextAppearance="@style/CustomTabText" />
@@ -24,7 +25,7 @@
         android:layout_below="@id/tab_layout"
         android:layout_alignParentRight="true"
         android:layout_marginRight="30dp"
-        android:text="Sắp xếp"
+        android:text="@string/sort"
         android:textColor="@color/blue"
         android:textSize="@dimen/verysmallsize"
         android:textStyle="bold" />

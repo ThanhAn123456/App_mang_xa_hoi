@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="normalsize">30sp</dimen>
-    <dimen name="smallsize">25sp</dimen>
-    <dimen name="bigsize">100sp</dimen>
+    <dimen name="normalsize">20sp</dimen>
+    <dimen name="smallsize">19sp</dimen>
+    <dimen name="bigsize">75sp</dimen>
     <dimen name="verysmallsize">18sp</dimen>
+    <dimen name="buttonsize">30sp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>

@@ -219,6 +219,16 @@
                 android:text="@string/unfollow"
                 android:textAllCaps="false"
                 android:textColor="@color/white" />
+            <Button
+                android:id="@+id/btn_sendmess"
+                android:layout_width="122dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/btn_bg"
+                android:paddingStart="15dp"
+                android:text="@string/sendmess"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
         </LinearLayout>
 
 

@@ -14,8 +14,7 @@ import com.example.ltdd_app_mang_xa_hoi.R;
 
 import java.util.List;
 
-import Dto.Lv_ListFriend;
-import Dto.Lv_ListNotification;
+import Entity.Lv_ListNotification;
 
 public class ListNotificatonAdapter extends BaseAdapter {
     Context context;

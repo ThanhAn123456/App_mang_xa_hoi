@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".CreateGroupChatActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/tren"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -16,26 +16,33 @@
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_gravity="center"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:src="@drawable/arrow_back"></ImageView>
 
         <TextView
             style="@style/CustomTabText"
-            android:layout_width="300dp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:gravity="center"
+            android:layout_toRightOf="@id/back"
+            android:layout_toLeftOf="@id/btn_creategroup"
             android:text="@string/creategroup"></TextView>
 
         <TextView
-            style="@style/TextButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
+            android:id="@+id/btn_creategroup"
+            style="@style/CustomTabText"
+            android:textSize="@dimen/buttonsize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="10dp"
             android:text="@string/create"
-            android:textColor="@color/blue"></TextView>
-    </LinearLayout>
+            android:textColor="@color/blue"
+            android:textStyle="bold"></TextView>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,6 +59,7 @@
             android:textSize="@dimen/smallsize" />
 
         <EditText
+            android:paddingStart="15dp"
             android:id="@+id/txt_name_group"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -59,6 +67,7 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/background_edittext"
             android:hint="@string/inputnamegroup"
+            android:singleLine="true"
             android:textSize="@dimen/smallsize" />
 
         <TextView

@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -13,7 +13,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import Adapters.ListFriendAdapter;
-import Dto.Lv_ListFriend;
+import Entity.Lv_ListFriend;
 
 public class NewChatActivity extends AppCompatActivity {
 LinearLayout btn_creategroup;
@@ -47,5 +47,12 @@ ImageView backButton;
         arrayList.add(new Lv_ListFriend(R.drawable.avatar, "Xuân Việt", 5,-1));
         ListFriendAdapter adapter = new ListFriendAdapter(this,R.layout.lv_create_group,arrayList);
         lv_listfriend.setAdapter(adapter);
+        lv_listfriend.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(NewChatActivity.this, ChatActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

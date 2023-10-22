@@ -15,7 +15,7 @@ import com.example.ltdd_app_mang_xa_hoi.R;
 
 import java.util.List;
 
-import Dto.Lv_ListFriend;
+import Entity.Lv_ListFriend;
 
 public class ListFriendAdapter extends BaseAdapter {
     Context context;

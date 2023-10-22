@@ -10,7 +10,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import Adapters.ListFriendAdapter;
-import Dto.Lv_ListFriend;
+import Entity.Lv_ListFriend;
 
 public class CreateGroupChatActivity extends AppCompatActivity {
     ImageView backButton;

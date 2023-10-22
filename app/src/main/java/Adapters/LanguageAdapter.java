@@ -8,24 +8,26 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.example.ltdd_app_mang_xa_hoi.R;
 
 import java.util.List;
 
-import Entity.Lv_Friend_Group;
+import Entity.Language;
+import Entity.Lv_ListChat;
 
-public class Friend_GroupAdapter extends BaseAdapter {
+public class LanguageAdapter extends BaseAdapter {
     Context context;
     int myLayout;
     View convertView;
-    List<Lv_Friend_Group> list;
+    List<Language> list;
 
-    public Friend_GroupAdapter(Context context, int myLayout, List<Lv_Friend_Group> list) {
+    public LanguageAdapter(Context context, int myLayout, List<Language> list) {
         this.context = context;
         this.myLayout = myLayout;
         this.list = list;
     }
-
     @Override
     public int getCount() {
         return list.size();
@@ -45,13 +47,10 @@ public class Friend_GroupAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(myLayout, null);
-        ImageView avatar = convertView.findViewById(R.id.avatar_relationship);
-        TextView name = convertView.findViewById(R.id.name_relationship);
-        TextView numberfriend = convertView.findViewById(R.id.numberfriend_relationship);
-        avatar.setImageResource(list.get(i).avatar);
+        ImageView hinh = convertView.findViewById(R.id.hinhquocgia);
+        TextView name = convertView.findViewById(R.id.tenquocgia);
+        hinh.setImageResource(list.get(i).hinh);
         name.setText(list.get(i).name);
-        if (list.get(i).numberfriend != -1)
-            numberfriend.setText(String.valueOf(list.get(i).numberfriend)+ " " + context.getResources().getString(R.string.banchung));
         return convertView;
     }
 }

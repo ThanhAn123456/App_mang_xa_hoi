@@ -4,55 +4,66 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ltdd_app_mang_xa_hoi.R;
 
 import java.util.List;
 
-import Dto.Lv_ListCmt;
-import Dto.Lv_ListFriend;
-import Dto.Lv_ListNotification;
+import Entity.Lv_ListCmt;
 
-public class ListCmtAdapter extends BaseAdapter {
-    Context context;
-    int myLayout;
-    View convertView;
-    List<Lv_ListCmt> list;
-    public ListCmtAdapter(Context context, int myLayout, List<Lv_ListCmt> list) {
+public class ListCmtAdapter extends RecyclerView.Adapter<ListCmtAdapter.ViewHolder> {
+    private Context context;
+    private List<Lv_ListCmt> list;
+
+    public ListCmtAdapter(Context context, List<Lv_ListCmt> list) {
         this.context = context;
-        this.myLayout = myLayout;
         this.list = list;
     }
+
+    @NonNull
     @Override
-    public int getCount() {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.lv_listcmt, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Lv_ListCmt item = list.get(position);
+
+        holder.avatar.setImageResource(item.avatar);
+        holder.name.setText(item.name);
+        holder.cmt.setText(item.cmt);
+
+        if (item.image_cmt == -1) {
+            holder.img_cmt.setVisibility(View.GONE);
+        } else {
+            holder.img_cmt.setImageResource(item.image_cmt);
+        }
+    }
+
+    @Override
+    public int getItemCount() {
         return list.size();
     }
 
-    @Override
-    public Object getItem(int i) {
-        return null;
-    }
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView avatar;
+        TextView name;
+        TextView cmt;
+        ImageView img_cmt;
 
-    @Override
-    public long getItemId(int i) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(myLayout, null);
-        ImageView avatar = convertView.findViewById(R.id.avatar_relationship);
-        TextView name = convertView.findViewById(R.id.name_relationship);
-        TextView cmt = convertView.findViewById(R.id.cmt);
-        avatar.setImageResource(list.get(i).avatar);
-        name.setText(list.get(i).name);
-        cmt.setText(list.get(i).cmt);
-        return convertView;
+        public ViewHolder(View itemView) {
+            super(itemView);
+            avatar = itemView.findViewById(R.id.avatar_relationship);
+            name = itemView.findViewById(R.id.name_relationship);
+            cmt = itemView.findViewById(R.id.cmt);
+            img_cmt = itemView.findViewById(R.id.imgcmt);
+        }
     }
 }

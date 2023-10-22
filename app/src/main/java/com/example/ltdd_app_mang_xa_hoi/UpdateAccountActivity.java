@@ -23,7 +23,7 @@ TextView name,email;
                 onBackPressed();
             }
         });
-        name.setHint("Belle Soriano");
+        name.setHint("Nguyen Thanh An");
         email.setHint("BelleSoriano@gmail.com");
     }
 }

@@ -52,7 +52,7 @@
                     <ImageView
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@drawable/belle_profile"
+                        android:src="@drawable/avatar"
                         android:background="@drawable/profile_photo"
                         android:clipToOutline="true">
                     </ImageView>
@@ -65,7 +65,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Thành An"
+                            android:text="Nguyen Thanh An"
                             android:textSize="@dimen/verysmallsize">
                         </TextView>
                         <Spinner
@@ -87,7 +87,7 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="Nhập nội dung"
+                        android:hint="@string/inputcontent"
                         android:background="@null"
                         >
                     </EditText>
@@ -121,14 +121,14 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="30dp"
-                    android:src="@drawable/ic_select_image"></ImageView>
+                    android:src="@drawable/ic_address"></ImageView>
             </LinearLayout>
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnPost"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ĐĂNG"
+                android:text="@string/post"
                 android:layout_below="@+id/text3"
                 android:layout_marginBottom="20dp"
                 style="@style/CustomTabText"

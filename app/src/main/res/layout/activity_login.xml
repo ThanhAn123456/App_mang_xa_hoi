@@ -16,18 +16,19 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="132dp"
             android:fontFamily="@font/patrick_hand"
-            android:text="Login"
+            android:text="@string/login"
             android:textColor="@color/blue"
             android:textSize="@dimen/bigsize"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.19"
+            app:layout_constraintHorizontal_bias="0.085"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/patrick_hand"
-            android:hint="Username"
+            android:hint="@string/username"
             android:paddingHorizontal="10dp"
             app:boxCornerRadiusBottomEnd="30dp"
             app:boxCornerRadiusBottomStart="30dp"
@@ -70,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/patrick_hand"
-            android:hint="Password"
+            android:hint="@string/password"
             android:paddingHorizontal="10dp"
             app:boxCornerRadiusBottomEnd="30dp"
             app:boxCornerRadiusBottomStart="30dp"
@@ -103,7 +104,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:fontFamily="@font/patrick_hand"
-            android:text="Forgot Password?"
+            android:text="@string/forgotpassword"
             android:textColor="@color/blue"
             android:textSize="@dimen/smallsize"
             app:layout_constraintEnd_toEndOf="parent"
@@ -112,39 +113,40 @@
             app:layout_constraintTop_toBottomOf="@+id/til_Password" />
 
         <com.google.android.material.button.MaterialButton
-            android:fontFamily="@font/patrick_hand"
             android:id="@+id/btn_Login"
             style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="66dp"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="108dp"
+            android:layout_marginTop="76dp"
             android:backgroundTint="@color/blue"
-            android:text="Login"
-            android:textStyle="bold"
+            android:text="@string/login"
             android:textColor="@color/white"
             android:textSize="@dimen/normalsize"
+            android:textStyle="bold"
             app:cornerRadius="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.526"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_Password" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_ForgotPassword" />
 
         <LinearLayout
             android:id="@+id/LL_GotoSignup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
             android:layout_marginBottom="28dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_Login">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Create Account?"
                 android:fontFamily="@font/patrick_hand"
+                android:text="@string/createaccount"
                 android:textColor="@color/black"
                 android:textSize="@dimen/smallsize" />
 
@@ -152,8 +154,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
-                android:text="Sign up"
                 android:fontFamily="@font/patrick_hand"
+                android:text="@string/signin"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/smallsize" />
         </LinearLayout>

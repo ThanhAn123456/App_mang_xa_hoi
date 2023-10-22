@@ -9,20 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
-
-import Adapters.ListChatAdapter;
-import Adapters.ListFriendAdapter;
-import Dto.Lv_ListChat;
-import Dto.Lv_ListFriend;
 import Fragments.ChatFriendFragment;
 import Fragments.ChatGroupFragment;
-import Fragments.FriendFragment;
-import Fragments.GroupFragment;
 
 
 public class ChatFragment extends Fragment {

@@ -1,4 +1,4 @@
-package Dto;
+package Entity;
 
 public class Lv_ListNotification {
     public int avatar;

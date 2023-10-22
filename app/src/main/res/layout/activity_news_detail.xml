@@ -30,45 +30,64 @@
             android:gravity="center"
             android:text="@string/detailnews"></TextView>
     </LinearLayout>
-    <ListView
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/tren"
-        android:id="@+id/lv_listnews"
-        android:layout_width="match_parent"
-        android:layout_height="300dp">
-    </ListView>
-    <ListView
-        android:layout_marginTop="30dp"
-        android:layout_below="@id/lv_listnews"
-        android:layout_above="@id/duoi"
-        android:id="@+id/lv_listcmt"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-    </ListView>
+    <ScrollView
+        android:id="@+id/scl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/duoi"
+        android:layout_below="@id/tren">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/lv_listnews"
+                android:nestedScrollingEnabled="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"></ListView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:nestedScrollingEnabled="false"
+                android:layout_below="@id/lv_listnews"
+                android:id="@+id/lv_listcmt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </RelativeLayout>
+    </ScrollView>
     <RelativeLayout
         android:id="@+id/duoi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_alignParentBottom="true">
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        >
+
         <EditText
-            style="@style/CustomTabText"
+            android:paddingStart="15dp"
             android:id="@+id/writecmt"
-            android:layout_toLeftOf="@id/btn_send"
+            style="@style/CustomTabText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/btn_send"
             android:background="@drawable/background_edittext"
-            android:hint="@string/writecmt">
-        </EditText>
+            android:hint="@string/writecmt"></EditText>
+
         <ImageView
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:id="@+id/btn_send"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+           android:layout_centerInParent="true"
             android:src="@drawable/ic_send">
 
         </ImageView>

@@ -1,4 +1,4 @@
-package Dto;
+package Entity;
 
 public class Lv_ListChat {
     public int image;

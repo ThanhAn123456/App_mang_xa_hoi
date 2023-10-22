@@ -20,6 +20,7 @@
             android:src="@drawable/avatar">
         </ImageView>
             <EditText
+                android:paddingStart="15dp"
                 android:layout_gravity="center"
                 android:id="@+id/taobaiviet"
                 android:focusable="false"
