@@ -9,6 +9,7 @@ import android.widget.ImageView;
 public class ChatActivity extends AppCompatActivity {
     ImageView backButton;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

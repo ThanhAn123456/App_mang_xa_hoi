@@ -11,14 +11,14 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_height="50dp">
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image_avatar"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginRight="10dp"
             android:layout_gravity="center"
             android:src="@drawable/avatar">
-        </ImageView>
+        </de.hdodenhof.circleimageview.CircleImageView>
             <EditText
                 android:paddingStart="15dp"
                 android:layout_gravity="center"
