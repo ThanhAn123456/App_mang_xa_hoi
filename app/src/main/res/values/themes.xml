@@ -4,8 +4,9 @@
 
         <item name="colorPrimary">@color/blue</item>
         <item name="android:fontFamily">@font/patrick_hand</item>
-        <item name="colorPrimaryVariant">@color/whiteBackground</item>
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="colorPrimaryDark">@color/whiteBackground</item>
+        <item name="android:windowLightStatusBar">true</item>
+
     </style>
     <style name="MyTabLayoutStyle" parent="Widget.Design.TabLayout">
         <item name="tabTextColor">@color/black</item>

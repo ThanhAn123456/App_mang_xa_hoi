@@ -77,8 +77,6 @@
             android:layout_marginTop="10dp"
             android:text="@string/addmember"
             android:textSize="@dimen/smallsize" />
-
-
                 <ListView
                     android:layout_marginTop="10dp"
                     android:id="@+id/lv_addmember"
