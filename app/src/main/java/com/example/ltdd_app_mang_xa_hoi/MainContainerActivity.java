@@ -98,6 +98,7 @@ public class MainContainerActivity extends AppCompatActivity implements AccountF
 
                             // Đóng dialog sau khi chuyển trang
                             dialog.dismiss();
+                            finish();
                         }
                     });
 
@@ -118,8 +119,13 @@ public class MainContainerActivity extends AppCompatActivity implements AccountF
 
                             // Đóng dialog sau khi chuyển trang
                             dialog.dismiss();
+                            finish();
                         }
                     });
+                }
+                else if (itemId == R.id.setting_5) {
+                    Intent intent = new Intent(MainContainerActivity.this, AboutUsActivity.class);
+                    startActivity(intent);
                 }
 
                 drawerLayout.closeDrawer(GravityCompat.END);
