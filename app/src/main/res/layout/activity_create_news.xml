@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".CreateNewsActivity"
     android:orientation="vertical">
 
@@ -31,111 +32,146 @@
     </LinearLayout>
 
     <ScrollView
-        android:layout_below="@id/tren"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/tren"
+        android:layout_marginTop="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout
                 android:id="@+id/text1"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp">
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@drawable/avatar"
                         android:background="@drawable/profile_photo"
-                        android:clipToOutline="true">
-                    </de.hdodenhof.circleimageview.CircleImageView>
+                        android:clipToOutline="true"
+                        android:src="@drawable/avatar"></de.hdodenhof.circleimageview.CircleImageView>
+
                     <LinearLayout
-                        android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center">
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Nguyen Thanh An"
-                            android:textSize="@dimen/verysmallsize">
-                        </TextView>
+                            android:textSize="@dimen/verysmallsize"></TextView>
+
                         <Spinner
                             android:id="@+id/spn_statuspost"
+                            style="@style/Widget.AppCompat.Light.DropDownItem.Spinner"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            >
-                        </Spinner>
+                            android:layout_height="wrap_content"></Spinner>
                     </LinearLayout>
                 </LinearLayout>
+
                 <ScrollView
+                    android:id="@+id/text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="200dp"
                     android:layout_margin="10dp"
-                    android:id="@+id/text"
-                    android:background="@drawable/background_edittextcontent">
+                    android:elevation="5dp"
+                    android:background="@drawable/background_edittextcontent"
+                    android:minHeight="100dp">
 
                     <EditText
+                        android:id="@+id/textpost"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="@string/inputcontent"
                         android:background="@null"
-                        >
-                    </EditText>
+                        android:hint="@string/inputcontent"></EditText>
+
                 </ScrollView>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="6dp"
+                    android:background="#000">
+
+                </View>
+
+                <ImageView
+                    android:id="@+id/imagepost"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:maxHeight="150dp"
+                    android:visibility="gone"></ImageView>
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/text3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text1"
-                android:layout_marginStart="10dp"
+                android:layout_marginLeft="100dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="center">
+                android:layout_marginRight="100dp"
+                >
 
-                <ImageView
+                <ImageButton
+                    android:elevation="3dp"
+                    android:id="@+id/select_imagepost"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_select_image"></ImageView>
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/ic_cricle"
+                    android:src="@drawable/ic_select_image"></ImageButton>
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/select_tag"
+                    android:elevation="3dp"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:src="@drawable/ic_tag"></ImageView>
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_cricle"
+                    android:src="@drawable/ic_tag"></ImageButton>
 
-                <ImageView
+                <ImageButton
+                    android:id="@+id/select_address"
+                    android:elevation="3dp"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:src="@drawable/ic_address"></ImageView>
-            </LinearLayout>
-            <androidx.appcompat.widget.AppCompatButton
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/ic_cricle"
+                    android:src="@drawable/ic_address"></ImageButton>
+            </RelativeLayout>
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnPost"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+                android:layout_width="match_parent"
+                android:layout_height="66dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="50dp"
+                android:backgroundTint="@color/blue"
                 android:text="@string/post"
-                android:layout_below="@+id/text3"
-                android:layout_marginBottom="20dp"
-                style="@style/CustomTabText"
                 android:textColor="@color/white"
-                android:background="@drawable/btn_bg">
-
-            </androidx.appcompat.widget.AppCompatButton>
+                android:textSize="@dimen/normalsize"
+                android:textStyle="bold"
+                app:cornerRadius="30dp"
+                 />
         </LinearLayout>
     </ScrollView>
 

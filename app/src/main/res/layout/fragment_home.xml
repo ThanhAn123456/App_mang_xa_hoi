@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context="MainFragment.HomeFragment">
     <LinearLayout
         android:id="@+id/createnews"
         android:layout_marginBottom="20dp"
@@ -37,7 +37,7 @@
         android:layout_below="@+id/createnews"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".HomeFragment"
+        tools:context="MainFragment.HomeFragment"
         android:fadeScrollbars="true"
         android:fillViewport="true"
         android:scrollbarFadeDuration="1000">
@@ -46,8 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <ListView
-                android:id="@+id/listviewhome"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/lv_listnews"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </LinearLayout>

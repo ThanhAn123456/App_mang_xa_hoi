@@ -32,32 +32,14 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <RelativeLayout
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:layout_gravity="center"
-                android:id="@+id/txt_search"
-                android:paddingStart="15dp"
-                android:hint="@string/search"
-                android:singleLine="true"
-                style="@style/CustomTabText"
-                android:layout_toLeftOf="@id/search"
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_edittext">
-            </EditText>
-            <ImageView
-                android:id="@+id/search"
-                android:layout_alignParentRight="true"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_search">
-
-            </ImageView>
-        </RelativeLayout>
+                app:iconifiedByDefault="false"
+                app:queryHint="@string/search">
+            </androidx.appcompat.widget.SearchView>
 
         <com.google.android.material.tabs.TabLayout
             style="@style/MyTabLayoutStyle"

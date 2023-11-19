@@ -1,37 +1,178 @@
 package com.example.ltdd_app_mang_xa_hoi;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.storage.StorageManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
 
-public class CreateNewsActivity extends AppCompatActivity {
-    ImageView backButton;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FieldPath;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+public class CreateNewsActivity extends AppCompatActivity
+{
+
+    ImageView backButton, imagePost;
+    ImageButton select_imagePost;
     Spinner spn_statuspost;
+    Button btnPost;
+    Uri resulturi;
+    EditText textpost;
+    private FirebaseUser user;
+
+    ActivityResultLauncher<String> mGetContent;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_news);
+        select_imagePost = findViewById(R.id.select_imagepost);
         backButton = findViewById(R.id.back);
-        spn_statuspost=findViewById(R.id.spn_statuspost);
-        backButton.setOnClickListener(new View.OnClickListener() {
+        textpost = findViewById(R.id.textpost);
+        spn_statuspost = findViewById(R.id.spn_statuspost);
+        imagePost = findViewById(R.id.imagepost);
+        btnPost = findViewById(R.id.btnPost);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        backButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
-        ArrayList arrayList =new ArrayList();
+        ArrayList arrayList = new ArrayList();
         arrayList.add(getResources().getString(R.string.stt_public));
         arrayList.add(getResources().getString(R.string.stt_private));
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spn_statuspost.setAdapter(arrayAdapter);
+        select_imagePost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mGetContent.launch("image/*");
+            }
+        });
+        mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+            @Override
+            public void onActivityResult(Uri result)
+            {
+                Intent intent = new Intent(CreateNewsActivity.this, CropperActivity.class);
+                intent.putExtra("DATA", result.toString());
+                startActivityForResult(intent, 101);
+            }
+        });
+        btnPost.setOnClickListener( new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
+                        FirebaseStorage storage = FirebaseStorage.getInstance();
+                        StorageReference storageReference = storage.getReference().child("Post Images/" + System.currentTimeMillis());
+                        storageReference.putFile(resulturi)
+                                .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                        if (task.isSuccessful())
+                                            storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                @Override
+                                                public void onSuccess(Uri uri) {
+                                                    uploadData(uri.toString());
+                                                    Toast.makeText(CreateNewsActivity.this,""+uri.toString(),Toast.LENGTH_LONG).show();
+                                                }
+                                            });
+                                        else
+                                        {
+                                            Log.d("Loi",""+task.getException().toString());
+                                        }
+                                    }
+                                });
+                    }
+                }
+        );
+    }
+    private void uploadData(String imageURL)
+    {
+        CollectionReference reference =FirebaseFirestore.getInstance().collection("User")
+                .document(user.getUid()).collection("Post Images");
+        String description = textpost.getText().toString();
+        String id = reference.document().getId();
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("description", description);
+        map.put("timestamp", FieldValue.serverTimestamp());
+        map.put("imageUrl", imageURL);
+        map.put("comments","Ahiii");
+        map.put("userName", user.getDisplayName()+"Ahiihi");
+        map.put("uid", user.getUid());
+        map.put("profileImage", String.valueOf(user.getPhotoUrl()));
+        map.put("likeCount", 0);
+
+
+        reference.document(id).set(map)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful())
+                        {
+                            System.out.println();
+                        }
+                        else{
+                            Toast.makeText(CreateNewsActivity.this,"Error: "+ task.getException().getMessage().toString(),Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == -1 && requestCode == 101)
+        {
+            String result = data.getStringExtra("RESULT");
+            resulturi = null;
+            if (result != null)
+            {
+                resulturi = Uri.parse(result);
+            }
+            imagePost.setVisibility(View.VISIBLE);
+            Glide.with(this)
+                    .load(resulturi)
+                    .into(imagePost);
+            //imagePost.setImageURI(resulturi);
+        }
     }
 }

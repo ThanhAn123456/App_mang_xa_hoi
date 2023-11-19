@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NotificationsFragment">
+    tools:context="MainFragment.NotificationsFragment">
     <TextView
         android:id="@+id/readed"
         android:gravity="right"
@@ -21,10 +21,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <ListView
-            android:id="@+id/lv_listnotification"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></ListView>
+<!--        <ListView-->
+<!--            android:id="@+id/lv_listnotification"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"></ListView>-->
 
         <TextView
             android:layout_marginTop="10dp"

@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.ltdd_app_mang_xa_hoi.AccountFragment;
-import com.example.ltdd_app_mang_xa_hoi.ChatFragment;
-import com.example.ltdd_app_mang_xa_hoi.RelationshipFragment;
-import com.example.ltdd_app_mang_xa_hoi.HomeFragment;
-import com.example.ltdd_app_mang_xa_hoi.NotificationsFragment;
+import MainFragment.AccountFragment;
+import MainFragment.ChatFragment;
+import MainFragment.RelationshipFragment;
+import MainFragment.HomeFragment;
+import MainFragment.NotificationsFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
     public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {

@@ -94,4 +94,5 @@
     <string name="choose">Chọn</string>
     <string name="notlanguage">Chưa có ngôn ngữ này</string>
     <string name="aboutus">Về chúng tôi</string>
+    <string name="erroremail">Sai định dạng email</string>
 </resources>

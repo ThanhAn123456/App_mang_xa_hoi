@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AccountFragment">
+    tools:context="MainFragment.AccountFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                 android:padding="5dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profile_photo"
+                    android:id="@+id/avatar"
                     android:layout_width="180dp"
                     android:layout_height="180dp"
                     android:layout_gravity="center"
@@ -109,7 +109,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        android:id="@+id/numberfollower"
                         android:text="3"
                         android:textColor="@color/black"
                         android:textSize="25sp" />
@@ -145,7 +145,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        android:id="@+id/numberfollowing"
                         android:text="3"
                         android:textColor="@color/black"
                         android:textSize="25sp" />
@@ -182,6 +182,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2"
+                        android:id="@+id/numberpost"
                         android:textColor="@color/black"
                         android:textSize="25sp" />
 
@@ -197,7 +198,12 @@
 
             </RelativeLayout>
         </LinearLayout>
-
+<TextView
+    android:id="@+id/status"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Tiểu sử"></TextView>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -242,6 +248,8 @@
             android:layout_marginBottom="20dp">
         </View>
         <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/yournews"
@@ -249,9 +257,12 @@
             style="@style/TextButton">
 
         </TextView>
-        <ListView
-            android:id="@+id/lv_mynews"
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/lv_profileimage"
             android:layout_width="match_parent"
-            android:layout_height="100dp" />
+            android:layout_height="300dp" />
     </LinearLayout>
+
 </ScrollView>

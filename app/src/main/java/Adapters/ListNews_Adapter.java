@@ -1,137 +1,106 @@
 package Adapters;
 
-import android.app.AlertDialog;
+
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.ltdd_app_mang_xa_hoi.NewsDetailActivity;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 import com.example.ltdd_app_mang_xa_hoi.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
+import java.util.Random;
 
-import Entity.Lv_ListNews;
+import Entity.HomeModel;
+import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ListNews_Adapter extends BaseAdapter {
+public class ListNews_Adapter extends RecyclerView.Adapter<ListNews_Adapter.HomeHolder> {
+    private List<HomeModel> list;
     Context context;
-    int myLayout;
-    View convertView;
-    List<Lv_ListNews> list;
-    boolean isLiked = false;
-
-    public ListNews_Adapter(Context context, int myLayout, List<Lv_ListNews> list) {
+    public ListNews_Adapter(Context context, List<HomeModel> list) {
         this.context = context;
-        this.myLayout = myLayout;
         this.list = list;
+    }
+    @NonNull
+    @Override
+    public HomeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lv_listnews,parent,false);
+        return new HomeHolder(view);
     }
 
     @Override
-    public int getCount() {
+    public void onBindViewHolder(@NonNull HomeHolder holder, int position) {
+        HomeModel item = list.get(position);
+        holder.name.setText(item.getUserName());
+        Random random = new Random();
+
+        Glide.with(context.getApplicationContext())
+                        .load(item.getProfileImage())
+                                .placeholder(R.drawable.avatar)
+                                        .timeout(6500)
+                                                .into(holder.profileImage);
+        holder.statuspost.setImageResource(R.drawable.ic_public);
+        holder.time.setText(""+item.getTimestamp());
+        holder.content.setText(item.getDescription());
+        int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+        ColorDrawable colorDrawable = new ColorDrawable(color);
+
+        Glide.with(context.getApplicationContext())
+                .load(item.getImageUrl())
+                .placeholder(colorDrawable)
+                .timeout(7000)
+                .into(holder.image_content);
+//        int likeList = item.getLikeCount();
+//
+//        if (likeList == 0) {
+//            holder.numlike.setText("0");
+//        } else if (likeList == 1) {
+//            holder.numlike.setText(likeList);
+//        } else {
+//            holder.numlike.setText(likeList);
+//        }
+//        holder.likeCheckBox.setChecked(likeList.contains(user.getUid()));
+//
+//        holder.descriptionTv.setText(list.get(position).getDescription());
+    }
+
+    @Override
+    public int getItemCount() {
         return list.size();
     }
 
-    @Override
-    public Object getItem(int i) {
-        return null;
+    static class HomeHolder extends RecyclerView.ViewHolder{
+        private CircleImageView profileImage;
+        private TextView name, time, content, numlike, numcmt,numshare;
+        private ImageView image_content,statuspost;
+        private ImageButton imagelike,imagecmt,imageshare;
+        public HomeHolder(@NonNull View itemview){
+            super(itemview);
+            profileImage = itemview.findViewById(R.id.profileImage);
+            statuspost = itemview.findViewById(R.id.statuspost);
+            name = itemview.findViewById(R.id.name);
+            time = itemview.findViewById(R.id.time);
+            content = itemview.findViewById(R.id.contentnews);
+            image_content = itemview.findViewById(R.id.imagecontent);
+            numlike = itemview.findViewById(R.id.numberlike);
+            numcmt = itemview.findViewById(R.id.numbercmt);
+            numshare = itemview.findViewById(R.id.numbershare);
+            imagelike = itemview.findViewById(R.id.like);
+            imagecmt = itemview.findViewById(R.id.cmt);
+            imageshare = itemview.findViewById(R.id.share);
+        }
     }
 
-    @Override
-    public long getItemId(int i) {
-        return 0;
-    }
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(myLayout, null);
-        ImageView avatar = convertView.findViewById(R.id.image_avatar_home);
-        TextView name = convertView.findViewById(R.id.home_hovaten);
-        TextView time = convertView.findViewById(R.id.home_time);
-        TextView text_content = convertView.findViewById(R.id.contentnews);
-        ImageView poststatus = convertView.findViewById(R.id.statuspost);
-        TextView numberlike = convertView.findViewById(R.id.numberlike);
-        TextView numbercmt = convertView.findViewById(R.id.numbercmt);
-        TextView numbershare = convertView.findViewById(R.id.numbershare);
-        ImageView image_content = convertView.findViewById(R.id.image_content_home);
-        ImageView deletenew = convertView.findViewById(R.id.deletenew);
-        avatar.setImageResource(list.get(i).avatar);
-        name.setText(list.get(i).name);
-        time.setText(list.get(i).time);
-        image_content.setImageResource(list.get(i).image_content);
-        if (list.get(i).statuspost==1)
-            poststatus.setImageResource(R.drawable.ic_public);
-        else if (list.get(i).statuspost==2)
-            poststatus.setImageResource(R.drawable.ic_tag);
 
-        text_content.setText(list.get(i).content);
-        numberlike.setText(String.valueOf(list.get(i).numberlike));
-        numbershare.setText(String.valueOf(list.get(i).numbershare));
-        numbercmt.setText(String.valueOf(list.get(i).numbercmt));
-        LinearLayout content = convertView.findViewById(R.id.content);
-        ImageView like = convertView.findViewById(R.id.like);
-        ImageView cmt= convertView.findViewById(R.id.cmt);
-        content.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, NewsDetailActivity.class);
-                context.startActivity(intent);
-            }
-        });
-        like.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (isLiked) {
-                    like.setImageResource(R.drawable.ic_unlike); // Đổi hình khi không được thích
-                    isLiked = false;
-                    list.get(i).numberlike--;
-                } else {
-                    like.setImageResource(R.drawable.liked); // Đổi hình khi được thích
-                    isLiked = true;
-                    list.get(i).numberlike++;
-                }
-                numberlike.setText(String.valueOf(list.get(i).numberlike));
-            }
-        });
-        cmt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, NewsDetailActivity.class);
-                intent.putExtra("focusOnEditText", true);
-                context.startActivity(intent);
-            }
-        });
-        deletenew.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int positionToDelete = i;
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Bạn có chắc muốn xoá bài viết này?");
-                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                            list.remove(positionToDelete);
-                            notifyDataSetChanged(); // Cập nhật ListView sau khi xoá
-                    }
-                });
-                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Đóng dialog nếu người dùng chọn "Không"
-                        dialog.dismiss();
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-        });
-        return convertView;
-    }
 }

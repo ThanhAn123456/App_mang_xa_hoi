@@ -1,35 +1,55 @@
 package com.example.ltdd_app_mang_xa_hoi;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
     LinearLayout LL_BacktoLogin;
-    TextInputLayout til_Birthday,til_Name,til_Gmail,til_Username,til_Password;
+    TextInputLayout til_Name,til_Gmail,til_Username,til_Password;
+    Button btn_signup;
+    ProgressBar progressBar;
+    private FirebaseAuth auth;
+    public static final String EMAIL_REGEX = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         //ánh xạ id
+        progressBar= findViewById(R.id.progressBar);
         LL_BacktoLogin = findViewById(R.id.LL_BacktoLogin);
-        til_Birthday = findViewById(R.id.til_Birthday);
         til_Name = findViewById(R.id.til_Name);
         til_Gmail = findViewById(R.id.til_Gmail);
+        btn_signup = findViewById(R.id.btn_Signup);
         til_Username = findViewById(R.id.til_Username);
         til_Password = findViewById(R.id.til_Password);
+        auth =FirebaseAuth.getInstance();
         //làm thông báo err ko đc để trống
-        TextChangedListener_errEmty(til_Birthday);
         TextChangedListener_errEmty(til_Name);
         TextChangedListener_errEmty(til_Gmail);
         TextChangedListener_errEmty(til_Username);
@@ -37,29 +57,89 @@ public class SignUpActivity extends AppCompatActivity {
         LL_BacktoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
             }
         });
-        til_Birthday.getEditText().setOnClickListener(new View.OnClickListener() {
+        btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDialog();
+                String name = til_Name.getEditText().getText().toString();
+                String email = til_Gmail.getEditText().getText().toString();
+                if (email.isEmpty())
+                    til_Gmail.setError(getResources().getString(R.string.erroremail));
+
+                String pass = til_Password.getEditText().getText().toString();
+                progressBar.setVisibility(View.VISIBLE);
+                createAccount(name,email,pass);
             }
         });
+
     }
-    private void openDialog(){
-        Calendar calendar = Calendar.getInstance();
-        int ngay = calendar.get(Calendar.DATE);
-        int thang = calendar.get(Calendar.MONTH);
-        int nam = calendar.get(Calendar.YEAR);
-        DatePickerDialog dialog = new DatePickerDialog(this,R.style.DialogThemes , new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                til_Birthday.getEditText().setText(String.valueOf(day)+"/"+String.valueOf(month+1)+"/"+String.valueOf(year));
-            }
-        },nam,thang,ngay);
-        dialog.show();
+    private void createAccount(String name,String email,String pass){
+        auth.createUserWithEmailAndPassword(email,pass)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            FirebaseUser user=auth.getCurrentUser();
+                            UserProfileChangeRequest.Builder request = new UserProfileChangeRequest.Builder();
+                            request.setDisplayName(name);
+                            user.updateProfile(request.build());
+                            user.sendEmailVerification()
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()){
+                                                        Toast.makeText(SignUpActivity.this,"Email verification link send",Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                            uploadUser(user,name,email);
+                        }
+                        else
+                        {
+                            progressBar.setVisibility(View.GONE);
+                            String exception =task.getException().getMessage();
+                            Toast.makeText(SignUpActivity.this,"Error"+ exception,Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
+    private void uploadUser(FirebaseUser user, String name,String email){
+        Map<String, Object> map = new HashMap<>();
+        map.put("name",name);
+        map.put("email",email);
+        map.put("profileImage"," ");
+        map.put("coverImage"," ");
+        map.put("dob","");
+        map.put("followers",0);
+        map.put("following",0);
+        map.put("uid", user.getUid());
+        map.put("status"," ");
+        map.put("search",name.toLowerCase());
+
+        FirebaseFirestore.getInstance().collection("User").document(user.getUid())
+                .set(map)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            assert SignUpActivity.this != null;
+                            progressBar.setVisibility(View.GONE);
+                            Intent intent= new Intent(SignUpActivity.this,LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else
+                        {
+                            progressBar.setVisibility(View.GONE);
+                            String exception =task.getException().getMessage();
+                            Toast.makeText(SignUpActivity.this,"Error"+ exception,Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
     private void TextChangedListener_errEmty(TextInputLayout textinputlayout){
         textinputlayout.getEditText().addTextChangedListener(new TextWatcher() {
             @Override

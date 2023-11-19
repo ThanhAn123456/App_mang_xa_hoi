@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "749702725904",
+    "firebase_url": "https://propane-surfer-398404-default-rtdb.firebaseio.com",
+    "project_id": "propane-surfer-398404",
+    "storage_bucket": "propane-surfer-398404.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749702725904:android:76f0af5bc868b6eb7a2595",
+        "android_client_info": {
+          "package_name": "com.example.ltdd_app_mang_xa_hoi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749702725904-dvn93d47cqmqs32nst5gtodcs1dldst0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ltdd_app_mang_xa_hoi",
+            "certificate_hash": "8ea485084cab8540340549995654a91bcc9ddc72"
+          }
+        },
+        {
+          "client_id": "749702725904-t4oen5ueptm9s997to5l5dupgqk0iq0c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFsTILAi7NoGUSF5EPv3miMCokSCjS8vI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "749702725904-t4oen5ueptm9s997to5l5dupgqk0iq0c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
