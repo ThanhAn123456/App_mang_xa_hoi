@@ -40,20 +40,5 @@ ImageButton backButton;
                 startActivity(intent);
             }
         });
-        ArrayList<Lv_ListFriend> arrayList = new ArrayList<>();
-        arrayList.add(new Lv_ListFriend(R.drawable.avatar, "Thành An", 1,-1));
-        arrayList.add(new Lv_ListFriend(R.drawable.avatar, "Đình Yên", 0,-1));
-        arrayList.add(new Lv_ListFriend(R.drawable.avatar, "Hoàng Phúc", 3,-1));
-        arrayList.add(new Lv_ListFriend(R.drawable.avatar, "Tấn Hên", 0,-1));
-        arrayList.add(new Lv_ListFriend(R.drawable.avatar, "Xuân Việt", 5,-1));
-        ListFriendAdapter adapter = new ListFriendAdapter(this,R.layout.lv_create_group,arrayList);
-        lv_listfriend.setAdapter(adapter);
-        lv_listfriend.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(NewChatActivity.this, ChatActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 }

@@ -28,13 +28,6 @@ public class CreateGroupChatActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        ArrayList<Lv_ListFriend> arrayList = new ArrayList<>();
-        arrayList.add(new Lv_ListFriend(R.drawable.avatar, "Thành An", 1,0));
-        arrayList.add(new Lv_ListFriend(R.drawable.avatar, "Đình Yên", 0,0));
-        arrayList.add(new Lv_ListFriend(R.drawable.avatar, "Hoàng Phúc", 3,0));
-        arrayList.add(new Lv_ListFriend(R.drawable.avatar, "Tấn Hên", 0,0));
-        arrayList.add(new Lv_ListFriend(R.drawable.avatar, "Xuân Việt", 5,0));
-        ListFriendAdapter adapter = new ListFriendAdapter(this,R.layout.lv_create_group,arrayList);
-        lvAddmember.setAdapter(adapter);
+
     }
 }
