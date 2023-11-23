@@ -146,6 +146,7 @@ public class CreateNewsActivity extends AppCompatActivity {
         map.put("timestamp", FieldValue.serverTimestamp());
         map.put("imageUrl", imageURL);
         map.put("name", user.getDisplayName() + "");
+        map.put("commnents", "");
         map.put("uid", user.getUid());
         map.put("profileImage", String.valueOf(user.getPhotoUrl()));
         map.put("likes", listlike);
@@ -201,7 +202,7 @@ public class CreateNewsActivity extends AppCompatActivity {
                     if (!isDestroyed() && !isFinishing()) {
                         Glide.with(CreateNewsActivity.this)
                                 .load(imageavatar)
-                                .placeholder(R.drawable.avatar)
+
                                 .timeout(6500)
                                 .into(avatar);
                     }

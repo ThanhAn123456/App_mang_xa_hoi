@@ -95,7 +95,7 @@ public class HomeFragment extends Fragment {
                     if (context != null) {
                         Glide.with(context)
                                 .load(profileURL)
-                                .placeholder(R.drawable.avatar)
+
                                 .timeout(6500)
                                 .into(avatar_image);
                     }

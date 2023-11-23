@@ -50,7 +50,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder> {
         holder.name.setText(list.get(position).getName());
         Glide.with(holder.itemView.getContext().getApplicationContext())
                 .load(list.get(position).getProfileImage())
-                .placeholder(R.drawable.avatar)
+
                 .timeout(6500)
                 .into(holder.imageProfile);
     }

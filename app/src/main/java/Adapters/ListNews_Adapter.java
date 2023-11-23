@@ -60,7 +60,7 @@ public class ListNews_Adapter extends RecyclerView.Adapter<ListNews_Adapter.Home
         Random random = new Random();
         Glide.with(context.getApplicationContext())
                 .load(item.getProfileImage())
-                .placeholder(R.drawable.avatar)
+
                 .timeout(6500)
                 .into(holder.profileImage);
         holder.statuspost.setImageResource(R.drawable.ic_public);

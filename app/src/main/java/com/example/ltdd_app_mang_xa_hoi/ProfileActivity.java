@@ -199,12 +199,12 @@ public class ProfileActivity extends AppCompatActivity {
                     try {
                         Glide.with(ProfileActivity.this)
                                 .load(profileURL)
-                                .placeholder(R.drawable.avatar)
+
                                 .timeout(6500)
                                 .into(avatar);
                         Glide.with(ProfileActivity.this)
                                 .load(coverURL)
-                                .placeholder(R.drawable.anh)
+
                                 .timeout(6500)
                                 .into(coverimage);
                     } catch (Exception e) {
@@ -245,7 +245,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Glide.with(holder.itemView.getContext().getApplicationContext())
                         .load(model.getImageUrl())
                         .timeout(6500)
-                        .placeholder(R.drawable.anh)
+
                         .into(holder.imageView);
                 count = getItemCount();
                 numberpost.setText("" + count);

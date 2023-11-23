@@ -172,7 +172,7 @@ public class AccountFragment extends Fragment {
                 Glide.with(holder.itemView.getContext().getApplicationContext())
                         .load(model.getImageUrl())
                         .timeout(6500)
-                        .placeholder(R.drawable.anh)
+
                         .into(holder.imageView);
                 count = getItemCount();
 
