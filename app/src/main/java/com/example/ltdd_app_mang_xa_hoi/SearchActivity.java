@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.google.android.material.tabs.TabLayout;
@@ -18,7 +19,7 @@ import Fragments.Search_Group_Fragment;
 import Fragments.Search_New_Fragment;
 
 public class SearchActivity extends AppCompatActivity {
-    ImageView backButton;
+    ImageButton backButton;
     TabLayout tabLayout;
     public static SearchView searchView;
     RecyclerView recyclerViewFriend;

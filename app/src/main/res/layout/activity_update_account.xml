@@ -56,7 +56,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="200dp"
                             android:alpha="0.8"
-                            app:srcCompat="@drawable/anh" />
+                             />
                         <ImageButton
                             android:layout_marginBottom="10dp"
                             android:layout_alignRight="@id/cover_photo"
@@ -95,8 +95,7 @@
                                 android:layout_height="180dp"
                                 android:layout_gravity="center"
                                 android:background="@drawable/profile_photo"
-                                android:clipToOutline="true"
-                                android:src="@drawable/avatar" />
+                                android:clipToOutline="true" />
                             <ImageButton
 
                                 android:layout_alignRight="@id/profile_photo"
@@ -136,53 +135,10 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"/>
 
-
-                <TextView
-                    android:layout_marginTop="10dp"
-                    android:textSize="@dimen/verysmallsize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/email"
-                    android:layout_marginLeft="20dp"/>
-
-                <EditText
-                    android:layout_marginTop="10dp"
-                    android:paddingStart="15dp"
-                    android:inputType="textEmailAddress"
-                    android:singleLine="true"
-                    android:id="@+id/txt_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:hint="Nhập email"
-                    android:textSize="@dimen/verysmallsize"
-                    android:background="@drawable/background_edittext"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"/>
-
-                <TextView
-                    android:textSize="@dimen/verysmallsize"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/birthday"
-                    android:layout_marginLeft="20dp"/>
-
-                <EditText
-                    android:layout_marginTop="10dp"
-                    android:paddingStart="15dp"
-                    android:singleLine="true"
-                    android:id="@+id/txt_dob"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:hint="@string/inputbirthday"
-                    android:layout_marginLeft="16dp"
-                    android:background="@drawable/background_edittext"
-                    android:layout_marginRight="16dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Đổi mật khẩu"
+                    android:text="@string/status"
                     android:layout_marginTop="15dp"
                     android:textSize="@dimen/verysmallsize"
                     android:layout_marginLeft="20dp"/>
@@ -193,58 +149,30 @@
                     android:inputType="textPassword"
                     android:singleLine="true"
                     android:background="@drawable/background_edittext"
-                    android:id="@+id/txt_passcurrent"
+                    android:id="@+id/txt_status"
                     android:textSize="@dimen/verysmallsize"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:hint="@string/inputpassold"
+                    android:hint="@string/inputstatus"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"/>
-                <EditText
-                    android:layout_marginTop="10dp"
-                    android:paddingStart="15dp"
-                    android:inputType="textPassword"
-
-                    android:background="@drawable/background_edittext"
-                    android:id="@+id/txt_passnew"
-                    android:textSize="@dimen/verysmallsize"
-                    android:singleLine="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:hint="@string/inputpassnew"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"/>
-                <EditText
-                    android:layout_marginTop="10dp"
-                    android:paddingStart="15dp"
-                    android:inputType="textPassword"
-
-                    android:background="@drawable/background_edittext"
-                    android:id="@+id/txt_repassnew"
-                    android:textSize="@dimen/verysmallsize"
-                    android:singleLine="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:hint="@string/inputrepassnew"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_Login"
-                style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
-                android:layout_width="match_parent"
-                android:layout_height="66dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/blue"
-                android:text="@string/save"
-                android:textColor="@color/white"
-                android:textSize="@dimen/normalsize"
-                android:textStyle="bold"
-                app:cornerRadius="30dp" />
 
         </LinearLayout>
 
     </ScrollView>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_Save"
+        style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/blue"
+        android:text="@string/save"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/normalsize"
+        android:textStyle="bold"
+        app:cornerRadius="30dp" />
 </RelativeLayout>

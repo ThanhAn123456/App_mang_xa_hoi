@@ -11,13 +11,15 @@
         android:layout_height="40dp"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
+        <ImageButton
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:src="@drawable/arrow_back"></ImageView>
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/ic_cricle"
+            android:elevation="3dp"
+            android:src="@drawable/arrow_back"></ImageButton>
         <TextView
             android:layout_gravity="center"
             android:layout_width="match_parent"
@@ -46,7 +48,6 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="Tab Layout for Search"
             app:tabSelectedTextAppearance="@style/TextButton"
             app:tabTextAppearance="@style/CustomTabText" />
 
@@ -54,7 +55,7 @@
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/sort" />
+            />
     </LinearLayout>
 
 

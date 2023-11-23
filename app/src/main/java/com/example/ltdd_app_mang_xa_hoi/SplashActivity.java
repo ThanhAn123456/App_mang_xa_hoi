@@ -22,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (user ==null){
-                    startActivity(new Intent(SplashActivity.this,SignUpActivity.class));
+                    startActivity(new Intent(SplashActivity.this,LoginActivity.class));
                 }
                 else {
                     startActivity(new Intent(SplashActivity.this,MainContainerActivity.class));

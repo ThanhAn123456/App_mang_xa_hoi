@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Social Network</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="forgotpassword">Forgot password?</string>
+    <string name="createaccount">Create new?</string>
+    <string name="createaccountnew">Create Account</string>
+    <string name="prompt_email">Email</string>
+    <string name="password">Password</string>
+    <string name="signin">Sign In</string>
+    <string name="action_sign_in_short">Sign In</string>
+    <string name="welcome">Hello !</string>
+    <string name="login_failed">Login failed</string>
+    <string name="news">News</string>
+    <string name="sub">Sub</string>
+    <string name="chat">Chat</string>
+    <string name="notification">Notifications</string>
+    <string name="profile">Profile</string>
+    <string name="detailnews">Comments</string>
+    <string name="createnew">Create new</string>
+    <string name="setting">Setting</string>
+    <string name="newmess">New Mess</string>
+    <string name="search">Search</string>
+    <string name="report">Report</string>
+    <string name="creategroup">Create Group</string>
+    <string name="updateaccount">Update Account</string>
+    <string name="docreatenew">What are you thinking?</string>
+    <string name="setting_1">Update Account</string>
+    <string name="setting_2">Report</string>
+    <string name="setting_3">Delete Account</string>
+    <string name="setting_4">Log Out</string>
+    <string name="create">Create</string>
+    <string name="namegroup">Group Name</string>
+    <string name="addmember">Add</string>
+    <string name="inputnamegroup">Input group name</string>
+    <string name="activity">Now</string>
+    <string name="acti">Activity</string>
+    <string name="minute">minutes before</string>
+    <string name="friend">Friend</string>
+    <string name="group">Group</string>
+    <string name="readed">Readed?</string>
+    <string name="writereport">Write report</string>
+    <string name="writecmt">Write Comment</string>
+    <string name="search_all">All</string>
+    <string name="search_new">News</string>
+    <string name="search_friend">Friends</string>
+    <string name="search_group">Groups</string>
+    <string name="follow">Follow</string>
+    <string name="unfollow">UnFolow</string>
+
+    <string name="inputchat">Input mess</string>
+    <string name="binhluan">Comment</string>
+    <string name="inputcontent">Input content</string>
+
+    <string name="post">Post</string>
+
+    <string name="recover">Recover</string>
+    <string name="haveaaccount">Have a account?</string>
+    <string name="send">Send</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="birthday">Birthday</string>
+    <string name="inputname">Input name</string>
+    <string name="inputemail">Input email</string>
+
+    <string name="inputbirthday">Input birthday</string>
+    <string name="changepassword">Change password</string>
+    <string name="inputpassold">Input current password</string>
+
+    <string name="inputpassnew">Input new password</string>
+
+    <string name="inputrepassnew">Reinput new Password</string>
+
+    <string name="save">Save</string>
+    <string name="follower">Follower</string>
+    <string name="following">Following</string>
+    <string name="yournews">Post</string>
+
+    <string name="editprofile">Edit Profile</string>
+    <string name="shareprofile">Share Profile</string>
+    <string name="sort">Sort</string>
+    <string name="hours">Hours</string>
+
+    <string name="havedeleteaccount">Delete your account?</string>
+    <string name="havelogout">Logout?</string>
+
+    <string name="yes">Yes</string>
+
+    <string name="no">No</string>
+    <string name="sendmess">Send mess</string>
+    <string name="chooselanguage">Choose Languge</string>
+    <string name="choose">Choose</string>
+    <string name="notlanguage">No this language</string>
+
+    <string name="aboutus">About Us</string>
+    <string name="erroremail">Error email</string>
+
+    <string name="status">Status</string>
+    <string name="changetheme">Change Theme</string>
+    <string name="changefont">Change Font</string>
+    <string name="changelanguage">Change Language</string>
+    <string name="image">Images</string>
+    <string name="verify">Please verify your email</string>
+    <string name="inputstatus">Input status</string>
+    <string name="canoneimage">You can push one image</string>
+    <string name="posted">Post, Image saved in your profile</string>
+
+</resources>

@@ -29,7 +29,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgotpassword);
-
+        progressBar = findViewById(R.id.progressBar);
         auth = FirebaseAuth.getInstance();
         btnRecover = findViewById(R.id.btnRecover);
         //ánh xạ id
@@ -52,6 +52,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     return;
                 }
 
+                progressBar.setVisibility(View.VISIBLE);
                 auth.sendPasswordResetEmail(email)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -63,7 +64,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                     String errMes = task.getException().getMessage();
                                     Toast.makeText(ForgotPasswordActivity.this, "Bị lỗi:" + errMes, Toast.LENGTH_SHORT).show();
                                 }
-
+                                progressBar.setVisibility(View.GONE);
                             }
                         });
             }

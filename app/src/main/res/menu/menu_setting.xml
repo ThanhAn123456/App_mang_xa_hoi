@@ -1,16 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/setting_1"
-        android:title="@string/setting_1"
-        android:icon="@drawable/manage_account"/>
-    <item
     android:id="@+id/setting_2"
     android:title="@string/setting_2"
         android:icon="@drawable/ic_report"/>
-    <item
-        android:id="@+id/setting_3"
-        android:title="@string/setting_3"
-        android:icon="@drawable/ic_disableacc"/>
     <item
         android:id="@+id/setting_4"
         android:title="@string/setting_4"
@@ -19,5 +11,12 @@
         android:id="@+id/setting_5"
         android:title="@string/aboutus"
         android:icon="@drawable/info"/>
-
+    <item
+        android:id="@+id/setting_6"
+        android:title="@string/changetheme"
+        android:icon="@drawable/ic_theme"/>
+    <item
+        android:id="@+id/setting_7"
+        android:title="@string/chooselanguage"
+        android:icon="@drawable/ic_language"/>
 </menu>

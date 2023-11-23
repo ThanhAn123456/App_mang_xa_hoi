@@ -14,7 +14,7 @@
             android:id="@+id/avatar_relationship"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/belle_profile"
+
             android:background="@drawable/profile_photo"
             android:clipToOutline="true"
             android:layout_alignParentLeft="true"/>

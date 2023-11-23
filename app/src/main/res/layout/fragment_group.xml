@@ -4,28 +4,10 @@
     android:layout_height="match_parent"
     tools:context="Fragments.GroupFragment">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fadeScrollbars="true"
-        android:fillViewport="true"
-        android:scrollbarFadeDuration="1000">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
             <ListView
                 android:id="@+id/listviewgroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></ListView>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/endgroup"
-                android:textSize="@dimen/verysmallsize"
-                android:gravity="center"></TextView>
-        </LinearLayout>
-    </ScrollView>
 
 </LinearLayout>

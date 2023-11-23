@@ -29,20 +29,7 @@ public class FriendFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_friend, container, false);
         listview = view.findViewById(R.id.listviewfriend);
-        ArrayList<Lv_Friend_Group> arrayList = new ArrayList<>();
-        arrayList.add(new Lv_Friend_Group(R.drawable.avatar, "Nguyen Thanh An", 3));
-        arrayList.add(new Lv_Friend_Group(R.drawable.belle_profile, "Belle Soriano", 3));
-        arrayList.add(new Lv_Friend_Group(R.drawable.avatar, "Nguyen Thanh  2", 3));
-        Friend_GroupAdapter adapter = new Friend_GroupAdapter(getContext(),R.layout.lv_friend_group,arrayList);
-        listview.setAdapter(adapter);
 
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getContext(), ProfileActivity.class);
-                startActivity(intent);
-            }
-        });
         return view;
     }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -13,7 +14,7 @@ import Adapters.ListFriendAdapter;
 import Entity.Lv_ListFriend;
 
 public class CreateGroupChatActivity extends AppCompatActivity {
-    ImageView backButton;
+    ImageButton backButton;
     ListView lvAddmember;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

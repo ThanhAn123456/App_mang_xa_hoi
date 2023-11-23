@@ -2,12 +2,14 @@ package com.example.ltdd_app_mang_xa_hoi;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,8 +20,10 @@ import android.widget.TextView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import Adapters.ViewPagerAdapter;
+import Config.MyApplication;
 import MainFragment.AccountFragment;
 
 public class MainContainerActivity extends AppCompatActivity implements AccountFragment.OnMenuClickListener {
@@ -28,7 +32,8 @@ public class MainContainerActivity extends AppCompatActivity implements AccountF
     public BottomNavigationView mBottomNavigationView;
     public ImageView image_search;
     public DrawerLayout drawerLayout;
-    public NavigationView  navigationView;
+    public NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,35 +75,11 @@ public class MainContainerActivity extends AppCompatActivity implements AccountF
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 // Xử lý sự kiện cho từng icon trong menu
                 int itemId = item.getItemId();
-                if (itemId == R.id.setting_1) {
-                    Intent intent = new Intent(MainContainerActivity.this, UpdateAccountActivity.class);
-                    startActivity(intent);
-                } else if (itemId == R.id.setting_2) {
+                if (itemId == R.id.setting_2) {
                     Intent intent = new Intent(MainContainerActivity.this, ReportActivity.class);
                     startActivity(intent);
-                }
-                else if (itemId == R.id.setting_3) {
-                    Dialog dialog = DialogThem(R.layout.mgb_disableaccount);
 
-                    // Tìm nút "Có" trong layout của dialog
-                    Button cofirmdisacount = dialog.findViewById(R.id.button_disableaccount);
-
-                    // Gắn sự kiện click cho nút "Có"
-                    cofirmdisacount.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            // Điều hướng đến trang đăng nhập
-                            Intent intent = new Intent(MainContainerActivity.this, LoginActivity.class);
-                            startActivity(intent);
-
-                            // Đóng dialog sau khi chuyển trang
-                            dialog.dismiss();
-                            finish();
-                        }
-                    });
-
-                }
-                else if (itemId == R.id.setting_4) {
+                } else if (itemId == R.id.setting_4) {
                     Dialog dialog = DialogThem(R.layout.mgb_logout);
 
                     // Tìm nút "Có" trong layout của dialog
@@ -109,20 +90,27 @@ public class MainContainerActivity extends AppCompatActivity implements AccountF
                         @Override
                         public void onClick(View v) {
                             // Điều hướng đến trang đăng nhập
-                            Intent intent = new Intent(MainContainerActivity.this, LoginActivity.class);
+                            FirebaseAuth.getInstance().signOut();
+                            Intent intent = new Intent(MainContainerActivity.this, SplashActivity.class);
                             startActivity(intent);
-
                             // Đóng dialog sau khi chuyển trang
                             dialog.dismiss();
                             finish();
                         }
                     });
-                }
-                else if (itemId == R.id.setting_5) {
+                } else if (itemId == R.id.setting_5) {
                     Intent intent = new Intent(MainContainerActivity.this, AboutUsActivity.class);
                     startActivity(intent);
+                } else if (itemId == R.id.setting_6) {
+                    MyApplication.toggleTheme();
+                    recreate(); // Tạo lại hoạt động để áp dụng chủ đề mới
+                    return true;
                 }
+                else if (itemId == R.id.setting_7) {
+                    Intent intent = new Intent(MainContainerActivity.this, SelectLanguageActivity.class);
+                    startActivity(intent);
 
+                }
                 drawerLayout.closeDrawer(GravityCompat.END);
                 return true;
             }
@@ -131,28 +119,23 @@ public class MainContainerActivity extends AppCompatActivity implements AccountF
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                if (item.getItemId() == R.id.action_home)
-                {
+                if (item.getItemId() == R.id.action_home) {
                     mViewPager.setCurrentItem(0);
                     mTextView.setText(getString(R.string.news));
                 }
-                if (item.getItemId() == R.id.action_friend)
-                {
+                if (item.getItemId() == R.id.action_friend) {
                     mViewPager.setCurrentItem(1);
                     mTextView.setText(getString(R.string.sub));
                 }
-                if (item.getItemId() == R.id.action_chat)
-                {
+                if (item.getItemId() == R.id.action_chat) {
                     mViewPager.setCurrentItem(2);
                     mTextView.setText(getString(R.string.chat));
                 }
-                if (item.getItemId() == R.id.action_notifications)
-                {
+                if (item.getItemId() == R.id.action_notifications) {
                     mViewPager.setCurrentItem(3);
                     mTextView.setText(getString(R.string.notification));
                 }
-                if (item.getItemId()== R.id.action_account)
-                {
+                if (item.getItemId() == R.id.action_account) {
                     mViewPager.setCurrentItem(4);
                     mTextView.setText(getString(R.string.profile));
                 }
@@ -167,12 +150,14 @@ public class MainContainerActivity extends AppCompatActivity implements AccountF
             }
         });
     }
+
     private Dialog DialogThem(int idLayout) {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(idLayout);
         dialog.show();
         return dialog;
     }
+
     @Override
     public void onMenuClick() {
         if (!drawerLayout.isDrawerOpen(GravityCompat.END)) {

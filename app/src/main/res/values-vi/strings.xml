@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Social Network</string>
+
+    <string name="login">Đăng nhập</string>
+    <string name="username">Tên đăng nhập</string>
+
+
+    <string name="forgotpassword">Quên mật khẩu?</string>
+
+    <string name="createaccount">Tạo tài khoản mới?</string>
+    <string name="createaccountnew">Tạo tài khoản</string>
+
+    <string name="prompt_email">Email</string>
+
+    <string name="password">Mật khẩu</string>
+
+    <string name="signin">Đăng ký</string>
+    <string name="action_sign_in_short">Đăng ký</string>
+    <string name="welcome">Xin chào !</string>
+
+    <string name="login_failed">Đăng nhập không thành công</string>
+
+    <string name="news">Tin mới</string>
+
+    <string name="sub">Tương tác</string>
+
+    <string name="chat">Tin nhắn</string>
+
+    <string name="notification">Thông báo</string>
+
+    <string name="profile">Hồ sơ</string>
+
+
+    <string name="detailnews">Bình luận</string>
+
+    <string name="createnew">Tạo bài viết</string>
+
+    <string name="setting">Cài đặt</string>
+
+    <string name="newmess">Tin nhắn mới</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="report">Phản hồi</string>
+    <string name="creategroup">Tạo nhóm</string>
+
+    <string name="updateaccount">Chỉnh sửa hồ sơ</string>
+
+    <string name="docreatenew">Bạn đang nghĩ gì?</string>
+
+    <string name="setting_1">Chỉnh sửa hồ sơ</string>
+    <string name="setting_2">Phản hồi</string>
+
+    <string name="setting_3">Xoá tài khoản</string>
+    <string name="setting_4">Đăng xuất</string>
+    <string name="create">Tạo</string>
+
+    <string name="namegroup">Tên nhóm</string>
+    <string name="addmember">Thêm thành viên</string>
+
+    <string name="inputnamegroup">Nhập tên nhóm</string>
+    <string name="activity">Đang hoạt động</string>
+
+    <string name="acti">Hoạt động</string>
+    <string name="minute">phút trước</string>
+    <string name="friend">Bạn bè</string>
+    <string name="group">Nhóm</string>
+
+    <string name="readed">Đánh dấu là đã đọc</string>
+    <string name="writereport">Viết phản hồi</string>
+    <string name="writecmt">Viết bình luận</string>
+    <string name="search_all">Tất cả</string>
+    <string name="search_new">Bài viết</string>
+    <string name="search_friend">Bạn bè</string>
+    <string name="search_group">Nhóm</string>
+    <string name="follow">Theo dõi</string>
+    <string name="unfollow">Bỏ theo dõi</string>
+    <string name="inputchat">Nhập tin nhắn</string>
+    <string name="binhluan">Bình luận</string>
+
+    <string name="inputcontent">Nhập nội dung</string>
+
+    <string name="post">Đăng</string>
+    <string name="recover">Khôi phục</string>
+    <string name="haveaaccount">Bạn đã có tài khoản ư?</string>
+    <string name="send">GỬI</string>
+
+
+    <string name="name">Tên</string>
+    <string name="email">Email</string>
+
+    <string name="birthday">Ngày sinh</string>
+
+    <string name="inputname">Nhập tên</string>
+
+    <string name="inputemail">Nhập email</string>
+    <string name="inputbirthday">Nhập ngày sinh</string>
+
+    <string name="changepassword">Đổi mật khẩu</string>
+    <string name="inputpassold">Nhập mật khẩu hiện tại</string>
+
+    <string name="inputpassnew">Nhập mật khẩu mới</string>
+    <string name="inputrepassnew">Nhập lại mật khẩu mới</string>
+    <string name="save">Lưu</string>
+    <string name="follower">Người theo dõi</string>
+    <string name="following">Đang theo dõi</string>
+    <string name="yournews">Bài viết</string>
+
+    <string name="editprofile">Sửa hồ sơ</string>
+    <string name="shareprofile">Chia sẻ hồ sơ</string>
+
+    <string name="sort">Sắp xếp</string>
+    <string name="hours">Giờ</string>
+    <string name="havedeleteaccount">Bạn muốn xoá tài khoản ư?</string>
+    <string name="havelogout">Bạn muốn đăng xuất ư?</string>
+    <string name="yes">Có</string>
+
+    <string name="no">Không</string>
+
+    <string name="sendmess">Gửi tin nhắn</string>
+
+    <string name="chooselanguage">Lựa chọn ngôn ngữ</string>
+    <string name="choose">Chọn</string>
+
+    <string name="notlanguage">Chưa có ngôn ngữ này</string>
+
+    <string name="aboutus">Về chúng tôi</string>
+
+    <string name="erroremail">Sai định dạng email</string>
+    <string name="status">Tiểu sử</string>
+    <string name="changetheme">Đổi chủ đề</string>
+
+    <string name="changefont">Đổi font chữ</string>
+    <string name="changelanguage">Đổi ngôn ngữ</string>
+    <string name="image">Hình ảnh</string>
+    <string name="verify">Vui lòng xác minh email của bạn</string>
+    <string name="inputstatus">Nhập tiểu sử</string>
+    <string name="canoneimage">Cần một hình ảnh để đăn</string>
+    <string name="posted">Đã đăng , hình được lưu ở trang cá nhân</string>
+</resources>

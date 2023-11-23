@@ -1,5 +1,5 @@
         package com.example.ltdd_app_mang_xa_hoi;
-        
+
         import androidx.appcompat.app.AppCompatActivity;
 
         import android.content.Intent;
@@ -11,11 +11,12 @@
         import android.widget.Toast;
 
         import java.util.ArrayList;
-        
+
         import Adapters.LanguageAdapter;
         import Adapters.ListNews_Adapter;
+        import Config.MyApplication;
         import Entity.Language;
-        
+
         public class SelectLanguageActivity extends AppCompatActivity {
             Spinner spn_language;
             Button btn_select;
@@ -33,7 +34,7 @@
                 arrayList.add(new Language(R.drawable.english, "English"));
                 LanguageAdapter adapter = new LanguageAdapter(SelectLanguageActivity.this, R.layout.spn_language, arrayList);
                 spn_language.setAdapter(adapter);
-
+                selectedLanguage = arrayList.get(0);
                 // Xử lý sự kiện khi người dùng chọn mục trong Spinner
                 spn_language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -57,12 +58,13 @@
                             // Sử dụng selectedLanguageName
 
                             if (selectedLanguageName.equals("Việt Nam")) {
-                                Intent intent = new Intent(SelectLanguageActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                                Toast.makeText(SelectLanguageActivity.this, "Đã chọn ngôn ngữ: " + selectedLanguageName, Toast.LENGTH_SHORT).show();
+                                MyApplication.setLocale(SelectLanguageActivity.this,"vn" );
+                                startActivity(new Intent(SelectLanguageActivity.this,SplashActivity.class));
+
+                            } else if (selectedLanguageName.equals("English")) {
+                                MyApplication.setLocale(SelectLanguageActivity.this, "en");
+                                startActivity(new Intent(SelectLanguageActivity.this,SplashActivity.class));
                             }
-                            else
-                                Toast.makeText(SelectLanguageActivity.this, getString(R.string.notlanguage), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

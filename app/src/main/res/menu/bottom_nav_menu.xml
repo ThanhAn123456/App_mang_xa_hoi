@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/action_home"
-        android:title="Home"
+        android:title="@string/news"
         android:icon="@drawable/home"/>
     <item android:id="@+id/action_friend"
-        android:title="Friends"
+        android:title="@string/sub"
         android:icon="@drawable/two_person"/>
     <item android:id="@+id/action_chat"
-        android:title="Chat"
+        android:title="@string/chat"
         android:icon="@drawable/chat"/>
     <item android:id="@+id/action_notifications"
-        android:title="Notifications"
+        android:title="@string/notification"
         android:icon="@drawable/notifications"/>
     <item android:id="@+id/action_account"
-        android:title="Account"
+        android:title="@string/profile"
         android:icon="@drawable/account_circle"/>
+
 </menu>

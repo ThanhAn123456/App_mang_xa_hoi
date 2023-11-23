@@ -1,9 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Ltdd_App_mang_xa_hoi" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Ltdd_App_mang_xa_hoi" parent="Theme.Material3.Light.NoActionBar">
 
         <item name="colorPrimary">@color/blue</item>
-        <item name="android:fontFamily">@font/patrick_hand</item>
         <item name="colorPrimaryDark">@color/whiteBackground</item>
         <item name="android:windowLightStatusBar">true</item>
 
@@ -22,12 +21,9 @@
     </style>
     <style name="CustomTabText">
         <item name="android:textSize">@dimen/smallsize</item> <!-- Đặt cỡ chữ tại đây -->
-        <item name="android:fontFamily">@font/patrick_hand</item>
     </style>
     <style name="TextButton">
         <item name="android:textSize">@dimen/smallsize</item> <!-- Đặt cỡ chữ tại đây -->
-        <item name="android:fontFamily">@font/patrick_hand</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

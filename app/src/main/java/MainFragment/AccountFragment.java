@@ -1,15 +1,16 @@
 package MainFragment;
 
-import static MainFragment.HomeFragment.LIST_SIZE;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.ltdd_app_mang_xa_hoi.R;
@@ -34,15 +36,19 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
+import java.util.List;
+import java.util.Random;
+
+import Config.CustomGridLayoutManager;
 import Entity.PostImageModel;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class AccountFragment extends Fragment {
     Activity activity;
-    String userUID;
     int count;
     ImageView coverimage;
+    List<String> followersList, followingList, followingList_2;
     CircleImageView avatar;
     TextView name, status, numberfollower, numberfollowing, numberpost;
     ImageView ic_setting;
@@ -70,7 +76,6 @@ public class AccountFragment extends Fragment {
         numberfollowing = view.findViewById(R.id.numberfollowing);
         numberpost = view.findViewById(R.id.numberpost);
         status = view.findViewById(R.id.status);
-        numberpost.setText(""+LIST_SIZE);
         ic_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,44 +97,51 @@ public class AccountFragment extends Fragment {
         user=auth.getCurrentUser();
         loadBasicData();
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
-
+        recyclerView.setLayoutManager( new CustomGridLayoutManager(getContext(), 3));
         loadPostImages();
         recyclerView.setAdapter(adapter);
         recyclerView.setVisibility(View.VISIBLE);
         return view;
     }
+
     private void loadBasicData(){
         DocumentReference userRef = FirebaseFirestore.getInstance().collection("User")
                 .document(user.getUid());
         userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (error!=null){
+                if (error != null) {
                     return;
                 }
-                assert value!=null;
-                if (value.exists()){
-                    String lastname=user.getDisplayName()+"";
-                    String textstatus =value.getString("status")+"";
-                   int follower =value.getLong("followers").intValue();
-                    int following = value.getLong("following").intValue();
-                    String profileURL=value.getString("profileImage");
-                    String coverURL=value.getString("coverImage");
+                if (value == null || !value.exists()) {
+                    return;
+                }
 
-                    name.setText(lastname);
+                String fullname = value.getString("name");
+                String textstatus = value.getString("status");
+                followersList = (List<String>) value.get("followers");
+                followingList = (List<String>) value.get("following");
+                String profileURL = value.getString("profileImage");
+                String coverURL = value.getString("coverImage");
+                // Kiểm tra null cho getContext()
+                Context context = getContext();
+                if (context != null) {
+                    name.setText(fullname);
                     status.setText(textstatus);
-                    numberfollower.setText(String.valueOf(follower));
-                    numberfollowing.setText(String.valueOf(following));
-
-                    Glide.with(getContext().getApplicationContext())
+                    numberfollower.setText(String.valueOf(followersList.size()));
+                    numberfollowing.setText(String.valueOf(followingList.size()));
+                    Random random = new Random();
+                    int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+                    ColorDrawable colorDrawable = new ColorDrawable(color);
+                    Glide.with(context)
                             .load(profileURL)
-                            .placeholder(R.drawable.avatar)
+                            .placeholder(colorDrawable)
                             .timeout(6500)
                             .into(avatar);
-                    Glide.with(getContext().getApplicationContext())
+
+                    Glide.with(context)
                             .load(coverURL)
-                            .placeholder(R.drawable.anh)
+                            .placeholder(colorDrawable)
                             .timeout(6500)
                             .into(coverimage);
                 }
@@ -163,15 +175,16 @@ public class AccountFragment extends Fragment {
                         .placeholder(R.drawable.anh)
                         .into(holder.imageView);
                 count = getItemCount();
-                numberpost.setText("" + count);
 
             }
 
             @Override
             public int getItemCount() {
-
+                numberpost.setText(super.getItemCount()+"");
                 return super.getItemCount();
+
             }
+
         };
 
     }
@@ -198,4 +211,5 @@ public class AccountFragment extends Fragment {
         super.onStop();
         adapter.stopListening();
     }
+
 }

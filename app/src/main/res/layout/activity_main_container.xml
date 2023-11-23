@@ -34,15 +34,17 @@
                 android:text="@string/news"
                 android:textStyle="bold"></TextView>
 
-            <ImageView
+            <ImageButton
 
                 android:id="@+id/image_search"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:layout_marginRight="20dp"
-                android:src="@drawable/ic_search"></ImageView>
+                android:background="@drawable/ic_cricle"
+                android:elevation="3dp"
+                android:src="@drawable/ic_search"></ImageButton>
         </RelativeLayout>
 
         <androidx.viewpager2.widget.ViewPager2

@@ -3,33 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="Fragments.ChatFriendFragment">
-
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fadeScrollbars="true"
-        android:fillViewport="true"
-        android:layout_marginLeft="10dp"
-        android:scrollbarFadeDuration="1000">
+        android:id="@+id/recyclerViewChat"
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <ListView
-                android:id="@+id/lv_listchat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></ListView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/endmess"
-                android:textSize="@dimen/verysmallsize"
-                android:gravity="center">
-
-            </TextView>
-        </LinearLayout>
-    </ScrollView>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

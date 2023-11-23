@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="132dp"
-                android:fontFamily="@font/patrick_hand"
+
                 android:text="@string/login"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/bigsize"
@@ -41,8 +41,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/patrick_hand"
-                android:hint="@string/username"
+
+                android:hint="@string/email"
                 android:paddingHorizontal="10dp"
                 app:boxCornerRadiusBottomEnd="30dp"
                 app:boxCornerRadiusBottomStart="30dp"
@@ -58,12 +58,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView"
                 app:layout_constraintVertical_bias="0.122"
-                app:startIconDrawable="@drawable/person_icon">
+                app:startIconDrawable="@drawable/ic_email">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/patrick_hand"
                     android:maxLength="30"
                     android:singleLine="true"
                     android:textSize="@dimen/smallsize" />
@@ -74,7 +73,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/patrick_hand"
+
                 android:hint="@string/password"
                 android:paddingHorizontal="10dp"
                 app:boxCornerRadiusBottomEnd="30dp"
@@ -94,7 +93,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/patrick_hand"
+
                     android:inputType="textPassword"
                     android:maxLength="25"
                     android:singleLine="true"
@@ -102,6 +101,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <ProgressBar
+                android:visibility="gone"
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="10dp"
-                android:fontFamily="@font/patrick_hand"
+
                 android:text="@string/forgotpassword"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/smallsize"
@@ -159,16 +159,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/patrick_hand"
+
                     android:text="@string/createaccount"
-                    android:textColor="@color/black"
                     android:textSize="@dimen/smallsize" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
-                    android:fontFamily="@font/patrick_hand"
+
                     android:text="@string/signin"
                     android:textColor="@color/blue"
                     android:textSize="@dimen/smallsize" />

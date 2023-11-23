@@ -18,22 +18,11 @@
         app:tabSelectedTextAppearance="@style/TextButton"
         app:tabTextAppearance="@style/CustomTabText" />
 
-    <TextView
-        android:id="@+id/sort"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tab_layout"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="30dp"
-        android:text="@string/sort"
-        android:textColor="@color/blue"
-        android:textSize="@dimen/verysmallsize"
-        android:textStyle="bold" />
 
     <androidx.fragment.app.FragmentContainerView
-
+        android:layout_below="@id/tab_layout"
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/sort" />
+       />
 </RelativeLayout>

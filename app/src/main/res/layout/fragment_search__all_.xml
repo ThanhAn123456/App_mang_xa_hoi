@@ -12,44 +12,10 @@
        android:layout_marginRight="10dp"
        android:orientation="vertical"
        >
-   <TextView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       style="@style/TextButton"
-       android:text="Mọi người">
-   </TextView>
 
    <androidx.recyclerview.widget.RecyclerView
        android:id="@+id/searchuser"
        android:layout_width="match_parent"
        android:layout_height="wrap_content">
    </androidx.recyclerview.widget.RecyclerView>
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          style="@style/TextButton"
-          android:text="@string/friend">
-      </TextView>
-
-      <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/searchfriend"
-          android:layout_width="match_parent"
-          android:layout_height="200dp">
-      </androidx.recyclerview.widget.RecyclerView>
-
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          style="@style/TextButton"
-          android:text="@string/group">
-      </TextView>
-
-      <androidx.recyclerview.widget.RecyclerView
-          android:id="@+id/searchgroup"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content">
-      </androidx.recyclerview.widget.RecyclerView>
-
-
-
-   </LinearLayout>
+</LinearLayout>

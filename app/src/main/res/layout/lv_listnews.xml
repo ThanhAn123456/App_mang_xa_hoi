@@ -45,12 +45,7 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/deletenew"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/close_24px"
-            android:layout_alignParentRight="true"/>
+
     </RelativeLayout>
     <LinearLayout
         android:id="@+id/content"
@@ -88,12 +83,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_alignParentLeft="true">
-            <ImageButton
+            <CheckBox
                 android:id="@+id/like"
-                android:background="@drawable/click_hieuung"
+                android:button="@drawable/heart_check"
                 android:layout_width="30dp"
+                android:layout_gravity="center"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_unlike"/>
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
