@@ -116,7 +116,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 btn_follow.setText(getString(R.string.follow));
                                 myRef.update(map_2).addOnCompleteListener(task1 -> {
                                     if (task1.isSuccessful()) {
-                                        Toast.makeText(ProfileActivity.this, "UnFollowed", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ProfileActivity.this, getString(R.string.unfollow), Toast.LENGTH_SHORT).show();
                                     } else {
                                         assert task1.getException() != null;
                                         Log.e("Tag_3", task1.getException().getMessage());
@@ -143,7 +143,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 btn_follow.setText(getString(R.string.unfollow));
                                 myRef.update(map_2).addOnCompleteListener(task12 -> {
                                     if (task12.isSuccessful()) {
-                                        Toast.makeText(ProfileActivity.this, "Followed", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ProfileActivity.this, getString(R.string.follow), Toast.LENGTH_SHORT).show();
                                     } else {
                                         assert task12.getException() != null;
                                     }
@@ -204,7 +204,7 @@ public class ProfileActivity extends AppCompatActivity {
         String id = reference.document().getId();
         Map<String, Object> map = new HashMap<>();
         map.put("time", FieldValue.serverTimestamp());
-        map.put("notification", user.getDisplayName() + getString(R.string.followed));
+        map.put("notification", user.getDisplayName() +" "+ getString( R.string.followed));
         map.put("id", id);
         map.put("uid", uid);
         reference.document(id).set(map);

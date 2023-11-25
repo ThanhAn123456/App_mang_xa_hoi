@@ -21,6 +21,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import Adapters.NotificationAdapter;
@@ -39,8 +41,7 @@ public class NotificationsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notifications, container, false);
         init(view);
-        loadNotification();
-        checkNotificationCount();
+
         return view;
     }
     void init(View view) {
@@ -50,43 +51,35 @@ public class NotificationsFragment extends Fragment {
         list = new ArrayList<>();
         adapter = new NotificationAdapter(getContext(), list);
         recyclerView.setAdapter(adapter);
+        loadNotification();
 
     }
     void loadNotification() {
-
         reference = FirebaseFirestore.getInstance().collection("Notifications");
 
         reference.whereEqualTo("uid", user.getUid())
-                .orderBy("time", Query.Direction.DESCENDING)
                 .addSnapshotListener((value, error) -> {
-
                     if (error != null)
                         return;
-
 
                     list.clear();
                     for (QueryDocumentSnapshot snapshot : value) {
                         Log.d("NotificationData", "Notification data: " + snapshot.getData());
                         NotificationModel model = snapshot.toObject(NotificationModel.class);
                         list.add(model);
-
                     }
+
+                    // Sắp xếp danh sách theo thời gian giảm dần
+                    Collections.sort(list, new Comparator<NotificationModel>() {
+                        @Override
+                        public int compare(NotificationModel o1, NotificationModel o2) {
+                            // Giả sử thời gian được lưu trong mỗi NotificationModel là một Date object
+                            // Bạn cần điều chỉnh dựa trên cách dữ liệu của bạn được lưu trữ
+                            return o2.getTime().compareTo(o1.getTime());
+                        }
+                    });
+
                     adapter.notifyDataSetChanged();
-
-                });
-
-    }
-    void checkNotificationCount() {
-        CollectionReference reference = FirebaseFirestore.getInstance().collection("Notifications");
-
-        reference.whereEqualTo("uid", user.getUid())
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    int count = queryDocumentSnapshots.size();
-                    Log.d("NotificationCount", "Number of notifications: " + count);
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("NotificationCount", "Error getting notifications", e);
                 });
     }
 }

@@ -123,7 +123,6 @@ public class SignUpActivity extends AppCompatActivity {
         map.put("email", email);
         map.put("profileImage", "https://inkythuatso.com/uploads/thumbnails/800/2023/03/8-anh-dai-dien-trang-inkythuatso-03-15-26-54.jpg");
         map.put("coverImage", " ");
-        map.put("dob", "");
         map.put("followers", followers);
         map.put("following", following);
         map.put("uid", user.getUid());
