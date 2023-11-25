@@ -146,7 +146,6 @@
                 <EditText
                     android:layout_marginTop="10dp"
                     android:paddingStart="15dp"
-                    android:inputType="textPassword"
                     android:singleLine="true"
                     android:background="@drawable/background_edittext"
                     android:id="@+id/txt_status"
