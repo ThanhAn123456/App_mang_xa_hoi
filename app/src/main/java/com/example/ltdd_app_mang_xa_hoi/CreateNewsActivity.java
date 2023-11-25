@@ -53,6 +53,7 @@ public class CreateNewsActivity extends AppCompatActivity {
     ImageButton backButton;
     ImageView imagePost;
     ImageView avatar;
+    String imageavatar;
     TextView displayname;
     ImageButton select_imagePost;
     Spinner spn_statuspost;
@@ -146,9 +147,8 @@ public class CreateNewsActivity extends AppCompatActivity {
         map.put("timestamp", FieldValue.serverTimestamp());
         map.put("imageUrl", imageURL);
         map.put("name", user.getDisplayName() + "");
-        map.put("commnents", "");
         map.put("uid", user.getUid());
-        map.put("profileImage", String.valueOf(user.getPhotoUrl()));
+        map.put("profileImage", imageavatar);
         map.put("likes", listlike);
 
 
@@ -179,7 +179,6 @@ public class CreateNewsActivity extends AppCompatActivity {
             Glide.with(this)
                     .load(resulturi)
                     .into(imagePost);
-            //imagePost.setImageURI(resulturi);
         }
     }
 
@@ -194,7 +193,7 @@ public class CreateNewsActivity extends AppCompatActivity {
 
                 assert value != null;
                 if (value.exists()) {
-                    String imageavatar = value.getString("profileImage");
+                    imageavatar = value.getString("profileImage");
                     String name = value.getString("name");
                     displayname.setText(name + "");
 
@@ -202,7 +201,6 @@ public class CreateNewsActivity extends AppCompatActivity {
                     if (!isDestroyed() && !isFinishing()) {
                         Glide.with(CreateNewsActivity.this)
                                 .load(imageavatar)
-
                                 .timeout(6500)
                                 .into(avatar);
                     }

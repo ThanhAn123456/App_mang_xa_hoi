@@ -1,5 +1,6 @@
 package com.example.ltdd_app_mang_xa_hoi;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,15 +10,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
@@ -27,7 +30,6 @@ import java.util.Map;
 
 import Adapters.CommentAdapter;
 import Entity.CommentModel;
-import Entity.Lv_ListCmt;
 
 public class NewsDetailActivity extends AppCompatActivity {
     ImageButton backButton;
@@ -39,6 +41,7 @@ public class NewsDetailActivity extends AppCompatActivity {
     FirebaseUser user;
     String id, uid;
     CollectionReference reference;
+    String imageavatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +76,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         commentEt = findViewById(R.id.writecmt);
         sendBtn = findViewById(R.id.btn_send);
         recyclerView = findViewById(R.id.lv_listcmt);
-
         user = FirebaseAuth.getInstance().getCurrentUser();
-
         recyclerView.setLayoutManager(new LinearLayoutManager(NewsDetailActivity.this));
 
         list = new ArrayList<>();
@@ -85,9 +86,23 @@ public class NewsDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getStringExtra("id").toString();
         uid = intent.getStringExtra("uid").toString();
+        loadBasicData();
 
     }
-
+    public void loadBasicData(){
+        DocumentReference reference1 = FirebaseFirestore.getInstance().collection("User").document(user.getUid());
+        reference1.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error!=null)
+                    return;
+                if (value.exists())
+                {
+                    imageavatar = value.getString("profileImage");
+                }
+            }
+        });
+    }
     private void loadCommentData() {
 
         reference.orderBy("timestamp", Query.Direction.ASCENDING) // Sắp xếp theo timestamp tăng dần

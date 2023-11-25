@@ -5,9 +5,9 @@
     android:orientation="vertical"
     tools:context="Fragments.FriendFragment">
 
-            <ListView
-                android:id="@+id/listviewfriend"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewfriend"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></ListView>
+                android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

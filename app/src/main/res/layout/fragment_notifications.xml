@@ -6,10 +6,11 @@
     tools:context="MainFragment.NotificationsFragment">
 
 
-       <ListView
-       android:id="@+id/lv_listnotification"
+       <androidx.recyclerview.widget.RecyclerView
+           android:id="@+id/recyclerViewNotify"
            android:layout_width="match_parent"
-          android:layout_height="wrap_content"></ListView>
+           android:layout_height="300dp">
+       </androidx.recyclerview.widget.RecyclerView>
 
 
 

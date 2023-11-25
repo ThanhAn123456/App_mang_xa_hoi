@@ -200,8 +200,8 @@ public class UpdateAccountActivity extends AppCompatActivity {
     }
 
     public void uploadData() {
-        final StorageReference refAvatar = FirebaseStorage.getInstance().getReference().child("Profile Images");
-        final StorageReference refCover = FirebaseStorage.getInstance().getReference().child("Cover Images");
+        final StorageReference refAvatar = FirebaseStorage.getInstance().getReference().child("Profile Images/"+ System.currentTimeMillis());
+        final StorageReference refCover = FirebaseStorage.getInstance().getReference().child("Cover Images/"+ System.currentTimeMillis());
 
         List<Task<Uri>> tasks = new ArrayList<>();
 

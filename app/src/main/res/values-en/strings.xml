@@ -105,5 +105,7 @@
     <string name="inputstatus">Input status</string>
     <string name="canoneimage">You can push one image</string>
     <string name="posted">Post, Image saved in your profile</string>
+    <string name="chatstart">Chat....</string>
+    <string name="followed">followed you</string>
 
 </resources>

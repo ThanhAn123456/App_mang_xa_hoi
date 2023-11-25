@@ -11,10 +11,6 @@ import android.widget.ListView;
 
 import com.example.ltdd_app_mang_xa_hoi.R;
 
-import java.util.ArrayList;
-
-import Entity.Lv_ListChat;
-
 
 public class ChatGroupFragment extends Fragment {
 

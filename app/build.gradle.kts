@@ -52,4 +52,5 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.github.krokyze:ucropnedit:2.2.6-2")
+    implementation ("com.afollestad.material-dialogs:core:3.3.0")
 }

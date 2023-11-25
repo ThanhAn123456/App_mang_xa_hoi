@@ -136,4 +136,6 @@
     <string name="inputstatus">Nhập tiểu sử</string>
     <string name="canoneimage">Cần một hình ảnh để đăn</string>
     <string name="posted">Đã đăng , hình được lưu ở trang cá nhân</string>
+    <string name="chatstart">Chat....</string>
+    <string name="followed">đã theo dõi bạn</string>
 </resources>

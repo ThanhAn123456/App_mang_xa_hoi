@@ -5,16 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
-import java.util.ArrayList;
-
-import Adapters.ListFriendAdapter;
-import Entity.Lv_ListFriend;
 
 public class NewChatActivity extends AppCompatActivity {
 LinearLayout btn_creategroup;

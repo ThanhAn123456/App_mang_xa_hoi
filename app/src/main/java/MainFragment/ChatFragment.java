@@ -57,7 +57,6 @@ public class ChatFragment extends Fragment {
                                 .commit();
                         break;
                     case 1:
-                        // Hiển thị Fragment tin nhắn nhóm
                         getChildFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_container, new ChatGroupFragment())
                                 .commit();

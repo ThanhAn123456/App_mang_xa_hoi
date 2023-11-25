@@ -1,6 +1,8 @@
 package Adapters;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,11 +20,15 @@ import com.bumptech.glide.Glide;
 import com.example.ltdd_app_mang_xa_hoi.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import Entity.ChatUserModel;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -30,7 +37,7 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ChatUs
     public OnStartChat startChat;
     Activity context;
     List<ChatUserModel> list;
-
+    DocumentReference reference;
     public ChatUserAdapter(Activity context, List<ChatUserModel> list) {
         this.context = context;
         this.list = list;
@@ -73,29 +80,34 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ChatUs
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+
         assert user != null;
         if (!uids.get(0).equalsIgnoreCase(user.getUid())) {
             oppositeUID = uids.get(0);
         } else {
             oppositeUID = uids.get(1);
         }
+        reference =FirebaseFirestore.getInstance().collection("User")
+                .document(oppositeUID);
+        reference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    return;
+                }
+                assert value != null;
+                if (value.exists()) {
+                    String profileImageUrl = value.getString("profileImage");
+                    String name = value.getString("name");
+                    Glide.with(context.getApplicationContext())
+                                    .load(profileImageUrl)
+                                            .into(holder.imageView);
 
-        FirebaseFirestore.getInstance().collection("User").document(oppositeUID)
-                .get().addOnCompleteListener(task -> {
+                    holder.name.setText(name);
+                }
+            }
+        });
 
-                    if (task.isSuccessful()) {
-
-                        DocumentSnapshot snapshot = task.getResult();
-
-                        Glide.with(context.getApplicationContext()).load(snapshot.getString("profileImage")).into(holder.imageView);
-                        holder.name.setText(snapshot.getString("name"));
-
-                    } else {
-                        assert task.getException() != null;
-                        Toast.makeText(context, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-
-                });
 
 
     }
@@ -123,12 +135,11 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ChatUs
         public ChatUserHolder(@NonNull View itemView) {
             super(itemView);
 
-            imageView = itemView.findViewById(R.id.profileImage);
-            name = itemView.findViewById(R.id.nameTV);
+            imageView = itemView.findViewById(R.id.avatar_relationship);
+            name = itemView.findViewById(R.id.name_relationship);
             lastMessage = itemView.findViewById(R.id.mess);
             time = itemView.findViewById(R.id.status);
             count = itemView.findViewById(R.id.number_chat);
-
             count.setVisibility(View.GONE);
 
         }

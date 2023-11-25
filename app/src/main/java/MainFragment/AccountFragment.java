@@ -29,14 +29,18 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import Config.CustomGridLayoutManager;
@@ -56,6 +60,7 @@ public class AccountFragment extends Fragment {
     FirestoreRecyclerAdapter<PostImageModel,PostImageHolder> adapter;
     Button btn_edit;
     private FirebaseUser user;
+    FirebaseAuth auth;
     public interface OnMenuClickListener {
         void onMenuClick();
     }
@@ -66,6 +71,9 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         activity = getActivity();
+        auth=FirebaseAuth.getInstance();
+        user=auth.getCurrentUser();
+        loadBasicData();
         ic_setting = view.findViewById(R.id.ic_setting);
         btn_edit= view.findViewById(R.id.btn_edit);
         recyclerView = view.findViewById(R.id.lv_profileimage);
@@ -93,9 +101,7 @@ public class AccountFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        FirebaseAuth auth=FirebaseAuth.getInstance();
-        user=auth.getCurrentUser();
-        loadBasicData();
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager( new CustomGridLayoutManager(getContext(), 3));
         loadPostImages();
@@ -124,8 +130,6 @@ public class AccountFragment extends Fragment {
                 String profileURL = value.getString("profileImage");
                 String coverURL = value.getString("coverImage");
                 // Kiểm tra null cho getContext()
-                Context context = getContext();
-                if (context != null) {
                     name.setText(fullname);
                     status.setText(textstatus);
                     numberfollower.setText(String.valueOf(followersList.size()));
@@ -133,18 +137,19 @@ public class AccountFragment extends Fragment {
                     Random random = new Random();
                     int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
                     ColorDrawable colorDrawable = new ColorDrawable(color);
-                    Glide.with(context)
-                            .load(profileURL)
-                            .placeholder(colorDrawable)
-                            .timeout(6500)
-                            .into(avatar);
 
-                    Glide.with(context)
+
+                    Glide.with(coverimage.getContext())
                             .load(coverURL)
                             .placeholder(colorDrawable)
                             .timeout(6500)
                             .into(coverimage);
-                }
+                Glide.with(avatar.getContext())
+                        .load(profileURL)
+                        .placeholder(colorDrawable)
+                        .timeout(6500)
+                        .into(avatar);
+
             }
         });
 
@@ -168,11 +173,9 @@ public class AccountFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull PostImageHolder holder, int position, @NonNull PostImageModel model) {
-                Log.d("AdapterDebug", "onBindViewHolder called for position: " + position);
                 Glide.with(holder.itemView.getContext().getApplicationContext())
                         .load(model.getImageUrl())
                         .timeout(6500)
-
                         .into(holder.imageView);
                 count = getItemCount();
 
@@ -182,7 +185,6 @@ public class AccountFragment extends Fragment {
             public int getItemCount() {
                 numberpost.setText(super.getItemCount()+"");
                 return super.getItemCount();
-
             }
 
         };
@@ -211,5 +213,7 @@ public class AccountFragment extends Fragment {
         super.onStop();
         adapter.stopListening();
     }
+
+
 
 }

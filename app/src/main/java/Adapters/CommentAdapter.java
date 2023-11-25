@@ -41,7 +41,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentH
     @Override
     public void onBindViewHolder(@NonNull CommentHolder holder, int position) {
 
-        Glide.with(context)
+        Glide.with(holder.profileImage.getContext())
                 .load(list.get(position).getProfileImageUrl())
                 .into(holder.profileImage);
 

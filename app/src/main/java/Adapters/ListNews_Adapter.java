@@ -5,6 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +19,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.ltdd_app_mang_xa_hoi.NewsDetailActivity;
 import com.example.ltdd_app_mang_xa_hoi.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 
 import Entity.HomeModel;
@@ -35,7 +46,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ListNews_Adapter extends RecyclerView.Adapter<ListNews_Adapter.HomeHolder> {
     private List<HomeModel> list;
     Context context;
-    OnPressed onPressed;
+    FirebaseUser user;
 
     public ListNews_Adapter(Context context, List<HomeModel> list) {
         this.context = context;
@@ -49,24 +60,23 @@ public class ListNews_Adapter extends RecyclerView.Adapter<ListNews_Adapter.Home
         return new HomeHolder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull HomeHolder holder, int position) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+         user = FirebaseAuth.getInstance().getCurrentUser();
         HomeModel item = list.get(position);
         holder.name.setText(item.getName());
-        List<String> likeList = new ArrayList<>();
-        likeList = item.getLikes();
+        List<String> likeList = item.getLikes();
         int count = likeList.size();
         Random random = new Random();
         Glide.with(context.getApplicationContext())
                 .load(item.getProfileImage())
-
                 .timeout(6500)
                 .into(holder.profileImage);
         holder.statuspost.setImageResource(R.drawable.ic_public);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
-        String formattedTimestamp = sdf.format( item.getTimestamp());
-        holder.time.setText(formattedTimestamp);
+        Date timestamp = item.getTimestamp();
+
+        holder.time.setText(calculateTime(list.get(position).getTimestamp()));
         holder.content.setText(item.getDescription());
         int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
         ColorDrawable colorDrawable = new ColorDrawable(color);
@@ -76,14 +86,11 @@ public class ListNews_Adapter extends RecyclerView.Adapter<ListNews_Adapter.Home
                 .placeholder(colorDrawable)
                 .timeout(7000)
                 .into(holder.image_content);
-        if (count == 0) {
-            holder.numlike.setText("0");
-        } else {
+
             holder.numlike.setText(count + "");
-        }
+
         //check if already like
         assert user != null;
-        holder.imagelike.setChecked(likeList.contains(user.getUid()));
         holder.clickListener(position,
                 list.get(position).getId(),
                 list.get(position).getName(),
@@ -93,15 +100,14 @@ public class ListNews_Adapter extends RecyclerView.Adapter<ListNews_Adapter.Home
         );
 
     }
-
-    public interface OnPressed {
-        void onLiked(int position, String id, String uid, List<String> likeList, boolean isChecked);
-
-        void setCommentCount(TextView textView);
-    }
-
-    public void OnPressed(OnPressed onPressed) {
-        this.onPressed = onPressed;
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    String calculateTime(Date date) {
+        if (date != null) {
+            long millis = date.toInstant().toEpochMilli();
+            return DateUtils.getRelativeTimeSpanString(millis, System.currentTimeMillis(), 60000, DateUtils.FORMAT_ABBREV_TIME).toString();
+        } else {
+            return ""; // hoặc giá trị mặc định khác tùy vào yêu cầu của bạn
+        }
     }
 
     @Override
@@ -130,16 +136,32 @@ public class ListNews_Adapter extends RecyclerView.Adapter<ListNews_Adapter.Home
             imagelike = itemview.findViewById(R.id.like);
             imagecmt = itemview.findViewById(R.id.cmt);
             imageshare = itemview.findViewById(R.id.share);
-
-            onPressed.setCommentCount(numcmt);
         }
 
-        public void clickListener(final int position, final String id, String name, final String uid, final List<String> likes, final String imageUrl) {
+        public void clickListener(final int position, final String id, String name, final String uid, final List<String> likeList, final String imageUrl) {
+            imagelike.setChecked(likeList.contains(user.getUid()));
             imagelike.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    onPressed.onLiked(position, id, uid, likes, isChecked);
+                    if (likeList.contains(user.getUid())) {
+                        likeList.remove(user.getUid()); // Bỏ like
+
+                    } else {
+                        likeList.add(user.getUid()); // Like
+                    }
+                    numlike.setText(likeList.size()+"");
+
+                    // Gửi cập nhật đến Firestore
+                    DocumentReference reference = FirebaseFirestore.getInstance().collection("User")
+                            .document(uid)
+                            .collection("Post Images")
+                            .document(id);
+
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("likes", likeList);
+                    reference.update(map);
                 }
+
             });
             if (context != null) {
                 imagecmt.setOnClickListener(new View.OnClickListener() {

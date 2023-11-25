@@ -199,6 +199,9 @@
         </LinearLayout>
 
         <TextView
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/dashboard_item_5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -211,6 +214,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_marginBottom="10dp"
             android:text=""></TextView>
 
         <RelativeLayout
@@ -233,16 +237,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/white" />
 
-                <Button
-                    android:id="@+id/btn_share"
-                    android:layout_width="122dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:background="@drawable/btn_bg"
-                    android:paddingStart="15dp"
-                    android:text="@string/shareprofile"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white" />
+
             </LinearLayout>
 
 

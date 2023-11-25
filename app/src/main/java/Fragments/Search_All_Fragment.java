@@ -1,6 +1,5 @@
 package Fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,15 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.ltdd_app_mang_xa_hoi.R;
 import com.example.ltdd_app_mang_xa_hoi.SearchActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -32,9 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-import Adapters.Friend_GroupAdapter;
 import Adapters.UserAdapter;
-import Entity.Lv_Friend_Group;
 import Entity.Users;
 
 public class Search_All_Fragment extends Fragment {
@@ -55,10 +49,10 @@ public class Search_All_Fragment extends Fragment {
         searchView = SearchActivity.searchView;
         reference = FirebaseFirestore.getInstance().collection("User");
         loadUserData();
-        searchUser();
         listuser = new ArrayList<>();
         userAdapter= new UserAdapter(listuser);
         recyclerViewuser.setAdapter(userAdapter);
+        searchUser();
         return view;
     }
 
@@ -84,7 +78,7 @@ public class Search_All_Fragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                reference.orderBy("search").startAt(query).endAt(query+"\uf8ff")
+                reference.orderBy("search").startAt(query).endAt(query)
                         .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {

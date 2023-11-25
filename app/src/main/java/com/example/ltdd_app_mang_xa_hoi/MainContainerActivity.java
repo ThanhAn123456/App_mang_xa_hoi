@@ -75,11 +75,7 @@ public class MainContainerActivity extends AppCompatActivity implements AccountF
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 // Xử lý sự kiện cho từng icon trong menu
                 int itemId = item.getItemId();
-                if (itemId == R.id.setting_2) {
-                    Intent intent = new Intent(MainContainerActivity.this, ReportActivity.class);
-                    startActivity(intent);
-
-                } else if (itemId == R.id.setting_4) {
+                if (itemId == R.id.setting_4) {
                     Dialog dialog = DialogThem(R.layout.mgb_logout);
 
                     // Tìm nút "Có" trong layout của dialog

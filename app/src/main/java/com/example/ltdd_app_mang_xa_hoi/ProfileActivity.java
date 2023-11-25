@@ -6,8 +6,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -25,13 +29,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +62,6 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseUser user;
     String uid;
     boolean isFollowed;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,6 +128,7 @@ public class ProfileActivity extends AppCompatActivity {
                         }
                     });
                 } else {
+                    createNotification();
                     followersList.add(user.getUid());
                     followingList_myuser.add(uid);
                     Map<String, Object> map = new HashMap<>();
@@ -138,7 +146,6 @@ public class ProfileActivity extends AppCompatActivity {
                                         Toast.makeText(ProfileActivity.this, "Followed", Toast.LENGTH_SHORT).show();
                                     } else {
                                         assert task12.getException() != null;
-                                        Log.e("tag_3_1", task12.getException().getMessage());
                                     }
                                 });
                             } else {
@@ -152,13 +159,104 @@ public class ProfileActivity extends AppCompatActivity {
         btn_sendmess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProfileActivity.this, ChatActivity.class);
-                startActivity(intent);
+                queryChat();
+            }
+        });
+    }
+    void queryChat() {
+
+        MaterialDialog progressDialog = new MaterialDialog(ProfileActivity.this, MaterialDialog.getDEFAULT_BEHAVIOR());
+        progressDialog.title(R.string.chatstart, "Start chat");
+            progressDialog.cancelable(false);
+            progressDialog.icon(R.drawable.chat,getResources().getDrawable(R.drawable.chat));
+
+        progressDialog.show();
+
+        CollectionReference reference = FirebaseFirestore.getInstance().collection("Messages");
+        reference.whereArrayContains("uid", uid)
+                .get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        QuerySnapshot snapshot = task.getResult();
+
+                        if (snapshot.isEmpty()) {
+                            startChat(progressDialog);
+                        } else {
+                            // get chatId and pass
+                            progressDialog.dismiss();
+                            for (DocumentSnapshot snapshotChat : snapshot) {
+                                Intent intent = new Intent(ProfileActivity.this, ChatActivity.class);
+                                intent.putExtra("uid",uid);
+                                intent.putExtra("id", snapshotChat.getId()); // return doc id
+                                startActivity(intent);
+                            }
+                        }
+
+                    } else {
+                        progressDialog.dismiss();
+                    }
+                });
+
+    }
+    void createNotification() {
+
+        CollectionReference reference = FirebaseFirestore.getInstance().collection("Notifications");
+
+        String id = reference.document().getId();
+        Map<String, Object> map = new HashMap<>();
+        map.put("time", FieldValue.serverTimestamp());
+        map.put("notification", user.getDisplayName() + getString(R.string.followed));
+        map.put("id", id);
+        map.put("uid", uid);
+        reference.document(id).set(map);
+    }
+    void startChat(MaterialDialog progressDialog) {
+
+        CollectionReference reference = FirebaseFirestore.getInstance().collection("Messages");
+
+        List<String> list = new ArrayList<>();
+        list.add(0, user.getUid());
+        list.add(1, uid);
+
+        String pushID = reference.document().getId();
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", pushID);
+        map.put("lastMessage", "Hi");
+        map.put("time", FieldValue.serverTimestamp());
+        map.put("uid", list);
+
+        reference.document(pushID).update(map).addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                reference.document(pushID).set(map);
             }
         });
 
-    }
 
+        CollectionReference messageRef = FirebaseFirestore.getInstance()
+                .collection("Messages")
+                .document(pushID)
+                .collection("Messages");
+
+        String messageID = messageRef.document().getId();
+
+        Map<String, Object> messageMap = new HashMap<>();
+        messageMap.put("id", messageID);
+        messageMap.put("message", "Hi");
+        messageMap.put("senderID", user.getUid());
+        messageMap.put("time", FieldValue.serverTimestamp());
+
+        messageRef.document(messageID).set(messageMap);
+
+        new Handler().postDelayed(() -> {
+
+            progressDialog.dismiss();
+            Intent intent = new Intent(ProfileActivity.this, ChatActivity.class);
+            intent.putExtra("uid", uid);
+            intent.putExtra("id", pushID);
+            startActivity(intent);
+
+        }, 3000);
+    }
     private void loadMyData() {
         myRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
@@ -208,9 +306,9 @@ public class ProfileActivity extends AppCompatActivity {
                                 .timeout(6500)
                                 .into(coverimage);
                     } catch (Exception e) {
-                        
+
                     }
-                    if (followersList.contains(uid)) {
+                    if (followersList.contains(user.getUid())) {
                         btn_follow.setText(getString(R.string.unfollow));
                         isFollowed = true;
 

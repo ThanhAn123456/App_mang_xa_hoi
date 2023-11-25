@@ -8,14 +8,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
-
 import com.example.ltdd_app_mang_xa_hoi.R;
 
 import java.util.List;
 
 import Entity.Language;
-import Entity.Lv_ListChat;
 
 public class LanguageAdapter extends BaseAdapter {
     Context context;
