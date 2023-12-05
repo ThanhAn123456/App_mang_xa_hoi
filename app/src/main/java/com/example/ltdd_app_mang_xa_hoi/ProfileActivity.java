@@ -39,6 +39,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,7 +49,16 @@ import java.util.Map;
 
 import Config.CustomGridLayoutManager;
 import Entity.PostImageModel;
+import Entity.Users;
+import Util.FireBaseUtil;
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class ProfileActivity extends AppCompatActivity {
     ImageButton backButton;
@@ -60,7 +72,7 @@ public class ProfileActivity extends AppCompatActivity {
     FirestoreRecyclerAdapter<PostImageModel, ProfileActivity.PostImageHolder> adapter;
     DocumentReference userRef, myRef;
     private FirebaseUser user;
-    String uid;
+    String uid,token;
     boolean isFollowed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +139,8 @@ public class ProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
+                    readToken(uid);
+                    sendNotification(user.getDisplayName()+ " đã theo dõi bạn");
                 } else {
                     createNotification();
                     followersList.add(user.getUid());
@@ -153,6 +167,8 @@ public class ProfileActivity extends AppCompatActivity {
                             }
                         }
                     });
+                    readToken(uid);
+                    sendNotification(user.getDisplayName()+ " đã bỏ theo dõi bạn");
                 }
             }
         });
@@ -164,7 +180,6 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
     void queryChat() {
-
         MaterialDialog progressDialog = new MaterialDialog(ProfileActivity.this, MaterialDialog.getDEFAULT_BEHAVIOR());
         progressDialog.title(R.string.chatstart, "Start chat");
             progressDialog.cancelable(false);
@@ -173,34 +188,36 @@ public class ProfileActivity extends AppCompatActivity {
         progressDialog.show();
 
         CollectionReference reference = FirebaseFirestore.getInstance().collection("Messages");
-        reference.whereArrayContains("uid", uid)
+        reference.whereArrayContains("uid", user.getUid())
+                .whereEqualTo("isGroupChat", false)
                 .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         QuerySnapshot snapshot = task.getResult();
-
-                        if (snapshot.isEmpty()) {
-                            startChat(progressDialog);
-                        } else {
-                            // get chatId and pass
                             progressDialog.dismiss();
                             for (DocumentSnapshot snapshotChat : snapshot) {
-                                Intent intent = new Intent(ProfileActivity.this, ChatActivity.class);
-                                intent.putExtra("uid",uid);
-                                intent.putExtra("id", snapshotChat.getId()); // return doc id
-                                startActivity(intent);
-                            }
-                        }
+                                List<String> uidArray = (List<String>) snapshotChat.get("uid");
 
+                                if (uidArray != null && uidArray.contains(uid)) {
+                                    // Cả use.getId() và uidother xuất hiện trong mảng "uid"
+                                    Intent intent = new Intent(ProfileActivity.this, ChatActivity.class);
+                                    intent.putExtra("uid", uid);
+                                    intent.putExtra("id", snapshotChat.getId()); // return doc id
+                                    startActivity(intent);
+                                    return; // Bạn có thể dùng return để thoát khỏi vòng lặp ngay khi tìm thấy kết quả
+                                }
+
+                            }
+                        progressDialog.dismiss();
+                        startChat(progressDialog);
                     } else {
                         progressDialog.dismiss();
+                        Log.e("sdadsafsfd", task.getException().toString());
                     }
                 });
 
     }
     void createNotification() {
-
         CollectionReference reference = FirebaseFirestore.getInstance().collection("Notifications");
-
         String id = reference.document().getId();
         Map<String, Object> map = new HashMap<>();
         map.put("time", FieldValue.serverTimestamp());
@@ -210,7 +227,7 @@ public class ProfileActivity extends AppCompatActivity {
         reference.document(id).set(map);
     }
     void startChat(MaterialDialog progressDialog) {
-
+        Log.d("eqeqeeấdqe","da toi");
         CollectionReference reference = FirebaseFirestore.getInstance().collection("Messages");
 
         List<String> list = new ArrayList<>();
@@ -224,6 +241,8 @@ public class ProfileActivity extends AppCompatActivity {
         map.put("lastMessage", "Hi");
         map.put("time", FieldValue.serverTimestamp());
         map.put("uid", list);
+        map.put("isGroupChat",false);
+        map.put("name",name.getText().toString().toLowerCase());
 
         reference.document(pushID).update(map).addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
@@ -377,10 +396,81 @@ public class ProfileActivity extends AppCompatActivity {
         super.onStart();
         adapter.startListening();
     }
-
+    public void readToken(String uid) {
+        DocumentReference reference = FirebaseFirestore.getInstance().collection("User").document(uid);
+        reference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        // Lấy trường token từ tài liệu người dùng
+                        token = document.getString("fcmToken");
+                        Log.d("Firestore", "Token: " + token);
+                    } else {
+                        Log.d("Firestore", "Không tìm thấy tài liệu");
+                    }
+                } else {
+                    Log.e("Firestore", "Lỗi khi lấy dữ liệu", task.getException());
+                }
+            }
+        });
+    }
     @Override
     public void onStop() {
         super.onStop();
         adapter.stopListening();
     }
+    public void sendNotification(String message) {
+        FireBaseUtil.currentUserDetail().get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    Users currentUser = task.getResult().toObject(Users.class);
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        JSONObject notificationObj = new JSONObject();
+                        notificationObj.put("title", currentUser.getName());
+                        notificationObj.put("body", message);
+
+                        JSONObject dataObj = new JSONObject();
+                        dataObj.put("userIdFollow", currentUser.getUid());
+
+                        jsonObject.put("notification", notificationObj);
+                        jsonObject.put("data", dataObj);
+                        jsonObject.put("to", token);
+
+                        callApi(jsonObject);
+                    } catch (Exception e) {
+
+                    }
+                }
+            }
+        });
+    }
+
+    void callApi(JSONObject jsonObject) {
+        MediaType JSON = MediaType.get("application/json");
+
+        OkHttpClient client = new OkHttpClient();
+        String url = "https://fcm.googleapis.com/fcm/send";
+        RequestBody body = RequestBody.create(jsonObject.toString(), JSON);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .header("Authorization", "Bearer AAAAro3DwRA:APA91bGkU5CTR11JSryE0ZwIdoSCgufYoSNhVajESiy5cMCxS9P8xYm40KJFMzsCSqm8IGZyn_1gx0cpUxY006o-zOywYEYH9EbKxQb2tq71qkZvTw62bLFKK90csF8ExGcCxhnPPdox")
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+
+            }
+        });
+    }
+
 }

@@ -1,7 +1,20 @@
 package Entity;
 
 public class Users {
-    private String email, name, profileImage,uid;
+    private String email;
+    private String name;
+    private String profileImage;
+    private String uid;
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
+    }
+
+    private String fcmToken;
 
     public Users(String email, String name, String profileImage, String uid) {
         this.email = email;

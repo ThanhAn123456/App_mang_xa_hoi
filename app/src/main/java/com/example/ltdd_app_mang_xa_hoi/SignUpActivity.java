@@ -96,6 +96,7 @@ public class SignUpActivity extends AppCompatActivity {
                                                 // Cập nhật thông tin hồ sơ và upload dữ liệu khi email đã được xác nhận
                                                 UserProfileChangeRequest.Builder request = new UserProfileChangeRequest.Builder();
                                                 request.setDisplayName(name);
+                                                request.setPhotoUri(Uri.parse("https://inkythuatso.com/uploads/thumbnails/800/2023/03/8-anh-dai-dien-trang-inkythuatso-03-15-26-54.jpg"));
                                                 user.updateProfile(request.build());
                                                 uploadUser(user, name, email);
                                             } else {

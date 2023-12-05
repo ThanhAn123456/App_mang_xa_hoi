@@ -38,16 +38,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         auth = FirebaseAuth.getInstance();
-        progressBar = findViewById(R.id.progressBar);
-        //ánh xạ id
-        LL_GotoSignup = findViewById(R.id.LL_GotoSignup);
-        txt_ForgotPassword = findViewById(R.id.txt_ForgotPassword);
-        til_Username = findViewById(R.id.til_Username);
-        til_Password = findViewById(R.id.til_Password);
-        btn_Login = findViewById(R.id.btn_Login);
+        init();
         //làm thông báo err ko đc để trống
         TextChangedListener_errEmty(til_Username);
         TextChangedListener_errEmty(til_Password);
+        clicklistener();
+
+    }
+    public void clicklistener(){
         LL_GotoSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,35 +101,15 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-    //    private void updateUi(FirebaseUser user){
-//        Map<String, String> map = new HashMap<>();
-//        map.put("name",name);
-//        map.put("email",email);
-//        map.put("profileImage"," ");
-//        map.put("uid", user.getUid());
-//
-//        FirebaseFirestore.getInstance().collection("User").document(user.getUid())
-//                .set(map)
-//                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        if (task.isSuccessful()){
-//                            assert SignUpActivity.this != null;
-//                            progressBar.setVisibility(View.GONE);
-//                            Intent intent= new Intent(SignUpActivity.this,MainContainerActivity.class);
-//                            startActivity(intent);
-//                            finish();
-//                        }
-//                        else
-//                        {
-//                            progressBar.setVisibility(View.GONE);
-//                            String exception =task.getException().getMessage();
-//                            Toast.makeText(SignUpActivity.this,"Error"+ exception,Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//    }
+    public void init(){
+        progressBar = findViewById(R.id.progressBar);
+        //ánh xạ id
+        LL_GotoSignup = findViewById(R.id.LL_GotoSignup);
+        txt_ForgotPassword = findViewById(R.id.txt_ForgotPassword);
+        til_Username = findViewById(R.id.til_Username);
+        til_Password = findViewById(R.id.til_Password);
+        btn_Login = findViewById(R.id.btn_Login);
+    }
     private void TextChangedListener_errEmty(TextInputLayout textinputlayout) {
         textinputlayout.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -153,7 +131,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
     private void sendUserToMainActivity() {
         progressBar.setVisibility(View.GONE);
         Intent intent = new Intent(LoginActivity.this, MainContainerActivity.class);

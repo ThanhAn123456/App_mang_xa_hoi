@@ -23,19 +23,26 @@ public class CropperActivity extends AppCompatActivity {
 
         readIntent();
 
-        String dest_uri= new StringBuilder(UUID.randomUUID().toString()).append(".jpg").toString();
+        if (fileUri != null) {
+            String dest_uri = new StringBuilder(UUID.randomUUID().toString()).append(".jpg").toString();
 
-        UCrop.Options options =new UCrop.Options();
+            UCrop.Options options = new UCrop.Options();
 
-        UCrop.of(fileUri,Uri.fromFile(new File(getCacheDir(),dest_uri)))
-                .withOptions(options)
-                .withAspectRatio(0,0)
-                .useSourceImageAspectRatio()
-                .withMaxResultSize(2000,2000)
-                .start(CropperActivity.this);
+            UCrop.of(fileUri, Uri.fromFile(new File(getCacheDir(), dest_uri)))
+                    .withOptions(options)
+                    .withAspectRatio(0, 0)
+                    .useSourceImageAspectRatio()
+                    .withMaxResultSize(2000, 2000)
+                    .start(CropperActivity.this);
+        } else {
+            // Nếu fileUri là null, không làm gì cả hoặc xử lý theo ý muốn của bạn
+            // Ở đây tôi chỉ đơn giản là kết thúc Activity
+            finish();
+        }
 
 
     }
+
     private void readIntent() {
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
@@ -43,22 +50,20 @@ public class CropperActivity extends AppCompatActivity {
             fileUri = Uri.parse(result);
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==RESULT_OK && requestCode==UCrop.REQUEST_CROP)
-        {
+        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
             final Uri resultUri = UCrop.getOutput(data);
             Intent returnIntent = new Intent();
-            returnIntent.putExtra("RESULT",resultUri+"");
-            setResult(-1,returnIntent);
+            returnIntent.putExtra("RESULT", resultUri.toString());
+            setResult(-1, returnIntent);
             finish();
-        }
-        else if (resultCode==UCrop.RESULT_ERROR) {
-            final Throwable cropError =UCrop.getError(data);
+        } else if (resultCode == UCrop.RESULT_ERROR) {
+            final Throwable cropError = UCrop.getError(data);
             finish();
-        }
-        else{
+        } else {
             finish();
         }
     }

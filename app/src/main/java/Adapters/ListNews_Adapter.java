@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +26,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.ltdd_app_mang_xa_hoi.NewsDetailActivity;
 import com.example.ltdd_app_mang_xa_hoi.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,12 +48,22 @@ import java.util.Map;
 import java.util.Random;
 
 import Entity.HomeModel;
+import Entity.Users;
+import Util.FireBaseUtil;
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class ListNews_Adapter extends RecyclerView.Adapter<ListNews_Adapter.HomeHolder> {
     private List<HomeModel> list;
     Context context;
     FirebaseUser user;
+    String token;
 
     public ListNews_Adapter(Context context, List<HomeModel> list) {
         this.context = context;
@@ -145,9 +162,12 @@ public class ListNews_Adapter extends RecyclerView.Adapter<ListNews_Adapter.Home
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (likeList.contains(user.getUid())) {
                         likeList.remove(user.getUid()); // Bỏ like
-
+                        readToken(uid);
+                        sendNotification(user.getDisplayName()+" đã bỏ like bài viết của bạn");
                     } else {
                         likeList.add(user.getUid()); // Like
+                        readToken(uid);
+                        sendNotification(user.getDisplayName()+" đã like bài viết của bạn");
                     }
                     numlike.setText(likeList.size()+"");
 
@@ -161,6 +181,14 @@ public class ListNews_Adapter extends RecyclerView.Adapter<ListNews_Adapter.Home
                     map.put("likes", likeList);
                     reference.update(map);
                 }
+
+            });
+            imageshare.setOnClickListener(v -> {
+
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_TEXT, imageUrl);
+                intent.setType("text/*");
+                context.startActivity(Intent.createChooser(intent, "Share link using..."));
 
             });
             if (context != null) {
@@ -177,6 +205,75 @@ public class ListNews_Adapter extends RecyclerView.Adapter<ListNews_Adapter.Home
             }
         }
     }
+    public void sendNotification(String message) {
+        FireBaseUtil.currentUserDetail().get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    Users currentUser = task.getResult().toObject(Users.class);
+                    try {
+                        JSONObject jsonObject = new JSONObject();
+                        JSONObject notificationObj = new JSONObject();
+                        notificationObj.put("title", currentUser.getName());
+                        notificationObj.put("body", message);
 
+                        JSONObject dataObj = new JSONObject();
+                        dataObj.put("userIdLike", currentUser.getUid());
+
+                        jsonObject.put("notification", notificationObj);
+                        jsonObject.put("data", dataObj);
+                        jsonObject.put("to", token);
+
+                        callApi(jsonObject);
+                    } catch (Exception e) {
+
+                    }
+                }
+            }
+        });
+    }
+    public void readToken(String uid) {
+        DocumentReference reference = FirebaseFirestore.getInstance().collection("User").document(uid);
+        reference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        // Lấy trường token từ tài liệu người dùng
+                        token = document.getString("fcmToken");
+                        Log.d("Firestore", "Token: " + token);
+                    } else {
+                        Log.d("Firestore", "Không tìm thấy tài liệu");
+                    }
+                } else {
+                    Log.e("Firestore", "Lỗi khi lấy dữ liệu", task.getException());
+                }
+            }
+        });
+    }
+    void callApi(JSONObject jsonObject) {
+        MediaType JSON = MediaType.get("application/json");
+
+        OkHttpClient client = new OkHttpClient();
+        String url = "https://fcm.googleapis.com/fcm/send";
+        RequestBody body = RequestBody.create(jsonObject.toString(), JSON);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .header("Authorization", "Bearer AAAAro3DwRA:APA91bGkU5CTR11JSryE0ZwIdoSCgufYoSNhVajESiy5cMCxS9P8xYm40KJFMzsCSqm8IGZyn_1gx0cpUxY006o-zOywYEYH9EbKxQb2tq71qkZvTw62bLFKK90csF8ExGcCxhnPPdox")
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+
+            }
+        });
+    }
 
 }

@@ -33,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tren"
+        android:layout_above="@id/btn_Save"
         tools:context=".Edit_profileActivity">
         <LinearLayout
             android:layout_width="match_parent"

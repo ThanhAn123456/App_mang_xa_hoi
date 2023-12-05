@@ -38,13 +38,13 @@ public class SearchActivity extends AppCompatActivity {
         });
         tabLayout = findViewById(R.id.tab_layout);
         TabLayout.Tab tab1 = tabLayout.newTab().setText(R.string.search_all);
-        TabLayout.Tab tab2 = tabLayout.newTab().setText(R.string.search_new);
+//        TabLayout.Tab tab2 = tabLayout.newTab().setText(R.string.search_new);
         TabLayout.Tab tab3 = tabLayout.newTab().setText(R.string.search_friend);
-        TabLayout.Tab tab4 = tabLayout.newTab().setText(R.string.search_group);
+//        TabLayout.Tab tab4 = tabLayout.newTab().setText(R.string.search_group);
         tabLayout.addTab(tab1);
-        tabLayout.addTab(tab2);
+//        tabLayout.addTab(tab2);
         tabLayout.addTab(tab3);
-        tabLayout.addTab(tab4);
+//        tabLayout.addTab(tab4);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, new Search_All_Fragment())
                 .commit();
@@ -59,24 +59,24 @@ public class SearchActivity extends AppCompatActivity {
                                 .replace(R.id.fragment_container, new Search_All_Fragment())
                                 .commit();
                         break;
-                    case 1:
+/*                    case 1:
                         // Hiển thị Fragment tin nhắn nhóm
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_container, new Search_New_Fragment())
                                 .commit();
-                        break;
-                    case 2:
+                        break;*/
+                    case 1:
                         // Hiển thị Fragment tin nhắn nhóm
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_container, new Search_Friend_Fragment())
                                 .commit();
                         break;
-                    case 3:
+/*                    case 3:
                         // Hiển thị Fragment tin nhắn nhóm
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_container, new Search_Group_Fragment())
                                 .commit();
-                        break;
+                        break;*/
                 }
             }
 

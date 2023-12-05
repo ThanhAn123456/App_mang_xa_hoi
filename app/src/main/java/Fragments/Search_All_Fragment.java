@@ -78,7 +78,9 @@ public class Search_All_Fragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                reference.orderBy("search").startAt(query).endAt(query)
+                reference.orderBy("search")
+                        .startAt(query.toLowerCase())
+                        .endAt(query.toLowerCase() + "\uf8ff")
                         .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {

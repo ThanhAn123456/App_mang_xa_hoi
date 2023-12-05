@@ -104,7 +104,6 @@ public class NewsDetailActivity extends AppCompatActivity {
         });
     }
     private void loadCommentData() {
-
         reference.orderBy("timestamp", Query.Direction.ASCENDING) // Sắp xếp theo timestamp tăng dần
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {

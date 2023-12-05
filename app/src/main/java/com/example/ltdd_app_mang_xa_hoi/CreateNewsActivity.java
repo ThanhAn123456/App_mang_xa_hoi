@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 
 import com.bumptech.glide.Glide;
@@ -49,6 +52,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import MainFragment.HomeFragment;
+
 public class CreateNewsActivity extends AppCompatActivity {
     ImageButton backButton;
     ImageView imagePost;
@@ -60,14 +65,93 @@ public class CreateNewsActivity extends AppCompatActivity {
     Button btnPost;
     Uri resulturi;
     EditText textpost;
-    private FirebaseUser user;
+    FirebaseUser user;
     DocumentReference userRef;
+    ProgressBar progressBar;
     ActivityResultLauncher<String> mGetContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_news);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        init();
+        clicklistener();
+        boolean isPosting = false;
+        ArrayList arrayList = new ArrayList();
+        arrayList.add(getResources().getString(R.string.stt_public));
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrayList);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spn_statuspost.setAdapter(arrayAdapter);
+
+        mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+            @Override
+            public void onActivityResult(Uri result) {
+                if (result != null) {
+                    Intent intent = new Intent(CreateNewsActivity.this, CropperActivity.class);
+                    intent.putExtra("DATA", result.toString());
+                    startActivityForResult(intent, 101);
+                } else {
+                    // Xử lý khi result là null (nếu cần)
+                }
+            }
+        });
+
+        loadBasicData();
+    }
+    public void clicklistener(){
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        select_imagePost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mGetContent.launch("image/*");
+            }
+        });
+        btnPost.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View v) {
+                                           if (resulturi!=null){
+                                               progressBar.setVisibility(View.VISIBLE);
+                                               FirebaseStorage storage = FirebaseStorage.getInstance();
+                                               StorageReference storageReference = storage.getReference().child("Post Images/" + System.currentTimeMillis());
+                                               storageReference.putFile(resulturi)
+                                                       .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                                           @Override
+                                                           public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                                               if (task.isSuccessful())
+                                                                   storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                                       @Override
+                                                                       public void onSuccess(Uri uri) {
+                                                                           uploadData(uri.toString());
+                                                                           progressBar.setVisibility(View.GONE);
+                                                                           Toast.makeText(CreateNewsActivity.this, "Đã đăng", Toast.LENGTH_SHORT).show();
+                                                                           finish();
+
+                                                                           // Khởi động lại activity
+                                                                           startActivity(new Intent(CreateNewsActivity.this, CreateNewsActivity.class));
+                                                                       }
+                                                                   });
+                                                               else {
+                                                                   Log.d("Loi", "" + task.getException().toString());
+                                                                   progressBar.setVisibility(View.GONE);
+                                                               }
+                                                           }
+                                                       });
+                                           }
+                                           else {
+                                               Toast.makeText(CreateNewsActivity.this,getString(R.string.canoneimage),Toast.LENGTH_SHORT).show();
+                                           }
+
+                                       }
+                                   }
+        );
+    }
+    public void init(){
         avatar = findViewById(R.id.avatar);
         displayname = findViewById(R.id.displayname);
         select_imagePost = findViewById(R.id.select_imagepost);
@@ -76,65 +160,8 @@ public class CreateNewsActivity extends AppCompatActivity {
         spn_statuspost = findViewById(R.id.spn_statuspost);
         imagePost = findViewById(R.id.imagepost);
         btnPost = findViewById(R.id.btnPost);
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-        ArrayList arrayList = new ArrayList();
-        arrayList.add(getResources().getString(R.string.stt_public));
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrayList);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spn_statuspost.setAdapter(arrayAdapter);
-        select_imagePost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mGetContent.launch("image/*");
-            }
-        });
-        mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
-            @Override
-            public void onActivityResult(Uri result) {
-                Intent intent = new Intent(CreateNewsActivity.this, CropperActivity.class);
-                intent.putExtra("DATA", result.toString());
-                startActivityForResult(intent, 101);
-            }
-        });
-        btnPost.setOnClickListener(new View.OnClickListener() {
-                                       @Override
-                                       public void onClick(View v) {
-                                            if (resulturi!=null){
-                                                FirebaseStorage storage = FirebaseStorage.getInstance();
-                                                StorageReference storageReference = storage.getReference().child("Post Images/" + System.currentTimeMillis());
-                                                storageReference.putFile(resulturi)
-                                                        .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                                                            @Override
-                                                            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                                                                if (task.isSuccessful())
-                                                                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                                                        @Override
-                                                                        public void onSuccess(Uri uri) {
-                                                                            uploadData(uri.toString());
-                                                                        }
-                                                                    });
-                                                                else {
-                                                                    Log.d("Loi", "" + task.getException().toString());
-                                                                }
-                                                            }
-                                                        });
-                                            }
-                                            else {
-                                                Toast.makeText(CreateNewsActivity.this,getString(R.string.canoneimage),Toast.LENGTH_SHORT).show();
-                                            }
-
-                                       }
-                                   }
-        );
-        loadBasicData();
+        progressBar = findViewById(R.id.progressBar);
     }
-
     private void uploadData(String imageURL) {
         CollectionReference reference = FirebaseFirestore.getInstance().collection("User")
                 .document(user.getUid()).collection("Post Images");
@@ -157,7 +184,7 @@ public class CreateNewsActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(CreateNewsActivity.this, "", Toast.LENGTH_SHORT).show();
+
                         } else {
                             Toast.makeText(CreateNewsActivity.this, "Error: " + task.getException().getMessage().toString(), Toast.LENGTH_SHORT).show();
                         }

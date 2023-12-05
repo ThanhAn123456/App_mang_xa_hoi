@@ -29,20 +29,17 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgotpassword);
-        progressBar = findViewById(R.id.progressBar);
         auth = FirebaseAuth.getInstance();
-        btnRecover = findViewById(R.id.btnRecover);
-        //ánh xạ id
-        LL_BacktoLogin = findViewById(R.id.LL_BacktoLogin);
-        til_Email = findViewById(R.id.til_Gmail);
-        //làm thông báo err ko đc để trống
+        init();
+        clicklistener();
+    }
+    public void clicklistener(){
         LL_BacktoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
         btnRecover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,6 +67,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
     }
+    public void init(){
+        progressBar = findViewById(R.id.progressBar);
 
+        btnRecover = findViewById(R.id.btnRecover);
+        //ánh xạ id
+        LL_BacktoLogin = findViewById(R.id.LL_BacktoLogin);
+        til_Email = findViewById(R.id.til_Gmail);
+        //làm thông báo err ko đc để trống
+    }
 
 }

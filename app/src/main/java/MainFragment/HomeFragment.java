@@ -39,6 +39,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,6 +53,15 @@ import java.util.Map;
 
 import Adapters.ListNews_Adapter;
 import Entity.HomeModel;
+import Entity.Users;
+import Util.FireBaseUtil;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
@@ -120,14 +132,14 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadDataFromFireStore() {
-         reference = FirebaseFirestore.getInstance().collection("User")
+        reference = FirebaseFirestore.getInstance().collection("User")
                 .document(user.getUid());
         collectionReference = FirebaseFirestore.getInstance().collection("User");
         reference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                    if (error != null)
-                        return;
+                if (error != null)
+                    return;
                 if (value == null)
                     return;
                 List<String> uidList = (List<String>) value.get("following");
@@ -136,6 +148,7 @@ public class HomeFragment extends Fragment {
                 }
                 if (uidList == null || uidList.isEmpty())
                     return;
+                list.clear();
                 collectionReference.whereIn("uid", uidList)
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -191,4 +204,5 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
 }

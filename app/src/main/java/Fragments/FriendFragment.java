@@ -45,7 +45,7 @@ public class FriendFragment extends Fragment {
     CollectionReference reference;
 
     List<String> listfriend;
-    private List<Users> list;
+    List<Users> list;
     UserAdapter adapter;
 
     @Override
@@ -56,12 +56,11 @@ public class FriendFragment extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseFirestore.getInstance().collection("User");
         recyclerView = view.findViewById(R.id.recyclerViewfriend);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext().getApplicationContext()));
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        loadFriend();
         listfriend = new ArrayList<>();
         list = new ArrayList<>();
+        loadFriend();
 
         adapter = new UserAdapter(list);
         recyclerView.setAdapter(adapter);

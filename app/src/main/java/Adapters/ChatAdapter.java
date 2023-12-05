@@ -24,6 +24,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+
 import java.util.Date;
 import java.util.List;
 
@@ -46,6 +47,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_items, parent, false);
         return new ChatHolder(view);
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     String calculateTime(Date date) {
         if (date != null) {
@@ -55,33 +57,38 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
             return ""; // hoặc giá trị mặc định khác tùy vào yêu cầu của bạn
         }
     }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull ChatHolder holder, int position) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         assert user != null;
-        if(list.get(position).getSenderID().equalsIgnoreCase(user.getUid())){
+        int adapterPosition = holder.getAbsoluteAdapterPosition();
+        if (list.get(position).getSenderID().equalsIgnoreCase(user.getUid())) {
             holder.leftChat.setVisibility(View.GONE);
             holder.rightChat.setVisibility(View.VISIBLE);
             holder.rightChat.setText(list.get(position).getMessage());
-            holder.timeright.setText(calculateTime(list.get(position).getTime()));
+
             holder.avatar.setVisibility(View.GONE);
             holder.rightChat.setOnClickListener(view -> {
+                holder.timeright.setText(calculateTime(list.get(adapterPosition).getTime()));
                 if (holder.timeright.getVisibility() == View.GONE) {
                     holder.timeright.setVisibility(View.VISIBLE);
                 } else {
                     holder.timeright.setVisibility(View.GONE);
                 }
+
             });
-        }else{
-            reference = FirebaseFirestore.getInstance().collection("User").document(list.get(position).getSenderID());
+        } else {
+
+            reference = FirebaseFirestore.getInstance().collection("User").document(list.get(adapterPosition).getSenderID());
             reference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                    if (error!=null)
+                    if (error != null)
                         return;
-                    if (value.exists()){
+                    if (value.exists()) {
                         String avatar = value.getString("profileImage");
                         Glide.with(context.getApplicationContext())
                                 .load(avatar)
@@ -91,11 +98,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
                 }
             });
 
+
             holder.rightChat.setVisibility(View.GONE);
             holder.leftChat.setVisibility(View.VISIBLE);
             holder.leftChat.setText(list.get(position).getMessage());
-            holder.timeleft.setText(calculateTime(list.get(position).getTime()));
             holder.leftChat.setOnClickListener(view -> {
+                holder.timeleft.setText(calculateTime(list.get(adapterPosition).getTime()));
                 if (holder.timeleft.getVisibility() == View.GONE) {
                     holder.timeleft.setVisibility(View.VISIBLE);
 
@@ -112,9 +120,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
         return list.size();
     }
 
-    static class ChatHolder extends  RecyclerView.ViewHolder{
+    static class ChatHolder extends RecyclerView.ViewHolder {
 
-        TextView leftChat, rightChat,timeleft,timeright;
+        TextView leftChat, rightChat, timeleft, timeright;
         ImageView avatar;
 
         public ChatHolder(@NonNull View itemView) {
@@ -122,8 +130,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
 
             leftChat = itemView.findViewById(R.id.leftChat);
             rightChat = itemView.findViewById(R.id.rightChat);
-            timeleft =itemView.findViewById(R.id.lefttime);
-            timeright =itemView.findViewById(R.id.righttime);
+            timeleft = itemView.findViewById(R.id.lefttime);
+            timeright = itemView.findViewById(R.id.righttime);
             avatar = itemView.findViewById(R.id.avatar);
 
         }

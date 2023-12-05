@@ -5,10 +5,10 @@
     tools:context="Fragments.ChatGroupFragment">
 
 
-            <ListView
-                android:id="@+id/lv_listchat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></ListView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listchatgroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
 
 
 </LinearLayout>

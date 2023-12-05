@@ -18,8 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.ltdd_app_mang_xa_hoi.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -38,6 +40,7 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ChatUs
     Activity context;
     List<ChatUserModel> list;
     DocumentReference reference;
+
     public ChatUserAdapter(Activity context, List<ChatUserModel> list) {
         this.context = context;
         this.list = list;
@@ -54,14 +57,12 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ChatUs
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull ChatUserHolder holder, int position) {
-
-        fetchImageUrl(list.get(position).getUid(), holder);
-
-
+        if (list.get(position).getUid().size() == 2)
+            fetchImageUrl(list.get(position).getUid(), holder);
+        else
+            loadGroup(list.get(position).getId(),holder);
         holder.time.setText(calculateTime(list.get(position).getTime()));
-
         holder.lastMessage.setText(list.get(position).getLastMessage());
-
         holder.itemView.setOnClickListener(v ->
                 startChat.clicked(position, list.get(position).getUid(), list.get(position).getId()));
 
@@ -72,22 +73,33 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ChatUs
         long millis = date.toInstant().toEpochMilli();
         return DateUtils.getRelativeTimeSpanString(millis, System.currentTimeMillis(), 60000, DateUtils.FORMAT_ABBREV_TIME).toString();
     }
-
+    void loadGroup(String id,ChatUserHolder holder){
+        DocumentReference reference= FirebaseFirestore.getInstance().collection("Messages").document(id);
+        reference.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()){
+                            String name = documentSnapshot.getString("name");
+                            holder.name.setText(name);
+                            holder.imageView.setImageResource(R.drawable.groups);
+                        }
+                    }
+                });
+    }
 
     void fetchImageUrl(List<String> uids, ChatUserHolder holder) {
 
         String oppositeUID;
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-
         assert user != null;
         if (!uids.get(0).equalsIgnoreCase(user.getUid())) {
             oppositeUID = uids.get(0);
         } else {
             oppositeUID = uids.get(1);
         }
-        reference =FirebaseFirestore.getInstance().collection("User")
+        reference = FirebaseFirestore.getInstance().collection("User")
                 .document(oppositeUID);
         reference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
@@ -100,16 +112,13 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ChatUs
                     String profileImageUrl = value.getString("profileImage");
                     String name = value.getString("name");
                     Glide.with(context.getApplicationContext())
-                                    .load(profileImageUrl)
-                                            .into(holder.imageView);
+                            .load(profileImageUrl)
+                            .into(holder.imageView);
 
                     holder.name.setText(name);
                 }
             }
         });
-
-
-
     }
 
 

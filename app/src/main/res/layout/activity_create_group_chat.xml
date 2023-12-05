@@ -10,8 +10,8 @@
         android:id="@+id/tren"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
         <ImageButton
             android:id="@+id/back"
             android:layout_width="wrap_content"
@@ -24,12 +24,12 @@
 
         <TextView
             style="@style/CustomTabText"
-            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_toRightOf="@id/back"
             android:layout_toLeftOf="@id/btn_creategroup"
+            android:layout_toRightOf="@id/back"
+            android:gravity="center"
             android:text="@string/creategroup"></TextView>
 
         <TextView
@@ -42,7 +42,7 @@
             android:layout_marginRight="10dp"
             android:text="@string/create"
             android:textColor="@color/blue"
-            android:textSize="@dimen/buttonsize"
+            android:textSize="20dp"
             android:textStyle="bold"></TextView>
     </RelativeLayout>
 
@@ -57,11 +57,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:layout_marginBottom="5dp"
             android:text="@string/namegroup"
             android:textSize="@dimen/smallsize" />
 
         <EditText
-            android:paddingStart="15dp"
+            android:elevation="3dp"
             android:id="@+id/txt_name_group"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -69,6 +70,7 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/background_edittext"
             android:hint="@string/inputnamegroup"
+            android:paddingStart="15dp"
             android:singleLine="true"
             android:textSize="@dimen/smallsize" />
 
@@ -79,12 +81,14 @@
             android:layout_marginTop="10dp"
             android:text="@string/addmember"
             android:textSize="@dimen/smallsize" />
-                <ListView
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/lv_addmember"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/addmember"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp" />
 
     </LinearLayout>
 

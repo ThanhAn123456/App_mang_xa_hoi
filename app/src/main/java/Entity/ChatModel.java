@@ -6,7 +6,15 @@ import java.util.Date;
 
 public class ChatModel {
     private String id, message, senderID;
+    private boolean isTimerVisible;
 
+    public boolean isTimerVisible() {
+        return isTimerVisible;
+    }
+
+    public void setTimerVisible(boolean timerVisible) {
+        isTimerVisible = timerVisible;
+    }
     @ServerTimestamp
     private Date time;
 

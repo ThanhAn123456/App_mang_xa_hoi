@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -35,6 +36,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -57,7 +59,7 @@ public class UpdateAccountActivity extends AppCompatActivity {
     ActivityResultLauncher<String> mGetAvatar, mGetCover;
     Uri resulturiavatar, resulturicover;
     FirebaseUser user;
-    DocumentReference myRef;
+    DocumentReference myRef,postRef;
     String URLAvatar = "", URLCover = "";
 
     @Override
@@ -96,17 +98,25 @@ public class UpdateAccountActivity extends AppCompatActivity {
         mGetAvatar = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
             public void onActivityResult(Uri result) {
-                Intent intent = new Intent(UpdateAccountActivity.this, CropperActivity.class);
-                intent.putExtra("DATA", result.toString());
-                startActivityForResult(intent, 101);
+                if (result != null) {
+                    Intent intent = new Intent(UpdateAccountActivity.this, CropperActivity.class);
+                    intent.putExtra("DATA", result.toString());
+                    startActivityForResult(intent, 101);
+                } else {
+                    // Xử lý khi result là null (nếu cần)
+                }
             }
         });
         mGetCover = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
             public void onActivityResult(Uri result) {
-                Intent intent = new Intent(UpdateAccountActivity.this, CropperActivity.class);
-                intent.putExtra("DATA", result.toString());
-                startActivityForResult(intent, 102);
+                if (result != null) {
+                    Intent intent = new Intent(UpdateAccountActivity.this, CropperActivity.class);
+                    intent.putExtra("DATA", result.toString());
+                    startActivityForResult(intent, 102);
+                } else {
+                    // Xử lý khi result là null (nếu cần)
+                }
             }
         });
 
@@ -251,11 +261,14 @@ public class UpdateAccountActivity extends AppCompatActivity {
 
     private void updateProfileAndFirestore() {
         myRef = FirebaseFirestore.getInstance().collection("User").document(uid);
+
         UserProfileChangeRequest.Builder request = new UserProfileChangeRequest.Builder();
         Map<String, Object> map = new HashMap<>();
 
         if (!URLAvatar.equals("")) {
             map.put("profileImage", URLAvatar);
+            request.setPhotoUri(Uri.parse(URLAvatar));
+            updateImagePost(URLAvatar);
         }
 
         if (!URLCover.equals("")) {
@@ -278,6 +291,21 @@ public class UpdateAccountActivity extends AppCompatActivity {
             } else {
                 assert task.getException() != null;
                 Toast.makeText(UpdateAccountActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void updateImagePost(String profileImage){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference postImagesRef = db.collection("User").document(user.getUid()).collection("Post Images");
+
+        postImagesRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    // Cập nhật trường "ImageProfile" cho mỗi tài liệu
+                    postImagesRef.document(document.getId()).update("profileImage", profileImage);
+                }
+            } else {
+                Log.d("Lỗi sau khi update profile", task.getException().toString());
             }
         });
     }
