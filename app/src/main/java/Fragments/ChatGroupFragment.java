@@ -62,8 +62,8 @@ public class ChatGroupFragment extends Fragment {
 
     void loadChatGroupData() {
         CollectionReference reference = FirebaseFirestore.getInstance().collection("Messages");
-        reference.whereArrayContains("uid", user.getUid())
-                .orderBy("time", Query.Direction.DESCENDING)
+        reference
+                .whereArrayContains("uid", user.getUid())
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
                         return;

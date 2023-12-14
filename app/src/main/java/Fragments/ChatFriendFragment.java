@@ -104,7 +104,6 @@ public class ChatFriendFragment extends Fragment {
     void loadChatFriendData() {
         CollectionReference reference = FirebaseFirestore.getInstance().collection("Messages");
         reference.whereArrayContains("uid", user.getUid())
-                .orderBy("time", Query.Direction.DESCENDING)
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
                         return;
