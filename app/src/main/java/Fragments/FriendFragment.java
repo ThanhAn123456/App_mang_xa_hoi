@@ -61,10 +61,8 @@ public class FriendFragment extends Fragment {
         listfriend = new ArrayList<>();
         list = new ArrayList<>();
         loadFriend();
-
         adapter = new UserAdapter(list);
         recyclerView.setAdapter(adapter);
-
         return view;
     }
 
@@ -74,9 +72,7 @@ public class FriendFragment extends Fragment {
                     if (documentSnapshot.exists()) {
                         listfriend = (List<String>) documentSnapshot.get("following");
                         if (listfriend != null && !listfriend.isEmpty()) {
-                            queryFriends(); // Gọi phương thức để truy vấn danh sách bạn bè
-                        } else {
-                            // Xử lý trường hợp listfriend là null hoặc rỗng
+                            queryFriends();
                         }
                     }
                 });

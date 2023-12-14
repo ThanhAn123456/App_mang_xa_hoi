@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.ltdd_app_mang_xa_hoi.NewsDetailActivity;
 import com.example.ltdd_app_mang_xa_hoi.R;
 import com.example.ltdd_app_mang_xa_hoi.UpdateAccountActivity;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -178,7 +179,21 @@ public class AccountFragment extends Fragment {
                         .timeout(6500)
                         .into(holder.imageView);
                 count = getItemCount();
+                final String documentId = getSnapshots().getSnapshot(position).getId();
+                final String userId = user.getUid();
+                holder.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(holder.itemView.getContext(), NewsDetailActivity.class);
 
+                        // Pass the document ID and UID as extras to the Intent
+                        intent.putExtra("id", documentId);
+                        intent.putExtra("uid", userId);
+
+                        // Start the new activity
+                        holder.itemView.getContext().startActivity(intent);
+                    }
+                });
             }
 
             @Override

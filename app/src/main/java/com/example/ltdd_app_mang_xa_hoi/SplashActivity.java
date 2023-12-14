@@ -17,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Util.FireBaseUtil;
@@ -30,33 +31,41 @@ public class SplashActivity extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         final FirebaseUser user = auth.getCurrentUser();
         if (getIntent().getExtras() != null) {
-            String userid = getIntent().getExtras().getString("userId");
-            FirebaseFirestore.getInstance().collection("Messages")
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    List<String> uidList = (List<String>) document.get("uid");
-                                    boolean isGroupChat = document.getBoolean("isGroupChat");
-
-                                    // Check if both conditions are satisfied
-                                    if (uidList.contains(FireBaseUtil.currentUserId()) && uidList.contains(userid) && !isGroupChat) {
-                                        // Found a document that satisfies all conditions
-                                        String id = document.getId();
+            String ChatID = getIntent().getExtras().getString("ChatID");
+            String UserID = getIntent().getExtras().getString("userIdFollow");
+            Intent mainIntent=new Intent(this,MainContainerActivity.class);
+            mainIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(mainIntent);
+            if (ChatID != null) {
+                FirebaseFirestore.getInstance().collection("Messages").document(ChatID)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        ArrayList<String> uid = (ArrayList<String>)  document.get("uid");
+                                        boolean isGroupChat = document.getBoolean("isGroupChat");
                                         Intent intent = new Intent(SplashActivity.this, ChatActivity.class);
-                                        intent.putExtra("uid", userid);
-                                        intent.putExtra("id", id);
+                                        intent.putStringArrayListExtra("uid",uid);
+                                        intent.putExtra("id", ChatID);
+                                        intent.putExtra("isGroupChat", isGroupChat);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         finish();
                                     }
                                 }
-                            } else {
-                                Log.e("arydjydjyiutiufi:  ", "Truy vấn Firestore Thất bại", task.getException());
                             }
-                        }
-                    });
+                        });
+            } else if (UserID != null) {
+                Intent intent = new Intent(SplashActivity.this, ProfileActivity.class);
+                intent.putExtra("userId",UserID);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+            }
+
 
         } else {
             new Handler().postDelayed(new Runnable() {

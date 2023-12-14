@@ -38,6 +38,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -198,7 +199,7 @@ public class ListNews_Adapter extends RecyclerView.Adapter<ListNews_Adapter.Home
                         Intent intent = new Intent(context, NewsDetailActivity.class);
                         intent.putExtra("id", id);
                         intent.putExtra("uid", uid);
-                        intent.putExtra("isComment", true);
+
                         context.startActivity(intent);
                     }
                 });

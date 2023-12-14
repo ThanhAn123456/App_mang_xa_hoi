@@ -8,7 +8,7 @@
         android:id="@+id/avatar_relationship"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:civ_border_color="@color/blue"
+        app:civ_border_color="@color/secondary_text"
         app:civ_border_width="2dp"
         android:padding="5dp"
         ></de.hdodenhof.circleimageview.CircleImageView>
@@ -19,7 +19,8 @@
         android:layout_height="match_parent">
 
         <TextView
-
+            android:ellipsize="end"
+            android:maxLines="1"
             android:id="@+id/name_relationship"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,16 +30,20 @@
             android:textStyle="bold"></TextView>
 
         <TextView
+            android:ellipsize="end"
+            android:maxLines="1"
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:text=""
-            android:textColor="@color/green"
+            android:textColor="#16770B"
             android:textSize="@dimen/verysmallsize"></TextView>
 
         <TextView
+            android:ellipsize="end"
+            android:maxLines="1"
             android:id="@+id/mess"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

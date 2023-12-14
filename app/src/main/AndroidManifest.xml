@@ -5,9 +5,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-feature android:name="android.hardware.camera" />
-
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
@@ -25,6 +24,9 @@
         android:theme="@style/Theme.Ltdd_App_mang_xa_hoi"
         tools:targetApi="31">
         <activity
+            android:name=".DetailGroupChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".CropperActivity"
             android:exported="false" />
         <activity
@@ -41,7 +43,7 @@
             android:exported="false" />
         <activity
             android:name=".SelectLanguageActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".NewChatActivity"
             android:exported="false" />
@@ -88,12 +90,20 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.ltdd_app_mang_xa_hoi.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
         <service
             android:name="Service.FCMNotificationService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
     </application>

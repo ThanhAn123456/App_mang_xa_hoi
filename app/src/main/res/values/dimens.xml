@@ -2,7 +2,7 @@
 <resources>
     <dimen name="normalsize">20sp</dimen>
     <dimen name="smallsize">19sp</dimen>
-    <dimen name="bigsize">55sp</dimen>
+    <dimen name="bigsize">45sp</dimen>
     <dimen name="verysmallsize">18sp</dimen>
     <dimen name="buttonsize">30sp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->

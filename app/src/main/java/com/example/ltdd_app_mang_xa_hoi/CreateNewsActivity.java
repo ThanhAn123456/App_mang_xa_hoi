@@ -1,10 +1,14 @@
 package com.example.ltdd_app_mang_xa_hoi;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.storage.StorageManager;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -24,6 +28,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -46,9 +52,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -60,7 +71,7 @@ public class CreateNewsActivity extends AppCompatActivity {
     ImageView avatar;
     String imageavatar;
     TextView displayname;
-    ImageButton select_imagePost;
+    ImageButton select_imagePost, select_Camera;
     Spinner spn_statuspost;
     Button btnPost;
     Uri resulturi;
@@ -69,6 +80,9 @@ public class CreateNewsActivity extends AppCompatActivity {
     DocumentReference userRef;
     ProgressBar progressBar;
     ActivityResultLauncher<String> mGetContent;
+    int REQUEST_CODE_CAMERA = 123;
+    int REQUEST_CODE_SELECT_IMAGE = 101;
+    private Uri capturedImageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,20 +91,18 @@ public class CreateNewsActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         init();
         clicklistener();
-        boolean isPosting = false;
         ArrayList arrayList = new ArrayList();
         arrayList.add(getResources().getString(R.string.stt_public));
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spn_statuspost.setAdapter(arrayAdapter);
-
         mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
             public void onActivityResult(Uri result) {
                 if (result != null) {
                     Intent intent = new Intent(CreateNewsActivity.this, CropperActivity.class);
                     intent.putExtra("DATA", result.toString());
-                    startActivityForResult(intent, 101);
+                    startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE);
                 } else {
                     // Xử lý khi result là null (nếu cần)
                 }
@@ -99,11 +111,27 @@ public class CreateNewsActivity extends AppCompatActivity {
 
         loadBasicData();
     }
-    public void clicklistener(){
+
+    public void clicklistener() {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+            }
+        });
+        select_Camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (ActivityCompat.checkSelfPermission(CreateNewsActivity.this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED)
+                {
+                    ActivityCompat.requestPermissions(CreateNewsActivity.this,new String[]{Manifest.permission.CAMERA},1);
+                    return;
+                }
+                capturedImageUri = createImageUri();
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, capturedImageUri);
+
+                startActivityForResult(intent, REQUEST_CODE_CAMERA);
             }
         });
         select_imagePost.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +143,7 @@ public class CreateNewsActivity extends AppCompatActivity {
         btnPost.setOnClickListener(new View.OnClickListener() {
                                        @Override
                                        public void onClick(View v) {
-                                           if (resulturi!=null){
+                                           if (resulturi != null) {
                                                progressBar.setVisibility(View.VISIBLE);
                                                FirebaseStorage storage = FirebaseStorage.getInstance();
                                                StorageReference storageReference = storage.getReference().child("Post Images/" + System.currentTimeMillis());
@@ -142,16 +170,16 @@ public class CreateNewsActivity extends AppCompatActivity {
                                                                }
                                                            }
                                                        });
-                                           }
-                                           else {
-                                               Toast.makeText(CreateNewsActivity.this,getString(R.string.canoneimage),Toast.LENGTH_SHORT).show();
+                                           } else {
+                                               Toast.makeText(CreateNewsActivity.this, getString(R.string.canoneimage), Toast.LENGTH_SHORT).show();
                                            }
 
                                        }
                                    }
         );
     }
-    public void init(){
+
+    public void init() {
         avatar = findViewById(R.id.avatar);
         displayname = findViewById(R.id.displayname);
         select_imagePost = findViewById(R.id.select_imagepost);
@@ -161,7 +189,9 @@ public class CreateNewsActivity extends AppCompatActivity {
         imagePost = findViewById(R.id.imagepost);
         btnPost = findViewById(R.id.btnPost);
         progressBar = findViewById(R.id.progressBar);
+        select_Camera = findViewById(R.id.select_camera);
     }
+
     private void uploadData(String imageURL) {
         CollectionReference reference = FirebaseFirestore.getInstance().collection("User")
                 .document(user.getUid()).collection("Post Images");
@@ -196,9 +226,10 @@ public class CreateNewsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == -1 && requestCode == 101) {
+        resulturi = null;
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_SELECT_IMAGE)
+        {
             String result = data.getStringExtra("RESULT");
-            resulturi = null;
             if (result != null) {
                 resulturi = Uri.parse(result);
             }
@@ -206,6 +237,16 @@ public class CreateNewsActivity extends AppCompatActivity {
             Glide.with(this)
                     .load(resulturi)
                     .into(imagePost);
+        } else if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_CAMERA)
+        {
+            if (capturedImageUri != null) {
+
+                imagePost.setVisibility(View.VISIBLE);
+                Glide.with(this)
+                        .load(capturedImageUri)
+                        .into(imagePost);
+                resulturi=capturedImageUri;
+            }
         }
     }
 
@@ -234,5 +275,20 @@ public class CreateNewsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    private Uri createImageUri() {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File imageFile = null;
+        try {
+            imageFile = File.createTempFile(imageFileName, ".jpg", storageDir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (imageFile != null) {
+            return FileProvider.getUriForFile(CreateNewsActivity.this, "com.example.ltdd_app_mang_xa_hoi.fileprovider", imageFile);
+        }
+        return null;
     }
 }

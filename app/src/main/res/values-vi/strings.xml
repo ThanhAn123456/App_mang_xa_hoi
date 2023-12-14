@@ -138,4 +138,6 @@
     <string name="posted">Đã đăng , hình được lưu ở trang cá nhân</string>
     <string name="chatstart">Chat....</string>
     <string name="followed">đã theo dõi bạn</string>
+    <string name="groupdetail">Chi tiết nhóm</string>
+    <string name="memberother">Các thành viên (ngoại trừ bạn)</string>
 </resources>

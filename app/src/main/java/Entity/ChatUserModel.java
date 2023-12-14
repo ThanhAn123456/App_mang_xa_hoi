@@ -11,16 +11,26 @@ public class ChatUserModel {
 
     @ServerTimestamp
     private Date time;
+    private boolean isGroupChat;
 
 
     public ChatUserModel() {
     }
 
-    public ChatUserModel(String id, String lastMessage, List<String> uid, Date time) {
+    public ChatUserModel(String id, String lastMessage, List<String> uid, Date time, boolean isGroupChat) {
         this.id = id;
         this.lastMessage = lastMessage;
         this.uid = uid;
         this.time = time;
+        this.isGroupChat = isGroupChat;
+    }
+
+    public boolean isGroupChat() {
+        return isGroupChat;
+    }
+
+    public void setGroupChat(boolean groupChat) {
+        isGroupChat = groupChat;
     }
 
     public String getId() {

@@ -20,7 +20,8 @@
 
         <TextView
             android:layout_toLeftOf="@id/checkitem"
-
+            android:ellipsize="end"
+            android:maxLines="1"
             android:id="@+id/name_relationship"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,6 +32,8 @@
 
         <TextView
             android:id="@+id/mess"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/name_relationship"

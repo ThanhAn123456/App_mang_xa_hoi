@@ -46,13 +46,20 @@
                 android:elevation="3dp"
                 android:src="@drawable/ic_search"></ImageButton>
         </RelativeLayout>
+        <View
+            android:id="@+id/giua"
+            android:layout_below="@id/header"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
 
+            android:background="#FFFFFF"></View>
         <androidx.viewpager2.widget.ViewPager2
+            android:layout_marginTop="10dp"
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/bottom_nav"
-            android:layout_below="@id/header" />
+            android:layout_below="@id/giua" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav"

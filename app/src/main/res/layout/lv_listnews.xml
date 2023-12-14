@@ -52,6 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:textSize="@dimen/normalsize"
             android:text="Ahihi"
@@ -60,16 +61,16 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            >
-
+            android:layout_marginRight="20dp">
         </TextView>
+
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
             android:id="@+id/imagecontent"
-            android:scaleType="center"
-            android:background="#ff0000"/>
+            android:scaleType="fitCenter"
+            android:background="#FFFFFF"/>
     </LinearLayout>
 
     <RelativeLayout
@@ -137,4 +138,8 @@
                 android:layout_gravity="center_horizontal"/>
         </LinearLayout>
     </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/lightBlack"/>
 </LinearLayout>

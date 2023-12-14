@@ -32,12 +32,18 @@
             android:gravity="center">
         </TextView>
     </LinearLayout>
-
+    <View
+        android:id="@+id/giua"
+        android:layout_below="@id/tren"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="10dp"
+        android:background="#A7ABAE"></View>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tren"
-        android:layout_marginTop="10dp">
+        android:layout_below="@id/giua"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -143,14 +149,14 @@
                     android:src="@drawable/ic_select_image"></ImageButton>
 
                 <ImageButton
-                    android:id="@+id/select_tag"
-                    android:elevation="3dp"
+                    android:id="@+id/select_camera"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
                     android:background="@drawable/ic_cricle"
-                    android:src="@drawable/ic_tag"></ImageButton>
+                    android:elevation="3dp"
+                    android:src="@drawable/photo_camera"></ImageButton>
 
                 <ImageButton
                     android:id="@+id/select_address"

@@ -106,4 +106,7 @@
     <string name="posted">Đã đăng , hình được lưu ở trang cá nhân</string>
     <string name="chatstart">Chat....</string>
     <string name="followed">đã theo dõi bạn</string>
+    <string name ="groupdetail">Chi tiết nhóm</string>
+    <string name ="memberother">Các thành viên khác (ngoại trừ bạn)</string>
+    <string name="default_notification_channel_id" translatable="false">my_channel_id_01</string>
 </resources>

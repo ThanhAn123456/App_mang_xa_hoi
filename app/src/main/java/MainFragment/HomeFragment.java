@@ -52,6 +52,7 @@ import java.util.List;
 import java.util.Map;
 
 import Adapters.ListNews_Adapter;
+import Config.CustomLinearLayoutManager;
 import Entity.HomeModel;
 import Entity.Users;
 import Util.FireBaseUtil;
@@ -82,7 +83,7 @@ public class HomeFragment extends Fragment {
         activity = getActivity();
         recyclerView = view.findViewById(R.id.lv_listnews);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new CustomLinearLayoutManager(getContext()));
         avatar_image = view.findViewById(R.id.image_avatar);
         FirebaseAuth auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();

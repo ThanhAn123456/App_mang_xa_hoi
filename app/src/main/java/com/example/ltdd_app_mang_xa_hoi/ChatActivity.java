@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +36,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.json.JSONObject;
 
@@ -68,7 +71,9 @@ public class ChatActivity extends AppCompatActivity {
     ChatAdapter adapter;
     List<ChatModel> list;
     String chatID;
-    String oppositeUID, token;
+    ArrayList<String> oppositeUID, tokens;
+    boolean isGroupChat;
+    RelativeLayout groupLayout;
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
@@ -92,36 +97,44 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
         init();
         chatID = getIntent().getStringExtra("id");
-        oppositeUID = getIntent().getStringExtra("uid");
-        if (!oppositeUID.equals("1"))
-            readToken(oppositeUID);
-        clicklistener();
+        Log.d("àasfas",chatID+"");
+        isGroupChat = getIntent().getBooleanExtra("isGroupChat", false);
+        oppositeUID = getIntent().getStringArrayListExtra("uid");
+        for (int i=0;i<oppositeUID.size();i++)
+            Log.d("àasfas",oppositeUID.get(i)+"");
+        tokens = new ArrayList<>();
+        if (oppositeUID.contains(user.getUid()))
+            oppositeUID.remove(user.getUid());
+
+        readToken(oppositeUID);
+
         loadUserData();
         loadMessages();
+        clicklistener();
+        Log.d("adadsffaad",isGroupChat+"");
     }
 
-    public void readToken(String uid) {
-        DocumentReference reference = FirebaseFirestore.getInstance().collection("User").document(uid);
-        reference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        // Lấy trường token từ tài liệu người dùng
-                        token = document.getString("fcmToken");
-                        Log.d("Firestore", "Token: " + token);
-                    } else {
-                        Log.d("Firestore", "Không tìm thấy tài liệu");
+    public void readToken(ArrayList<String> uids) {
+        for (String uid : uids) {
+            DocumentReference reference = FirebaseFirestore.getInstance().collection("User").document(uid);
+            reference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            if (document.contains("fcmToken")) {
+                                tokens.add(document.getString("fcmToken"));
+                            }
+                        }
                     }
-                } else {
-                    Log.e("Firestore", "Lỗi khi lấy dữ liệu", task.getException());
                 }
-            }
-        });
+            });
+        }
     }
 
     public void clicklistener() {
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -154,8 +167,7 @@ public class ChatActivity extends AppCompatActivity {
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 chatET.setText("");
-                                if (!oppositeUID.equals("1"))
-                                    sendNotification(message);
+                                sendNotification(message);
                             } else {
                                 Toast.makeText(ChatActivity.this, "Something went wrong !", Toast.LENGTH_SHORT).show();
                             }
@@ -164,31 +176,49 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
+        if (isGroupChat == true)
+            groupLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ChatActivity.this, DetailGroupChatActivity.class);
+                    intent.putExtra("id", chatID);
+                    startActivity(intent);
+                }
+            });
+
     }
 
     public void sendNotification(String message) {
-        FireBaseUtil.currentUserDetail().get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        DocumentReference userDoc = FirebaseFirestore.getInstance().collection("User").document(user.getUid());
+        userDoc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     Users currentUser = task.getResult().toObject(Users.class);
-                    try {
-                        JSONObject jsonObject = new JSONObject();
-                        JSONObject notificationObj = new JSONObject();
-                        notificationObj.put("title", currentUser.getName());
-                        notificationObj.put("body", message);
+                    for (String token : tokens) {
+                        try {
+                            JSONObject jsonObject = new JSONObject();
+                            JSONObject notificationObj = new JSONObject();
+                            JSONObject dataObj = new JSONObject();
+                            dataObj.put("ChatID", chatID);
+                            if (isGroupChat==false){
 
-                        JSONObject dataObj = new JSONObject();
-                        dataObj.put("userId", currentUser.getUid());
+                                notificationObj.put("title", currentUser.getName());
+                                notificationObj.put("body", message);
+                            }
+                            else{
+                                notificationObj.put("title", name.getText().toString());
+                                notificationObj.put("body", currentUser.getName()+": "+message);
+                            }
+                            jsonObject.put("notification", notificationObj);
+                            jsonObject.put("data", dataObj);
+                            jsonObject.put("to", token);
+                            callApi(jsonObject);
+                        } catch (Exception e) {
 
-                        jsonObject.put("notification", notificationObj);
-                        jsonObject.put("data", dataObj);
-                        jsonObject.put("to", token);
-
-                        callApi(jsonObject);
-                    } catch (Exception e) {
-
+                        }
                     }
+
                 }
             }
         });
@@ -225,6 +255,7 @@ public class ChatActivity extends AppCompatActivity {
         imageView = findViewById(R.id.profileImage);
         name = findViewById(R.id.nameTV);
         status = findViewById(R.id.statusTV);
+        groupLayout = findViewById(R.id.topLayout);
         chatET = findViewById(R.id.chatET);
         sendBtn = findViewById(R.id.sendBtn);
         recyclerView = findViewById(R.id.chatRecyclerView);
@@ -244,8 +275,8 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     void loadUserData() {
-        if (!oppositeUID.equals("1")) {
-            FirebaseFirestore.getInstance().collection("User").document(oppositeUID)
+        if (isGroupChat == false) {
+            FirebaseFirestore.getInstance().collection("User").document(oppositeUID.get(0))
                     .addSnapshotListener((value, error) -> {
 
                         if (error != null)
@@ -271,23 +302,25 @@ public class ChatActivity extends AppCompatActivity {
                     });
         } else {
             DocumentReference documentRef = FirebaseFirestore.getInstance().collection("Messages").document(chatID);
-            documentRef.get()
-                    .addOnSuccessListener(documentSnapshot -> {
-                        if (documentSnapshot.exists()) {
-                            // Lấy giá trị của trường "name"
-                            String namegroup = documentSnapshot.getString("name");
-                            this.name.setText(namegroup.toString());
-                            status.setVisibility(View.GONE);
-                            imageView.setImageResource(R.drawable.groups);
-                            // Sử dụng giá trị "name" theo nhu cầu của bạn
-                        }
+            documentRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if (error != null)
+                        return;
+                    if (value == null)
+                        return;
+                    String namegroup = value.getString("name");
+                    ArrayList<String> listId = (ArrayList<String>) value.get("uid");
+                    name.setText(namegroup.toString());
+                    status.setText(listId.size() + " thành viên");
+                    imageView.setImageResource(R.drawable.groups);
+                }
+            });
 
-                    });
         }
     }
 
     void loadMessages() {
-
         CollectionReference reference = FirebaseFirestore.getInstance()
                 .collection("Messages")
                 .document(chatID)
@@ -324,7 +357,6 @@ public class ChatActivity extends AppCompatActivity {
 
 
     void updateStatus(boolean status) {
-
         Map<String, Object> map = new HashMap<>();
         map.put("online", status);
         FirebaseFirestore.getInstance()

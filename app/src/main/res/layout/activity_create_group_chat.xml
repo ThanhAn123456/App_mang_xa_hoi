@@ -30,6 +30,7 @@
             android:layout_toLeftOf="@id/btn_creategroup"
             android:layout_toRightOf="@id/back"
             android:gravity="center"
+            android:textStyle="bold"
             android:text="@string/creategroup"></TextView>
 
         <TextView
@@ -45,12 +46,18 @@
             android:textSize="20dp"
             android:textStyle="bold"></TextView>
     </RelativeLayout>
-
+    <View
+        android:id="@+id/giua"
+        android:layout_below="@id/tren"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="10dp"
+        android:background="#A7ABAE"></View>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tren"
-        android:layout_marginTop="20dp"
+        android:layout_below="@id/giua"
+
         android:orientation="vertical">
 
         <TextView
@@ -59,6 +66,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="5dp"
             android:text="@string/namegroup"
+            android:textStyle="bold"
             android:textSize="@dimen/smallsize" />
 
         <EditText
@@ -66,6 +74,8 @@
             android:id="@+id/txt_name_group"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:maxLength="30"
+            android:maxLines="1"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/background_edittext"
@@ -75,6 +85,7 @@
             android:textSize="@dimen/smallsize" />
 
         <TextView
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"

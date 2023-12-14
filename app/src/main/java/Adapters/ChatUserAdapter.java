@@ -37,12 +37,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ChatUserHolder> {
     public OnStartChat startChat;
-    Activity context;
     List<ChatUserModel> list;
     DocumentReference reference;
 
-    public ChatUserAdapter(Activity context, List<ChatUserModel> list) {
-        this.context = context;
+    public ChatUserAdapter(List<ChatUserModel> list) {
         this.list = list;
     }
 
@@ -57,7 +55,7 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ChatUs
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull ChatUserHolder holder, int position) {
-        if (list.get(position).getUid().size() == 2)
+        if (list.get(position).getUid().size() == 2 && list.get(position).isGroupChat()==false)
             fetchImageUrl(list.get(position).getUid(), holder);
         else
             loadGroup(list.get(position).getId(),holder);
@@ -75,17 +73,18 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ChatUs
     }
     void loadGroup(String id,ChatUserHolder holder){
         DocumentReference reference= FirebaseFirestore.getInstance().collection("Messages").document(id);
-        reference.get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()){
-                            String name = documentSnapshot.getString("name");
-                            holder.name.setText(name);
-                            holder.imageView.setImageResource(R.drawable.groups);
-                        }
-                    }
-                });
+        reference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error!=null)
+                    return;
+                if (value==null)
+                    return;
+                String name = value.getString("name");
+                holder.name.setText(name);
+                holder.imageView.setImageResource(R.drawable.groups);
+            }
+        });
     }
 
     void fetchImageUrl(List<String> uids, ChatUserHolder holder) {
@@ -111,7 +110,7 @@ public class ChatUserAdapter extends RecyclerView.Adapter<ChatUserAdapter.ChatUs
                 if (value.exists()) {
                     String profileImageUrl = value.getString("profileImage");
                     String name = value.getString("name");
-                    Glide.with(context.getApplicationContext())
+                    Glide.with(holder.imageView.getContext())
                             .load(profileImageUrl)
                             .into(holder.imageView);
 

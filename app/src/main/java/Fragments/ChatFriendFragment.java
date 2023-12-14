@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -61,7 +62,7 @@ public class ChatFriendFragment extends Fragment {
         searchView= ChatFragment.searchView;
         recyclerViewchat = view.findViewById(R.id.recyclerViewChat);
         list = new ArrayList<>();
-        adapter = new ChatUserAdapter((Activity) getContext(), list);
+        adapter = new ChatUserAdapter(list);
         recyclerViewchat.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewchat.setAdapter(adapter);
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -70,7 +71,6 @@ public class ChatFriendFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Log.d("adadadaw", "onQueryTextSubmit: " + query);
                 reference.orderBy("name")
                         .startAt(query.toLowerCase())
                         .endAt(query.toLowerCase() + "\uf8ff")
@@ -104,6 +104,7 @@ public class ChatFriendFragment extends Fragment {
     void loadChatFriendData() {
         CollectionReference reference = FirebaseFirestore.getInstance().collection("Messages");
         reference.whereArrayContains("uid", user.getUid())
+                .orderBy("time", Query.Direction.DESCENDING)
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
                         return;
@@ -120,9 +121,9 @@ public class ChatFriendFragment extends Fragment {
                     list.clear();
                     for (QueryDocumentSnapshot snapshot : value) {
                         if (snapshot.exists()) {
-                            // Kiểm tra điều kiện trước khi thêm vào danh sách
                             List<String> uidList = (List<String>) snapshot.get("uid");
-                            if (uidList != null && uidList.size() == 2 && uidList.contains(user.getUid())) {
+                            boolean isGroupChat = snapshot.getBoolean("isGroupChat");
+                            if (uidList != null && uidList.size() == 2 && uidList.contains(user.getUid())&& isGroupChat==false) {
                                 ChatUserModel model = snapshot.toObject(ChatUserModel.class);
                                 list.add(model);
                             }
@@ -135,17 +136,10 @@ public class ChatFriendFragment extends Fragment {
     void clickListener() {
 
         adapter.OnStartChat((position, uids, chatID) -> {
-
-            String oppositeUID;
-            if (!uids.get(0).equalsIgnoreCase(user.getUid())) {
-                oppositeUID = uids.get(0);
-            } else {
-                oppositeUID = uids.get(1);
-            }
-
             Intent intent = new Intent(getContext(), ChatActivity.class);
-            intent.putExtra("uid", oppositeUID);
+            intent.putStringArrayListExtra("uid", (ArrayList<String>) uids);
             intent.putExtra("id", chatID);
+            intent.putExtra("isGroupChat",false);
             startActivity(intent);
         });
 

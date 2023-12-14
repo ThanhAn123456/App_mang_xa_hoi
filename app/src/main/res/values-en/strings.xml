@@ -107,5 +107,7 @@
     <string name="posted">Post, Image saved in your profile</string>
     <string name="chatstart">Chat....</string>
     <string name="followed">followed you</string>
+    <string name="groupdetail">Group Detail</string>
+    <string name="memberother">Other member</string>
 
 </resources>
