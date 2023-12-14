@@ -97,15 +97,13 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
         init();
         chatID = getIntent().getStringExtra("id");
-        Log.d("àasfas",chatID+"");
         isGroupChat = getIntent().getBooleanExtra("isGroupChat", false);
         oppositeUID = getIntent().getStringArrayListExtra("uid");
-        for (int i=0;i<oppositeUID.size();i++)
-            Log.d("àasfas",oppositeUID.get(i)+"");
         tokens = new ArrayList<>();
-        if (oppositeUID.contains(user.getUid()))
-            oppositeUID.remove(user.getUid());
-
+        if (oppositeUID != null) {
+            if (oppositeUID.contains(user.getUid()))
+                oppositeUID.remove(user.getUid());
+        }
         readToken(oppositeUID);
 
         loadUserData();

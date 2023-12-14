@@ -143,8 +143,9 @@ public class CreateGroupChatActivity extends AppCompatActivity {
                             if (firestoreUidList.equals(listIdGroup)) {
                                 foundMatch = true;
                                 Intent intent = new Intent(CreateGroupChatActivity.this, ChatActivity.class);
-                                intent.putExtra("uid", "1");
+                                intent.putStringArrayListExtra("uid", (ArrayList<String>) listIdGroup);
                                 intent.putExtra("id", document.getId()); // return doc id
+                                intent.putExtra("isGroupChat",true);
                                 startActivity(intent);
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -160,7 +161,6 @@ public class CreateGroupChatActivity extends AppCompatActivity {
                         progressDialog.dismiss();
 
                         if (!foundMatch) {
-                            // No match found, perform other action or start chat
                             startChat(progressDialog);
                         }
                     } else {
@@ -168,7 +168,6 @@ public class CreateGroupChatActivity extends AppCompatActivity {
                     }
                 } else {
                     progressDialog.dismiss();
-                    System.out.println("Failed with: " + task.getException());
                 }
             }
         });
@@ -218,9 +217,10 @@ public class CreateGroupChatActivity extends AppCompatActivity {
         new Handler().postDelayed(() -> {
             progressDialog.dismiss();
             Intent intent = new Intent(CreateGroupChatActivity.this, ChatActivity.class);
-            intent.putExtra("uid", "1");
+            //intent.putExtra("uid", "1");
             intent.putExtra("id", pushID);
-
+            intent.putExtra("isGroupChat",true);
+            intent.putStringArrayListExtra("uid", (ArrayList<String>) listIdGroup);
             startActivity(intent);
 
         }, 3000);

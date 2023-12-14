@@ -80,7 +80,6 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         Intent intent = getIntent();
         uid = intent.getStringExtra("userId");
-        Log.d("dâddsadsadd",uid+"");
         backButton = findViewById(R.id.back);
         btn_follow = findViewById(R.id.btn_follow);
         btn_sendmess = findViewById(R.id.btn_sendmess);
@@ -190,9 +189,12 @@ public class ProfileActivity extends AppCompatActivity {
                                 if (uidArray != null && uidArray.contains(uid)) {
                                     Intent intent = new Intent(ProfileActivity.this, ChatActivity.class);
                                     ArrayList<String> uids=new ArrayList<>();
+                                    uids.add(user.getUid());
                                     uids.add(uid);
+
                                     intent.putStringArrayListExtra("uid",uids);
                                     intent.putExtra("id", snapshotChat.getId()); // return doc id
+                                    intent.putExtra("isGroupChat",false);
                                     startActivity(intent);
                                     return;
                                 }
@@ -260,8 +262,9 @@ public class ProfileActivity extends AppCompatActivity {
 
             progressDialog.dismiss();
             Intent intent = new Intent(ProfileActivity.this, ChatActivity.class);
-            intent.putExtra("uid", uid);
+            intent.putStringArrayListExtra("uid", (ArrayList<String>) list);
             intent.putExtra("id", pushID);
+            intent.putExtra("isGroupChat",false);
             startActivity(intent);
 
         }, 3000);
