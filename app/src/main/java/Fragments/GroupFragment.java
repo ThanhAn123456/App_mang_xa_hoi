@@ -48,7 +48,6 @@ public class GroupFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_group, container, false);
         recyclerView = view.findViewById(R.id.listviewgroup);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setHasFixedSize(true);
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseFirestore.getInstance().collection("User");
         listgroup = new ArrayList<>();
