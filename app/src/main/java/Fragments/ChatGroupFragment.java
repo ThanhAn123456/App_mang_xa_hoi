@@ -20,7 +20,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,14 +53,17 @@ public class ChatGroupFragment extends Fragment {
         recyclerView= view.findViewById(R.id.listchatgroup);
         searchView= ChatFragment.searchView;
         list = new ArrayList<>();
-        adapter = new ChatUserAdapter((Activity) getContext(), list);
+        adapter = new ChatUserAdapter(list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         user = FirebaseAuth.getInstance().getCurrentUser();
     }
+
     void loadChatGroupData() {
         CollectionReference reference = FirebaseFirestore.getInstance().collection("Messages");
         reference.whereArrayContains("uid", user.getUid())
+                .orderBy("time", Query.Direction.DESCENDING)
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
                         return;
@@ -75,9 +80,9 @@ public class ChatGroupFragment extends Fragment {
                     list.clear();
                     for (QueryDocumentSnapshot snapshot : value) {
                         if (snapshot.exists()) {
-                            // Kiểm tra điều kiện trước khi thêm vào danh sách
                             List<String> uidList = (List<String>) snapshot.get("uid");
-                            if (uidList != null && uidList.size()>2 && uidList.contains(user.getUid())) {
+                            boolean isGroupChat= snapshot.getBoolean("isGroupChat");
+                            if (uidList != null  && uidList.contains(user.getUid()) && isGroupChat==true) {
                                 ChatUserModel model = snapshot.toObject(ChatUserModel.class);
                                 list.add(model);
                             }
@@ -90,8 +95,9 @@ public class ChatGroupFragment extends Fragment {
 
         adapter.OnStartChat((position, uids, chatID) -> {
             Intent intent = new Intent(getContext(), ChatActivity.class);
-            intent.putExtra("uid", "1");
+            intent.putStringArrayListExtra("uid", (ArrayList<String>) uids);
             intent.putExtra("id", chatID);
+            intent.putExtra("isGroupChat",true);
             startActivity(intent);
         });
 

@@ -80,6 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         Intent intent = getIntent();
         uid = intent.getStringExtra("userId");
+        Log.d("dâddsadsadd",uid+"");
         backButton = findViewById(R.id.back);
         btn_follow = findViewById(R.id.btn_follow);
         btn_sendmess = findViewById(R.id.btn_sendmess);
@@ -129,18 +130,12 @@ public class ProfileActivity extends AppCompatActivity {
                                 myRef.update(map_2).addOnCompleteListener(task1 -> {
                                     if (task1.isSuccessful()) {
                                         Toast.makeText(ProfileActivity.this, getString(R.string.unfollow), Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        assert task1.getException() != null;
-                                        Log.e("Tag_3", task1.getException().getMessage());
                                     }
                                 });
-                            } else {
-                                Log.d("Error", "" + task.getException().getMessage());
                             }
                         }
                     });
-                    readToken(uid);
-                    sendNotification(user.getDisplayName()+ " đã theo dõi bạn");
+
                 } else {
                     createNotification();
                     followersList.add(user.getUid());
@@ -158,17 +153,13 @@ public class ProfileActivity extends AppCompatActivity {
                                 myRef.update(map_2).addOnCompleteListener(task12 -> {
                                     if (task12.isSuccessful()) {
                                         Toast.makeText(ProfileActivity.this, getString(R.string.follow), Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        assert task12.getException() != null;
                                     }
                                 });
-                            } else {
-                                Log.d("Error", "" + task.getException().getMessage());
                             }
                         }
                     });
                     readToken(uid);
-                    sendNotification(user.getDisplayName()+ " đã bỏ theo dõi bạn");
+                    sendNotification(user.getDisplayName()+ " đã theo dõi bạn");
                 }
             }
         });
@@ -196,14 +187,14 @@ public class ProfileActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                             for (DocumentSnapshot snapshotChat : snapshot) {
                                 List<String> uidArray = (List<String>) snapshotChat.get("uid");
-
                                 if (uidArray != null && uidArray.contains(uid)) {
-                                    // Cả use.getId() và uidother xuất hiện trong mảng "uid"
                                     Intent intent = new Intent(ProfileActivity.this, ChatActivity.class);
-                                    intent.putExtra("uid", uid);
+                                    ArrayList<String> uids=new ArrayList<>();
+                                    uids.add(uid);
+                                    intent.putStringArrayListExtra("uid",uids);
                                     intent.putExtra("id", snapshotChat.getId()); // return doc id
                                     startActivity(intent);
-                                    return; // Bạn có thể dùng return để thoát khỏi vòng lặp ngay khi tìm thấy kết quả
+                                    return;
                                 }
 
                             }
@@ -211,7 +202,6 @@ public class ProfileActivity extends AppCompatActivity {
                         startChat(progressDialog);
                     } else {
                         progressDialog.dismiss();
-                        Log.e("sdadsafsfd", task.getException().toString());
                     }
                 });
 
@@ -227,7 +217,7 @@ public class ProfileActivity extends AppCompatActivity {
         reference.document(id).set(map);
     }
     void startChat(MaterialDialog progressDialog) {
-        Log.d("eqeqeeấdqe","da toi");
+
         CollectionReference reference = FirebaseFirestore.getInstance().collection("Messages");
 
         List<String> list = new ArrayList<>();
@@ -366,7 +356,21 @@ public class ProfileActivity extends AppCompatActivity {
                         .into(holder.imageView);
                 count = getItemCount();
                 numberpost.setText("" + count);
+                final String documentId = getSnapshots().getSnapshot(position).getId();
+                final String userId = uid;
+                holder.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(holder.itemView.getContext(), NewsDetailActivity.class);
 
+                        // Pass the document ID and UID as extras to the Intent
+                        intent.putExtra("id", documentId);
+                        intent.putExtra("uid", userId);
+
+                        // Start the new activity
+                        holder.itemView.getContext().startActivity(intent);
+                    }
+                });
             }
 
             @Override
