@@ -72,11 +72,6 @@ public class ChatGroupFragment extends Fragment {
                     if (value == null) {
                         return;
                     }
-
-                    if (value.isEmpty()) {
-                        return;
-                    }
-
                     list.clear();
                     for (QueryDocumentSnapshot snapshot : value) {
                         if (snapshot.exists()) {

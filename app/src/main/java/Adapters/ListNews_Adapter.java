@@ -81,7 +81,7 @@ public class ListNews_Adapter extends RecyclerView.Adapter<ListNews_Adapter.Home
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull HomeHolder holder, int position) {
-         user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         HomeModel item = list.get(position);
         holder.name.setText(item.getName());
         List<String> likeList = item.getLikes();

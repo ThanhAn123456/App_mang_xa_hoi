@@ -61,17 +61,12 @@ public class GroupFragment extends Fragment {
     public void loadGroup(){
         CollectionReference reference = FirebaseFirestore.getInstance().collection("Messages");
         reference.whereArrayContains("uid", user.getUid())
-                .orderBy("time", Query.Direction.DESCENDING)
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
                         return;
                     }
 
                     if (value == null) {
-                        return;
-                    }
-
-                    if (value.isEmpty()) {
                         return;
                     }
 
